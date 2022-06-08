@@ -1,0 +1,115 @@
+@root-entry-name: 'default';
+@import (reference) 'ant-design-vue/es/style/themes/index.less';
+
+/* 多页签 */
+.ballcat-multi-tabs {
+  background: @component-background;
+  box-shadow: 0 3px 4px -2px rgba(0, 21, 41, 0.08);
+  z-index: 20; // 比 global header 大就行
+  transition: all 0.2s;
+
+  .ant-tabs {
+    .ant-tabs-nav {
+      margin-bottom: 0;
+
+      .ant-tabs-nav-wrap {
+        .ant-tabs-tab {
+          background: none;
+          height: 40px;
+          line-height: 40px;
+          transition: background-color 0.3s, color 0.3s;
+          padding: 0 @padding-md;
+          border-radius: 0;
+          border: none;
+          margin: 0 !important;
+
+          .ant-tabs-tab-remove {
+            margin: 0;
+          }
+        }
+
+        .ant-tabs-tab-with-remove {
+          padding-right: (@padding-xs / 2);
+        }
+
+        .ant-tabs-tab-active {
+          background: @item-active-bg;
+        }
+
+        .ant-tabs-ink-bar {
+          visibility: visible;
+          transition: width 0.1s, left 0.1s, right 0.1s;
+        }
+      }
+
+      .ant-tabs-nav-operations {
+        .ant-tabs-nav-more {
+          padding: 8px 13px;
+        }
+      }
+
+      .ant-tabs-extra-content {
+        display: flex;
+      }
+    }
+
+    .ant-tabs-content-holder,
+    .ant-tabs-nav:before {
+      display: none;
+    }
+
+    .ballcat-multi-tabs-btn {
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      cursor: pointer;
+
+      .anticon {
+        font-size: @font-size-sm;
+        vertical-align: -1px;
+      }
+
+      &.ballcat-multi-tabs-btn-border {
+        border-left: 0.8px solid #efebeb;
+      }
+
+      &.ballcat-multi-tabs-btn-disabled {
+        cursor: not-allowed;
+        color: rgba(0,0,0,.25);
+      }
+    }
+  }
+}
+
+.ant-tabs-dropdown-menu-item-remove {
+  float: right;
+}
+
+.ballcat-multi-tabs-more {
+  &-title {
+    padding-left: 12px;
+  }
+}
+
+// 全屏内容区域
+.ballcat-content-fullscreen {
+  padding-top: 0 !important;
+
+  .ant-layout-header,
+  .ant-layout-sider,
+  .ant-pro-sider-fix-place {
+    display: none;
+  }
+
+  .ele-admin-body {
+    min-height: 100vh;
+    padding-left: 0 !important;
+  }
+
+  .ele-admin-tabs {
+    left: 0 !important;
+    top: 0 !important;
+  }
+}

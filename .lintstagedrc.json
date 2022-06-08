@@ -1,0 +1,5 @@
+{
+  "src/**/*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts,css,less}": [
+    "eslint --fix"
+  ]
+}

@@ -1,0 +1,7 @@
+semi: false # 语句末尾是否加分号
+singleQuote: true # 使用单引号代替双引号
+printWidth: 100 # 超过多长进行换行
+trailingComma: 'none' # 多行输入的尾逗号是否添加
+arrowParens: 'avoid' # (x) => {} 箭头函数参数只有一个时是否要有小括号。avoid：省略括号
+endOfLine: 'lf' # 格式化换行符，默认值 lf
+# vueIndentScriptAndStyle: true # vue script 标签的缩进开启

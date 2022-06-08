@@ -1,0 +1,67 @@
+import { Drawer } from 'ant-design-vue'
+
+import SiderMenu, { privateSiderMenuProps, siderMenuProps } from './SiderMenu'
+
+import type { CSSProperties } from 'vue'
+
+const SiderMenuWrapper = defineComponent({
+  name: 'SiderMenuWrapper',
+  props: {
+    ...siderMenuProps(),
+    ...privateSiderMenuProps()
+  },
+  setup(props, { slots, emit, attrs }) {
+    // TODO 计算 flatMenuKeys
+
+    // 当切换设备为手机时，会自动折叠菜单
+    watchEffect(() => {
+      if (props.isMobile === true) {
+        props.onCollapse?.(true)
+      }
+    })
+
+    if (props.hide) {
+      return null
+    }
+
+    // @ts-ignore
+    return () =>
+      props.isMobile ? (
+        <Drawer
+          visible={!props.collapsed}
+          placement="left"
+          class={[`${props.prefixCls}-drawer-sider`, attrs.class]}
+          onClose={() => props.onCollapse?.(true)}
+          style={{
+            padding: 0,
+            height: '100vh',
+            ...(attrs.style as CSSProperties)
+          }}
+          getContainer={props.getContainer}
+          width={props.siderWidth}
+          bodyStyle={{ height: '100vh', padding: 0, display: 'flex', flexDirection: 'row' }}
+        >
+          <SiderMenu
+            {...props}
+            // @ts-ignore
+            class={[`${props.prefixCls}-sider`, attrs.class]}
+            collapsed={props.isMobile ? false : props.collapsed}
+            splitMenus={false}
+          >
+            {slots}
+          </SiderMenu>
+        </Drawer>
+      ) : (
+        <SiderMenu
+          class={[`${props.prefixCls}-sider`, attrs.class]}
+          {...props}
+          // @ts-ignore
+          style={attrs.style}
+        >
+          {slots}
+        </SiderMenu>
+      )
+  }
+})
+
+export default SiderMenuWrapper
