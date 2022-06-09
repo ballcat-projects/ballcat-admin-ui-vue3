@@ -87,6 +87,33 @@ export const fillTree = <T = any>(
   })
 }
 
+/**
+ * 根据指定规则进行剪枝
+ * @param treeList
+ * @param matcher
+ * @returns {*[]}
+ */
+export function pruneTree<T extends { children?: T[] }>(
+  treeList: T[],
+  matcher: (node: T) => boolean
+) {
+  const result: T[] = []
+  if (treeList) {
+    for (const treeNode of treeList) {
+      // @ts-ignore
+      const children = pruneTree(treeNode.children, matcher)
+      if (children && children.length > 0) {
+        treeNode.children = children
+        result.push(treeNode)
+      } else if (matcher(treeNode)) {
+        treeNode.children = []
+        result.push(treeNode)
+      }
+    }
+  }
+  return result
+}
+
 export interface TreeNode {
   id: Key
   children: TreeNode[]
