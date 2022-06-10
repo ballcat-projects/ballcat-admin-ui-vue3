@@ -1,65 +1,59 @@
-import { FormAction } from '@/constants'
 import type { ColProps } from 'ant-design-vue'
 import type { ApiResult } from '@/api/types'
 import { Form, message } from 'ant-design-vue'
 import { isSuccess } from '@/api'
+import type { Ref } from 'vue'
+import type { Props } from 'ant-design-vue/es/form/useForm'
+import type { Callbacks } from 'ant-design-vue/es/form/interface'
 const useForm = Form.useForm
 
-type UseFormParameters = Parameters<typeof useForm>
-type UseFormReturnType = ReturnType<typeof useForm>
-
-// 表单的标签布局
-const defaultLabelCol = {
-  sm: { span: 24 },
-  md: { span: 5 }
+export interface DebounceSettings {
+  leading?: boolean
+  wait?: number
+  trailing?: boolean
 }
 
-// 表单元素布局
-const defaultWrapperCol = {
-  sm: { span: 24 },
-  md: { span: 19 }
-}
-
-export interface AdminFormOptions {
-  defaultFormAction?: FormAction
-  labelCol?: ColProps
-  wrapperCol?: ColProps
+// 表单行为类型，标识当前表单是用来新建的还是更新的
+export const enum FormAction {
+  NONE = 'none',
+  CREATE = 'create',
+  UPDATE = 'update'
 }
 
 export interface FormRequestMapping<T, R = unknown> {
   [key: string]: (model: T) => Promise<ApiResult<R>>
 }
 
-export const useAdminForm = <T, R>(
+// 默认的表单的标签布局
+export const labelCol: ColProps = {
+  sm: { span: 24 },
+  md: { span: 5 }
+}
+
+// 默认的表单元素布局
+export const wrapperCol: ColProps = {
+  sm: { span: 24 },
+  md: { span: 19 }
+}
+
+export const useAdminForm = <T, R = unknown>(
+  formAction: Ref<FormAction>,
   formRequestMapping: FormRequestMapping<T, R>,
-  options: AdminFormOptions = {}
+  modelRef: Props | Ref<Props>,
+  rulesRef?: Props | Ref<Props>,
+  options?: {
+    immediate?: boolean
+    deep?: boolean
+    validateOnRuleChange?: boolean
+    debounce?: DebounceSettings
+    onValidate?: Callbacks['onValidate']
+  }
 ) => {
   // 表单提交状态
   const submitLoading = ref(false)
 
-  // 表单类型
-  const formAction = ref<FormAction>(
-    options.defaultFormAction ? options.defaultFormAction : FormAction.NONE
-  )
-
-  // 表单类型是否是新建
-  const isCreateForm = computed(() => formAction.value === FormAction.CREATE)
-
-  // 表单类型是否是修改
-  const isUpdateForm = computed(() => formAction.value === FormAction.UPDATE)
-
-  // 表单标签布局
-  const labelCol = ref(options.labelCol ? options.labelCol : defaultLabelCol)
-
-  // 表单元素布局
-  const wrapperCol = ref(options.wrapperCol ? options.wrapperCol : defaultWrapperCol)
-
-  /* 调用 antdv 的 useForm 初始化表单 */
-  let useFormResult: UseFormReturnType | undefined = undefined
-  const initForm = (...args: UseFormParameters) => {
-    useFormResult = useForm(...args)
-    return useFormResult
-  }
+  // 调用 antdv 的 useForm 初始化表单
+  const useFormResult = useForm(modelRef, rulesRef, options)
 
   /* 表单提交方法 */
   const submit = (model: T, onSubmitSuccess?: () => void) => {
@@ -84,10 +78,6 @@ export const useAdminForm = <T, R>(
 
   /* 表单校验后并提交 */
   const validateAndSubmit = (model: T, onSubmitSuccess?: () => void) => {
-    if (!useFormResult) {
-      console.error('提交表单前应该先执行 initForm 方法！')
-      return
-    }
     useFormResult
       .validate()
       .then(() => {
@@ -99,14 +89,30 @@ export const useAdminForm = <T, R>(
   }
 
   return {
-    submitLoading,
-    isCreateForm,
-    isUpdateForm,
-    formAction,
-    labelCol,
-    wrapperCol,
-    initForm,
     submit,
-    validateAndSubmit
+    submitLoading,
+    validateAndSubmit,
+    ...useFormResult
+  }
+}
+
+/**
+ * 表单行为管理
+ * @param defaultFormAction 默认的表单行为
+ */
+export const useFormAction = (defaultFormAction: FormAction = FormAction.NONE) => {
+  // 表单类型
+  const formAction = ref<FormAction>(defaultFormAction)
+
+  // 表单类型是否是新建
+  const isCreateForm = computed(() => formAction.value === FormAction.CREATE)
+
+  // 表单类型是否是修改
+  const isUpdateForm = computed(() => formAction.value === FormAction.UPDATE)
+
+  return {
+    formAction,
+    isCreateForm,
+    isUpdateForm
   }
 }

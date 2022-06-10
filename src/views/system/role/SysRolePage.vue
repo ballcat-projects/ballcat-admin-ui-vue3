@@ -58,11 +58,11 @@ import type { SysRolePageVO, SysRoleQO } from '@/api/system/role/types'
 import { useAuthorize } from '@/hooks/permission'
 import SysRolePageSearch from '@/views/system/role/SysRolePageSearch.vue'
 import SysRoleFormModal from '@/views/system/role/SysRoleFormModal.vue'
-import { FormAction } from '@/constants'
 import { isSuccess } from '@/api'
 import { message } from 'ant-design-vue'
 import SysRoleGrantDrawer from '@/views/system/role/SysRoleGrantDrawer.vue'
 import SysRoleUserModal from '@/views/system/role/SysRoleUserModal.vue'
+import { FormAction } from '@/hooks/form'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

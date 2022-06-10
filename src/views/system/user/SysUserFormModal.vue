@@ -71,11 +71,10 @@
 import SysRoleSelect from '../role/SysRoleSelect.vue'
 import SysOrganizationTreeSelect from '../organization/SysOrganizationTreeSelect.vue'
 import type { SysUserDTO, SysUserPageVO } from '@/api/system/user/types'
-import { FormAction } from '@/constants'
 import { overrideProperties } from '@/utils/bean-utils'
 import { createUser, updateUser } from '@/api/system/user'
 import { passEncrypt } from '@/utils/password-utils'
-import { useAdminForm } from '@/hooks/form'
+import { useAdminForm, useFormAction, FormAction, labelCol, wrapperCol } from '@/hooks/form'
 import type { FormRequestMapping } from '@/hooks/form'
 import { useModal } from '@/hooks/modal'
 
@@ -85,23 +84,9 @@ const emits = defineEmits<{
 
 const { title, visible, openModal, closeModal } = useModal()
 
-// 表单的提交请求
-const formRequestMapping: FormRequestMapping<SysUserDTO> = {
-  [FormAction.CREATE]: createUser,
-  [FormAction.UPDATE]: updateUser
-}
+const { formAction, isCreateForm, isUpdateForm } = useFormAction()
 
-const {
-  submitLoading,
-  formAction,
-  isCreateForm,
-  isUpdateForm,
-  labelCol,
-  wrapperCol,
-  initForm,
-  validateAndSubmit
-} = useAdminForm(formRequestMapping)
-
+// 表单模型
 const formModel = reactive<SysUserDTO>({
   userId: undefined,
   username: '',
@@ -115,13 +100,25 @@ const formModel = reactive<SysUserDTO>({
   roleCodes: []
 })
 
+// 表单校验规则
 const formRule = reactive({
   username: [{ required: true, message: '请输入用户名!' }],
   pass: [{ required: isCreateForm, message: '请输入密码!' }],
   nickname: [{ required: true, message: '请输入昵称!' }]
 })
 
-const { resetFields, validate, validateInfos } = initForm(formModel, formRule)
+// 表单的提交请求
+const formRequestMapping: FormRequestMapping<SysUserDTO> = {
+  [FormAction.CREATE]: createUser,
+  [FormAction.UPDATE]: updateUser
+}
+
+const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos } = useAdminForm(
+  formAction,
+  formRequestMapping,
+  formModel,
+  formRule
+)
 
 /* 表单提交处理 */
 const handleSubmit = () => {

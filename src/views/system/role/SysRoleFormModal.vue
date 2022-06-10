@@ -66,9 +66,8 @@
 <script setup lang="ts">
 import SysOrganizationTreeSelect from '../organization/SysOrganizationTreeSelect.vue'
 import { useModal } from '@/hooks/modal'
-import { useAdminForm } from '@/hooks/form'
+import { useAdminForm, useFormAction, FormAction, labelCol, wrapperCol } from '@/hooks/form'
 import type { FormRequestMapping } from '@/hooks/form'
-import { FormAction } from '@/constants'
 import { overrideProperties } from '@/utils/bean-utils'
 import type { Rule } from 'ant-design-vue/es/form'
 import { createRole, updateRole } from '@/api/system/role'
@@ -80,21 +79,7 @@ const emits = defineEmits<{
 
 const { title, visible, openModal, closeModal } = useModal()
 
-// 表单的提交请求
-const formRequestMapping: FormRequestMapping<SysRoleDTO> = {
-  [FormAction.CREATE]: createRole,
-  [FormAction.UPDATE]: updateRole
-}
-
-const {
-  submitLoading,
-  formAction,
-  isUpdateForm,
-  labelCol,
-  wrapperCol,
-  initForm,
-  validateAndSubmit
-} = useAdminForm(formRequestMapping)
+const { formAction, isUpdateForm } = useFormAction()
 
 /** 校验密码 */
 const validateCode = async (_rule: Rule, value: string) => {
@@ -133,8 +118,18 @@ const formRule = reactive({
   scopeResources: [{ required: isCustomScopeType, message: '请选择权限范围！' }]
 })
 
-// 初始化表单
-const { resetFields, validate, validateInfos } = initForm(formModel, formRule)
+// 表单的提交请求
+const formRequestMapping: FormRequestMapping<SysRoleDTO> = {
+  [FormAction.CREATE]: createRole,
+  [FormAction.UPDATE]: updateRole
+}
+
+const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos } = useAdminForm(
+  formAction,
+  formRequestMapping,
+  formModel,
+  formRule
+)
 
 /* 表单提交处理 */
 const handleSubmit = () => {

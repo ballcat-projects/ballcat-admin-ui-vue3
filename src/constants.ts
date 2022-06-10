@@ -15,10 +15,3 @@ export const REDIRECT_PATH = '/redirect'
 
 // 登录页的地址
 export const LOGIN_PATH = '/login'
-
-// 表单行为类型，标识当前表单是用来新建的还是更新的
-export const enum FormAction {
-  NONE = 'none',
-  CREATE = 'create',
-  UPDATE = 'update'
-}

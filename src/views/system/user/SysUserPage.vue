@@ -132,10 +132,10 @@ import { message } from 'ant-design-vue'
 import SysUserScopeModal from '@/views/system/user/SysUserScopeModal.vue'
 import ChangePasswordModal from '@/views/system/user/ChangePasswordModal.vue'
 import SysUserFormModal from '@/views/system/user/SysUserFormModal.vue'
-import { FormAction } from '@/constants'
 import useMediaQuery from '#/utils/hooks/useMediaQuery'
 import { isSuccess } from '@/api'
 import type { SysUserStatus } from '@/api/system/user/types'
+import { FormAction } from '@/hooks/form'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
