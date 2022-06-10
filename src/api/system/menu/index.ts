@@ -1,5 +1,11 @@
 import httpClient from '@/utils/axios'
-import type { SysMenuGrantVO, SysMenuRouterVO } from '@/api/system/menu/types'
+import type {
+  SysMenuGrantVO,
+  SysMenuVO,
+  SysMenuQO,
+  SysMenuRouterVO,
+  SysMenuDTO
+} from '@/api/system/menu/types'
 import type { ApiResult } from '@/api/types'
 
 /**
@@ -14,4 +20,35 @@ export function getLoginUserMenus() {
  */
 export function getMenuGrantList() {
   return httpClient.get<ApiResult<SysMenuGrantVO[]>>('/system/menu/grant-list')
+}
+
+/**
+ * 获取菜单列表
+ */
+export function listMenus(query: SysMenuQO) {
+  return httpClient.get<ApiResult<SysMenuVO[]>>('/system/menu/list', { params: query })
+}
+
+/**
+ * 新建菜单
+ * @param menuDto 菜单传输对象
+ */
+export function createMenu(menuDto: SysMenuDTO) {
+  return httpClient.post<ApiResult<void>>('/system/menu', menuDto)
+}
+
+/**
+ * 修改菜单
+ * @param menuDto 菜单传输对象
+ */
+export function updateMenu(menuDto: SysMenuDTO) {
+  return httpClient.put<ApiResult<void>>('/system/menu', menuDto)
+}
+
+/**
+ * 删除菜单
+ * @param menuId 菜单id
+ */
+export function removeMenu(menuId: number) {
+  return httpClient.delete<ApiResult<void>>(`/system/menu/${menuId}`)
 }
