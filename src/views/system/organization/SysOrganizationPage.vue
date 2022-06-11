@@ -1,0 +1,244 @@
+<template>
+  <pro-table
+    ref="tableRef"
+    :expanded-row-keys="expandedRowKeys"
+    header-title="组织架构"
+    row-key="id"
+    :request="tableRequest"
+    :columns="columns"
+    :pagination="false"
+    :scroll="{ x: 800 }"
+    @expanded-rows-change="handleExpandedRowsChange"
+  >
+    <!-- 修改展开的 icon -->
+    <template #expandIcon="props">
+      <template v-if="props.record.children?.length > 0">
+        <span class="expandIcon" @click="e => props.onExpand(props.record, e)">
+          <CaretDownOutlined v-if="props.expanded" />
+          <CaretRightOutlined v-else />
+        </span>
+      </template>
+      <template v-else>
+        <span class="expandIcon leafNode"></span>
+      </template>
+    </template>
+
+    <!-- 操作按钮区域 -->
+    <template #toolBarRender>
+      <a-input-search
+        v-model:value="searchName"
+        placeholder="组织名称"
+        allow-clear
+        @search="searchTable"
+      />
+      <a-popconfirm
+        v-if="hasPermission('system:organization:revised')"
+        title="是否确认进行校正操作?"
+        ok-text="Yes"
+        cancel-text="No"
+        @confirm="handleRevised"
+      >
+        <a-button type="danger"><InteractionOutlined />校正层级深度</a-button>
+      </a-popconfirm>
+      <a-button v-has="'system:organization:add'" type="primary" @click="handleCreate">
+        <plus-outlined /> 新建
+      </a-button>
+    </template>
+
+    <!--数据表格区域-->
+    <template #bodyCell="{ column, record }">
+      <!-- 组织名，根据查询条件高亮显示 -->
+      <template v-if="column.key === 'name'">
+        <span v-if="record.name.indexOf(searchName) > -1">
+          {{ record.name.substring(0, record.name.indexOf(searchName)) }}
+          <span style="color: #f50">{{ searchName }}</span>
+          {{ record.name.substring(record.name.indexOf(searchName) + searchName.length) }}
+        </span>
+        <span v-else>{{ record.name }}</span>
+      </template>
+      <!-- 操作栏 -->
+      <template v-else-if="column.key === 'operate'">
+        <a v-has="'system:organization:edit'" @click="handleUpdate(record)">修改</a>
+        <a-divider type="vertical" />
+        <a-popconfirm
+          v-if="hasPermission('system:organization:del')"
+          title="确认要删除吗？"
+          @confirm="() => handleRemove(record)"
+        >
+          <a href="javascript:" class="ballcat-text-danger">删除</a>
+        </a-popconfirm>
+      </template>
+    </template>
+  </pro-table>
+
+  <!-- 系统组织新建修改的表单弹窗 -->
+  <sys-organization-form-modal
+    ref="fromModalRef"
+    :organization-tree="organizationTree"
+    @submit-success="reloadTable"
+  />
+</template>
+
+<script setup lang="ts">
+import ProTable from '#/table'
+import SysOrganizationFormModal from './SysOrganizationFormModal.vue'
+import type { ProColumns, ProTableInstanceExpose, TableRequest } from '#/table'
+import { useAuthorize } from '@/hooks/permission'
+import {
+  listOrganizations,
+  removeOrganization,
+  revisedOrganization
+} from '@/api/system/organization'
+import { listToTree, matchedParentKeys, pruneTree } from '@/utils/tree-utils'
+import type { Key } from '@/utils/tree-utils'
+import type { SysOrganizationTree, SysOrganizationVO } from '@/api/system/organization/types'
+import { isSuccess } from '@/api'
+import { message } from 'ant-design-vue'
+import { FormAction } from '@/hooks/form'
+
+const { hasPermission } = useAuthorize()
+
+const tableRef = ref<ProTableInstanceExpose>()
+const fromModalRef = ref()
+
+const organizationTree = ref<SysOrganizationTree[]>([])
+
+// 当前展开的节点 key
+const expandedRowKeys = ref<Key[]>([])
+/** 表格展开事件处理 */
+const handleExpandedRowsChange = (newExpandedRowKeys: Key[]) => {
+  expandedRowKeys.value = newExpandedRowKeys
+}
+
+const dataSource = reactive({
+  data: { records: [] as SysOrganizationTree[] }
+})
+
+let searchName = ref('')
+
+/* 组织名称的匹配逻辑 */
+const nameMatcher = (node: SysOrganizationTree) => node.name.indexOf(searchName.value) > -1
+
+watch(
+  () => [organizationTree.value, searchName.value],
+  () => {
+    // 根据查询条件剪枝
+    const tree = pruneTree(organizationTree.value, nameMatcher)
+    dataSource.data.records = tree
+    // 展开树
+    if (searchName.value) {
+      expandedRowKeys.value = matchedParentKeys(tree, nameMatcher)
+    } else if (expandedRowKeys.value.length == 0) {
+      expandedRowKeys.value = tree.map(x => x.id)
+    }
+  }
+)
+
+/* 远程加载表格数据 */
+const tableRequest: TableRequest = async () => {
+  return listOrganizations().then(res => {
+    // 缓存下，重置的时候使用
+    organizationTree.value = listToTree<SysOrganizationTree>(res.data as SysOrganizationTree[], 0)
+    dataSource.data.records = organizationTree.value
+    return dataSource
+  })
+}
+
+/* 刷新表格 */
+const reloadTable = (resetPageIndex?: boolean) => {
+  tableRef.value?.actionRef?.reload(resetPageIndex)
+}
+
+/* 查询表格 */
+const searchTable = () => {
+  reloadTable(true) // 会调用 tableRequest
+}
+
+/* 新建组织 */
+const handleCreate = () => {
+  fromModalRef.value.open(FormAction.CREATE)
+}
+
+/* 修改组织 */
+const handleUpdate = (record: SysOrganizationVO) => {
+  fromModalRef.value.open(FormAction.UPDATE, record)
+}
+
+/* 删除组织 */
+const handleRemove = (record: SysOrganizationVO) => {
+  removeOrganization(record.id)
+    .then(res => {
+      if (isSuccess(res)) {
+        message.success('删除成功！')
+        reloadTable()
+      } else {
+        message.error(res.message)
+      }
+    })
+    .catch(e => {
+      message.error(e.message)
+    })
+}
+
+/** 校正层级深度 */
+const handleRevised = () => {
+  revisedOrganization()
+    .then(res => {
+      if (isSuccess(res)) {
+        message.success('校正成功！')
+        reloadTable()
+      } else {
+        message.error(res.message)
+      }
+    })
+    .catch(e => {
+      message.error(e.message)
+    })
+}
+
+const columns: ProColumns[] = [
+  {
+    title: '组织架构层级',
+    width: 250,
+    dataIndex: 'name'
+  },
+  {
+    title: '排序',
+    width: 80,
+    dataIndex: 'sort'
+  },
+  {
+    title: '备注信息',
+    dataIndex: 'remarks',
+    width: 200,
+    ellipsis: true
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 150
+  },
+  {
+    key: 'operate',
+    title: '操作',
+    align: 'center',
+    width: 120
+  }
+]
+</script>
+
+<script lang="ts">
+export default {
+  name: 'SysOrganizationPage'
+}
+</script>
+
+<style scoped lang="less">
+.expandIcon {
+  margin-right: 8px;
+}
+
+.leafNode {
+  padding-left: 14px;
+}
+</style>
