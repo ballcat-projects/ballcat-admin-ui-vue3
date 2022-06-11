@@ -10,8 +10,8 @@ import DensityIcon from './DensityIcon'
 import type { ActionType, ProTableProps, OptionSearchProps, LabelTooltipType } from '../../typing'
 import { useIntl } from '#/provider'
 import type { IntlType } from '#/provider'
-import { VueNodePropType } from '#/types'
-import type { VueKey, VueNode } from '#/types'
+import { VueNodeOrRenderPropType, VueNodePropType } from '#/types'
+import type { VueKey, VueNode, VueNodeOrRender } from '#/types'
 import { computed, defineComponent, watchEffect } from 'vue'
 import type { ExtractPropTypes, PropType, Ref } from 'vue'
 import type { ChangeEvent } from 'ant-design-vue/es/_util/EventInterface'
@@ -20,6 +20,7 @@ import { useContainer } from '#/table/container'
 import { getRender } from '#/layout/utils'
 import type { ToolBarRender } from '#/table/renderTypes'
 import ColumnSetting from '#/table/components/ColumnSetting'
+import { isFunction } from '@vueuse/shared'
 
 export type OptionConfig = {
   density?: boolean
@@ -42,7 +43,7 @@ export type OptionsFunctionType = (e: MouseEvent, action?: ActionType) => void
 export type OptionsType = OptionsFunctionType | boolean
 
 export const toolBarProps = () => ({
-  headerTitle: VueNodePropType as PropType<VueNode>,
+  headerTitle: VueNodeOrRenderPropType as PropType<VueNodeOrRender>,
   tooltip: [String, Object] as PropType<LabelTooltipType>,
   toolbar: Object as PropType<ListToolBarProps>,
   toolBarRender: Function as PropType<ToolBarRender>,
@@ -234,9 +235,15 @@ const ToolBar = defineComponent({
         : []
     })
 
+    const titleDom = computed(() => {
+      const headerRender = getRender<VueNode>(props, slots, 'headerTitle')
+      // @ts-ignore
+      return isFunction(headerRender) ? headerRender() : headerRender
+    })
+
     return () => (
       <ListToolBar
-        title={props.headerTitle}
+        title={titleDom.value}
         tooltip={props.tooltip}
         search={searchConfig.value}
         onSearch={props.onSearch}
@@ -256,7 +263,7 @@ const toolbarRenderProps = () => ({
   tooltip: [String, Object] as PropType<string | LabelTooltipType>,
   selectedRows: Array as PropType<any[]>,
   selectedRowKeys: Array as PropType<VueKey[]>,
-  headerTitle: VueNodePropType as PropType<VueNode>,
+  headerTitle: VueNodeOrRenderPropType as PropType<VueNodeOrRender>,
   toolbar: Object as PropType<ProTableProps['toolbar']>,
   options: [Object, Boolean] as PropType<ProTableProps['options']>,
   toolBarRender: Function as PropType<ToolBarProps['toolBarRender']>,

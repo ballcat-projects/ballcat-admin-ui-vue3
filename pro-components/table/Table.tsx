@@ -112,8 +112,6 @@ const TableRender = defineComponent({
       return Object.fromEntries(tablePropKeys.map(k => [k, props[k]]))
     })
 
-    console.log(props.rowSelection, userTableProps.value.rowKey)
-
     const tableProps = computed(() => ({
       ...userTableProps.value,
       size: props.size,

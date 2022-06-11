@@ -16,12 +16,12 @@ import type { ColumnsState, CounterType } from './container'
 import type { SizeType } from 'ant-design-vue/lib/config-provider/context'
 
 import type { TooltipProps } from 'ant-design-vue/es/tooltip'
-import type { VueKey, VueNode } from '#/types'
+import type { VueKey, VueNode, VueNodeOrRender } from '#/types'
 import type { CardProps, InputProps } from 'ant-design-vue'
 import type { ChangeEvent } from 'ant-design-vue/es/_util/EventInterface'
 import { tableProps } from 'ant-design-vue/es/table'
 import type { WithFalse } from '#/layout/types'
-import { VueNodePropType } from '#/types'
+import { VueNodeOrRenderPropType } from '#/types'
 import omit from 'ant-design-vue/es/_util/omit'
 import type { ProFieldEmptyText } from '#/field'
 import type { LightWrapperProps } from '#/form/BaseForm/LightWrapper'
@@ -361,7 +361,7 @@ export const proTableProps = <T, U = Record<string, any>, ValueType = 'text'>() 
   tableStyle: Object as PropType<CSSProperties>,
 
   /** 左上角的 title */
-  headerTitle: VueNodePropType as PropType<VueNode>,
+  headerTitle: VueNodeOrRenderPropType as PropType<VueNodeOrRender>,
 
   /** 标题旁边的 tooltip */
   tooltip: [String, Object] as PropType<string | LabelTooltipType>,
