@@ -2,12 +2,12 @@
   <a-modal
     title="修改密码"
     :visible="visible"
-    :confirm-loading="confirmLoading"
+    :confirm-loading="submitLoading"
     :mask-closable="false"
-    @ok="handleOk"
+    @ok="handleSubmit"
     @cancel="handleClose"
   >
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="submitLoading">
       <a-form :model="formModel" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-form-item label="用户名">
           <a-input v-model:value="formModel.username" disabled placeholder="用户名" />
@@ -27,22 +27,20 @@
 
 <script setup lang="ts">
 import { updateUserPassword } from '@/api/system/user'
-import { message, Form } from 'ant-design-vue'
 import type { SysUserPassDTO } from '@/api/system/user/types'
 import type { SysUserPageVO } from '@/api/system/user/types'
 import { passEncrypt } from '@/utils/password-utils'
 import type { Rule } from 'ant-design-vue/es/form'
-
-const useForm = Form.useForm
+import { FormAction, useAdminForm } from '@/hooks/form'
+import type { FormRequestMapping } from '@/hooks/form'
+import { useModal } from '@/hooks/modal'
 
 type ChangePasswordFormModel = SysUserPassDTO & {
   userId?: number
   username: string
 }
 
-const visible = ref(false)
-
-const confirmLoading = ref(false)
+const { visible, openModal, closeModal } = useModal()
 
 const labelCol = {
   xs: { span: 24 },
@@ -85,55 +83,45 @@ const formModel = reactive<ChangePasswordFormModel>({
 })
 
 // 表单校验规则
-const formRules = reactive({
+const formRule = reactive({
   pass: [{ required: true, validator: validatePass, trigger: 'change' }],
   confirmPass: [{ required: true, validator: validateConfirmPass, trigger: 'change' }]
 })
 
-const { resetFields, validate, validateInfos } = useForm(formModel, formRules)
+// 表单的提交请求
+const formRequestMapping: FormRequestMapping<ChangePasswordFormModel> = {
+  [FormAction.OTHER]: () => {
+    return updateUserPassword(formModel.userId!, {
+      pass: passEncrypt(formModel.pass),
+      confirmPass: passEncrypt(formModel.confirmPass)
+    })
+  }
+}
+
+const formAction = FormAction.OTHER
+
+const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos } = useAdminForm(
+  formAction,
+  formRequestMapping,
+  formModel,
+  formRule
+)
 
 /** 表单提交方法 */
-const submit = () => {
-  confirmLoading.value = true
-  updateUserPassword(formModel.userId!, {
-    pass: passEncrypt(formModel.pass),
-    confirmPass: passEncrypt(formModel.confirmPass)
-  })
-    .then(res => {
-      if (res.code === 200) {
-        visible.value = false
-        message.success(res.message)
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
-    .finally(() => {
-      confirmLoading.value = false
-    })
+const handleSubmit = () => {
+  validateAndSubmit({ ...formModel }, closeModal)
 }
 
-// 弹窗确定方法
-const handleOk = () => {
-  validate()
-    .then(() => {
-      submit()
-    })
-    .catch((e: Error) => {})
-}
-
-// 弹窗关闭方法
+/* 弹窗关闭方法 */
 const handleClose = () => {
-  visible.value = false
-  confirmLoading.value = false
+  closeModal()
+  submitLoading.value = false
 }
 
 defineExpose({
   open(record: SysUserPageVO) {
     resetFields()
-    visible.value = true
+    openModal()
     formModel.userId = record.userId
     formModel.username = record.username
   }
