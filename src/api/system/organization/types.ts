@@ -1,3 +1,6 @@
+/**
+ * 组织架构视图对象
+ */
 export interface SysOrganizationVO {
   id: number
   // 组织名称
@@ -22,8 +25,27 @@ export interface SysOrganizationVO {
   updateTime: string
 }
 
+/**
+ * 组织架构树
+ */
 export interface SysOrganizationTree extends SysOrganizationVO {
-  key: number
+  key?: number
   // 下级组织
   children?: SysOrganizationVO[]
+}
+
+/**
+ * 组织架构传输对象
+ */
+export interface SysOrganizationDTO {
+  // 组织ID
+  id?: number
+  // 组织名称
+  name: string
+  // 父级ID
+  parentId: number
+  // 备注
+  remarks: string
+  // 排序字段，由小到大
+  sort: number
 }
