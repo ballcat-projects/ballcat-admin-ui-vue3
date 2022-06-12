@@ -303,6 +303,7 @@ defineExpose({
     resetFields()
     if (newFormAction === FormAction.CREATE) {
       title.value = '菜单新建'
+      formModel.parentId = record?.id || 0
     } else {
       title.value = '菜单修改'
       overrideProperties(formModel, record)

@@ -42,7 +42,7 @@
       </template>
       <!-- 操作栏 -->
       <template v-else-if="column.key === 'operate'">
-        <a v-has="'system:menu:add'" @click="handleCreate()">添加</a>
+        <a v-has="'system:menu:add'" @click="handleCreate(record)">添加</a>
         <a-divider type="vertical" />
         <a v-has="'system:menu:edit'" @click="handleUpdate(record)">修改</a>
         <a-divider type="vertical" />
@@ -146,8 +146,8 @@ const searchTable = (params: SysMenuQO) => {
 }
 
 /* 新建菜单 */
-const handleCreate = () => {
-  sysMenuFormModalRef.value.open(FormAction.CREATE)
+const handleCreate = (record?: SysMenuVO) => {
+  sysMenuFormModalRef.value.open(FormAction.CREATE, record)
 }
 
 /* 修改菜单 */
