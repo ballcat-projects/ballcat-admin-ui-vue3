@@ -15,7 +15,7 @@ export interface DebounceSettings {
 
 // 表单行为类型，标识当前表单是用来新建的还是更新的
 export const enum FormAction {
-  NONE = 'none',
+  OTHER = 'other',
   CREATE = 'create',
   UPDATE = 'update'
 }
@@ -37,7 +37,7 @@ export const wrapperCol: ColProps = {
 }
 
 export const useAdminForm = <T, R = unknown>(
-  formAction: Ref<FormAction>,
+  formAction: FormAction | Ref<FormAction>,
   formRequestMapping: FormRequestMapping<T, R>,
   modelRef: Props | Ref<Props>,
   rulesRef?: Props | Ref<Props>,
@@ -58,7 +58,7 @@ export const useAdminForm = <T, R = unknown>(
   /* 表单提交方法 */
   const submit = (model: T, onSubmitSuccess?: () => void) => {
     submitLoading.value = true
-    const request = formRequestMapping[formAction.value]
+    const request = formRequestMapping[unref(formAction)]
     request(model)
       .then(res => {
         if (isSuccess(res)) {
@@ -100,7 +100,7 @@ export const useAdminForm = <T, R = unknown>(
  * 表单行为管理
  * @param defaultFormAction 默认的表单行为
  */
-export const useFormAction = (defaultFormAction: FormAction = FormAction.NONE) => {
+export const useFormAction = (defaultFormAction: FormAction = FormAction.OTHER) => {
   // 表单类型
   const formAction = ref<FormAction>(defaultFormAction)
 
