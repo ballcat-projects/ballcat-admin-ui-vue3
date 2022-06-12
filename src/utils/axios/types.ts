@@ -2,27 +2,34 @@ import type { AxiosError, AxiosInterceptorOptions, AxiosRequestConfig, AxiosResp
 import type { ApiResult } from '@/api/types'
 import type { WithFalse } from '#/layout/types'
 
+export type AlertMode = 'message' | 'modal' | 'notification'
+
+export interface MessageInfo {
+  message: string
+  mode: AlertMode
+}
+
 /**
  * request 请求选项
  */
 export interface RequestOptions<T = unknown> {
   // 判断是否请求成功
-  checkRequestSuccess?: (res: ApiResult<T>) => boolean
+  checkSuccess?: (res: ApiResult<T>) => boolean
   // 响应转换
   transformResponse?: WithFalse<(response: any) => T>
   // 成功消息提示
-  successMessage?: boolean | string
+  successMessage?: boolean | string | MessageInfo
   // 失败消息提示
-  failMessage?: boolean | string
+  failMessage?: boolean | string | MessageInfo
   // 错误消息提示
-  errorMessage?: boolean | string
-  // 成功时的处理函数
+  errorMessage?: boolean | string | MessageInfo
+  // 成功时的处理逻辑
   onSuccess?: (res: ApiResult<T>) => void
-  // 失败时的处理函数
+  // 失败时的处理逻辑
   onFail?: (res: ApiResult<T>) => void
-  // 错误时的处理函数
-  onError?: (e: AxiosError) => void
-  // 最终的执行函数
+  // 错误时的处理逻辑
+  onError?: (e: any) => void
+  // 最终的处理逻辑
   onFinally?: () => void
 }
 
