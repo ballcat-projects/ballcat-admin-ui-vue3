@@ -128,14 +128,13 @@ import { mergePageParam } from '@/utils/page-utils'
 import type { TableRequest } from '#/table/typing'
 import type { CSSProperties } from 'vue'
 import { useAuthorize } from '@/hooks/permission'
-import { message } from 'ant-design-vue'
 import SysUserScopeModal from '@/views/system/user/SysUserScopeModal.vue'
 import ChangePasswordModal from '@/views/system/user/ChangePasswordModal.vue'
 import SysUserFormModal from '@/views/system/user/SysUserFormModal.vue'
 import useMediaQuery from '#/utils/hooks/useMediaQuery'
-import { isSuccess } from '@/api'
 import type { SysUserStatus } from '@/api/system/user/types'
 import { FormAction } from '@/hooks/form'
+import { doRequest } from '@/utils/axios/request'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -206,34 +205,18 @@ const handleUpdate = (record: SysUserPageVO) => {
 
 /* 删除用户 */
 const handleRemove = (record: SysUserPageVO) => {
-  removeUser(record.userId)
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('删除成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(removeUser(record.userId), {
+    successMessage: '删除成功！',
+    onSuccess: () => reloadTable()
+  })
 }
 
 /* 修改用户状态 */
 const handleUpdateStatus = (userIds: number[], status: Key) => {
-  updateUserStatus(userIds, status as SysUserStatus)
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('修改状态成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(updateUserStatus(userIds, status as SysUserStatus), {
+    successMessage: '修改状态成功！',
+    onSuccess: () => reloadTable()
+  })
 }
 
 /* 修改权限 */

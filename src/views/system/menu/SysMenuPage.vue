@@ -77,10 +77,9 @@ import { listToTree, matchedParentKeys, pruneTree } from '@/utils/tree-utils'
 import type { Key } from '@/utils/tree-utils'
 import AntIcon from '#/layout/components/AntIcon/index.vue'
 import SysMenuPageSearch from '@/views/system/menu/SysMenuPageSearch.vue'
-import { isSuccess } from '@/api'
-import { message } from 'ant-design-vue'
 import SysMenuFormModal from '@/views/system/menu/SysMenuFormModal.vue'
 import { FormAction } from '@/hooks/form'
+import { doRequest } from '@/utils/axios/request'
 
 const enableI18n = false
 
@@ -157,18 +156,10 @@ const handleUpdate = (record: SysMenuVO) => {
 
 /* 删除菜单 */
 const handleRemove = (record: SysMenuVO) => {
-  removeMenu(record.id)
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('删除成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(removeMenu(record.id), {
+    successMessage: '删除成功！',
+    onSuccess: () => reloadTable()
+  })
 }
 
 const columns: ProColumns[] = [

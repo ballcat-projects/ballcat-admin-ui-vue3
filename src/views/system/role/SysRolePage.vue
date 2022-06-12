@@ -58,11 +58,10 @@ import type { SysRolePageVO, SysRoleQO } from '@/api/system/role/types'
 import { useAuthorize } from '@/hooks/permission'
 import SysRolePageSearch from '@/views/system/role/SysRolePageSearch.vue'
 import SysRoleFormModal from '@/views/system/role/SysRoleFormModal.vue'
-import { isSuccess } from '@/api'
-import { message } from 'ant-design-vue'
 import SysRoleGrantDrawer from '@/views/system/role/SysRoleGrantDrawer.vue'
 import SysRoleUserModal from '@/views/system/role/SysRoleUserModal.vue'
 import { FormAction } from '@/hooks/form'
+import { doRequest } from '@/utils/axios/request'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -114,18 +113,10 @@ const handleBind = (record: SysRolePageVO) => {
 }
 
 const handleRemove = (record: SysRolePageVO) => {
-  removeRole(record.id)
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('删除成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(removeRole(record.id), {
+    successMessage: '删除成功！',
+    onSuccess: () => reloadTable()
+  })
 }
 
 const columns: ProColumns[] = [

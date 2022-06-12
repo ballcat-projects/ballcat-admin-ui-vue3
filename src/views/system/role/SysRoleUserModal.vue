@@ -50,8 +50,7 @@ import { mergePageParam } from '@/utils/page-utils'
 import { pageRoleUsers, unbindRoleUser } from '@/api/system/role'
 import type { SysRolePageVO, SysRoleUserQO } from '@/api/system/role/types'
 import type { SysRoleUserVO } from '@/api/system/role/types'
-import { isSuccess } from '@/api'
-import { message } from 'ant-design-vue'
+import { doRequest } from '@/utils/axios/request'
 
 const { hasPermission } = useAuthorize()
 
@@ -86,18 +85,10 @@ const searchTable = (params: SysRoleUserQO) => {
 }
 
 const handleUnbind = (record: SysRoleUserVO) => {
-  unbindRoleUser(record.userId, roleCode.value)
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('解绑成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(unbindRoleUser(record.userId, roleCode.value), {
+    successMessage: '解绑成功！',
+    onSuccess: () => reloadTable()
+  })
 }
 
 const columns: ProColumns[] = [

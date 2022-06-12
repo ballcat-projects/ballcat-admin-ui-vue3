@@ -92,9 +92,8 @@ import {
 import { listToTree, matchedParentKeys, pruneTree } from '@/utils/tree-utils'
 import type { Key } from '@/utils/tree-utils'
 import type { SysOrganizationTree, SysOrganizationVO } from '@/api/system/organization/types'
-import { isSuccess } from '@/api'
-import { message } from 'ant-design-vue'
 import { FormAction } from '@/hooks/form'
+import { doRequest } from '@/utils/axios/request'
 
 const { hasPermission } = useAuthorize()
 
@@ -166,34 +165,18 @@ const handleUpdate = (record: SysOrganizationVO) => {
 
 /* 删除组织 */
 const handleRemove = (record: SysOrganizationVO) => {
-  removeOrganization(record.id)
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('删除成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(removeOrganization(record.id), {
+    successMessage: '删除成功！',
+    onSuccess: () => reloadTable()
+  })
 }
 
 /** 校正层级深度 */
 const handleRevised = () => {
-  revisedOrganization()
-    .then(res => {
-      if (isSuccess(res)) {
-        message.success('校正成功！')
-        reloadTable()
-      } else {
-        message.error(res.message)
-      }
-    })
-    .catch(e => {
-      message.error(e.message)
-    })
+  doRequest(revisedOrganization(), {
+    successMessage: '层级校正成功',
+    onSuccess: () => reloadTable()
+  })
 }
 
 const columns: ProColumns[] = [
