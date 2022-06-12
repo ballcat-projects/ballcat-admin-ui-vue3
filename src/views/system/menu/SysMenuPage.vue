@@ -121,11 +121,9 @@ const tableRequest: TableRequest = async () => {
     let tree = listToTree<SysMenuVOTree>(data as SysMenuVOTree[], 0)
 
     // 展开树
-    nextTick(() => {
-      if (searchTitle.value) {
-        expandedRowKeys.value = matchedParentKeys<SysMenuVOTree>(tree, titleMatcher)
-      }
-    })
+    if (searchTitle.value) {
+      expandedRowKeys.value = matchedParentKeys<SysMenuVOTree>(tree, titleMatcher)
+    }
 
     return {
       data: {
