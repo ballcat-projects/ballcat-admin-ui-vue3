@@ -109,7 +109,14 @@ const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos }
 
 /** 表单提交方法 */
 const handleSubmit = () => {
-  validateAndSubmit({ ...formModel }, closeModal)
+  validateAndSubmit(
+    { ...formModel },
+    {
+      onSuccess: () => {
+        closeModal()
+      }
+    }
+  )
 }
 
 /* 弹窗关闭方法 */

@@ -285,9 +285,11 @@ const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos }
 
 /* 表单提交处理 */
 const handleSubmit = () => {
-  validateAndSubmit(toRaw(formModel), () => {
-    closeModal()
-    emits('submit-success')
+  validateAndSubmit(toRaw(formModel), {
+    onSuccess: () => {
+      closeModal()
+      emits('submit-success')
+    }
   })
 }
 

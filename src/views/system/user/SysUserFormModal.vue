@@ -127,9 +127,11 @@ const handleSubmit = () => {
       ...formModel,
       pass: passEncrypt(formModel.pass)
     },
-    () => {
-      closeModal()
-      emits('submit-success')
+    {
+      onSuccess: () => {
+        closeModal()
+        emits('submit-success')
+      }
     }
   )
 }

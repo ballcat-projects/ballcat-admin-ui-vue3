@@ -1,10 +1,11 @@
 import type { ColProps } from 'ant-design-vue'
 import type { ApiResult } from '@/api/types'
-import { Form, message } from 'ant-design-vue'
-import { isSuccess } from '@/api'
+import { Form } from 'ant-design-vue'
 import type { Ref } from 'vue'
 import type { Props } from 'ant-design-vue/es/form/useForm'
 import type { Callbacks } from 'ant-design-vue/es/form/interface'
+import type { RequestOptions } from '@/utils/axios/types'
+import { doRequest } from '@/utils/axios/request'
 const useForm = Form.useForm
 
 export interface DebounceSettings {
@@ -56,32 +57,24 @@ export const useAdminForm = <T, R = unknown>(
   const useFormResult = useForm(modelRef, rulesRef, options)
 
   /* 表单提交方法 */
-  const submit = (model: T, onSubmitSuccess?: () => void) => {
-    submitLoading.value = true
+  const submit = (model: T, requestOptions?: RequestOptions<R>) => {
     const request = formRequestMapping[unref(formAction)]
-    request(model)
-      .then(res => {
-        if (isSuccess(res)) {
-          onSubmitSuccess?.()
-          message.success(res.message)
-        } else {
-          message.error(res.message)
-        }
-      })
-      .catch(e => {
-        !e.resolved && message.error(e.message)
-      })
-      .finally(() => {
+    submitLoading.value = true
+    doRequest(request(model), {
+      ...requestOptions,
+      onFinally: () => {
         submitLoading.value = false
-      })
+        requestOptions?.onFinally?.()
+      }
+    })
   }
 
   /* 表单校验后并提交 */
-  const validateAndSubmit = (model: T, onSubmitSuccess?: () => void) => {
+  const validateAndSubmit = (model: T, requestOptions?: RequestOptions<R>) => {
     useFormResult
       .validate()
       .then(() => {
-        submit(model, onSubmitSuccess)
+        submit(model, requestOptions)
       })
       .catch(e => {
         import.meta.env.DEV && console.log('error', e)

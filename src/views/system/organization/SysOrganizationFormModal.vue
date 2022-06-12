@@ -114,9 +114,11 @@ const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos }
 /* 表单提交处理 */
 const handleSubmit = () => {
   const model = { ...formModel }
-  validateAndSubmit(model, () => {
-    closeModal()
-    emits('submit-success')
+  validateAndSubmit(model, {
+    onSuccess: () => {
+      closeModal()
+      emits('submit-success')
+    }
   })
 }
 

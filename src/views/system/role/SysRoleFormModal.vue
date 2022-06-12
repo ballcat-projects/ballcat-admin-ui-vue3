@@ -136,9 +136,11 @@ const handleSubmit = () => {
   const model = { ...formModel }
   model.scopeResources = model.scopeResourceList?.join(',')
   delete model.scopeResourceList
-  validateAndSubmit(model, () => {
-    closeModal()
-    emits('submit-success')
+  validateAndSubmit(model, {
+    onSuccess: () => {
+      closeModal()
+      emits('submit-success')
+    }
   })
 }
 

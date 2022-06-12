@@ -74,7 +74,12 @@ const { submitLoading, validateAndSubmit, resetFields, validate } = useAdminForm
 
 /* 表单提交处理 */
 const handleSubmit = () => {
-  validateAndSubmit({ ...formModel }, closeModal)
+  validateAndSubmit(
+    { ...formModel },
+    {
+      onSuccess: () => closeModal()
+    }
+  )
 }
 
 /* 弹窗关闭方法 */
