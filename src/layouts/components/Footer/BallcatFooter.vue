@@ -1,5 +1,5 @@
 <template>
-  <footer-view class="test-footer">
+  <footer-view :footer-style="{ margin: '16px 0' }">
     <template #links>
       <a href="http://www.ballcat.cn/" target="_blank" rel="noreferrer"> BallCat </a>
       <a href="https://github.com/ballcat-projects/ballcat-ui-vue" target="_blank" rel="noreferrer">
