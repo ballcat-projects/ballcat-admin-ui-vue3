@@ -37,7 +37,7 @@
         cancel-text="No"
         @confirm="handleRevised"
       >
-        <a-button danger><InteractionOutlined />校正层级深度</a-button>
+        <a-button type="primary" danger><InteractionOutlined />校正层级深度</a-button>
       </a-popconfirm>
       <a-button v-has="'system:organization:add'" type="primary" @click="handleCreate">
         <plus-outlined /> 新建
