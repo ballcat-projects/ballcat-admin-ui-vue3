@@ -1,14 +1,13 @@
 <template>
   <pro-table
     ref="tableRef"
-    :expanded-row-keys="expandedRowKeys"
+    v-model:expanded-row-keys="expandedRowKeys"
     header-title="组织架构"
     row-key="id"
     :request="tableRequest"
     :columns="columns"
     :pagination="false"
     :scroll="{ x: 800 }"
-    @expanded-rows-change="handleExpandedRowsChange"
   >
     <!-- 修改展开的 icon -->
     <template #expandIcon="props">
@@ -104,10 +103,6 @@ const organizationTree = ref<SysOrganizationTree[]>([])
 
 // 当前展开的节点 key
 const expandedRowKeys = ref<Key[]>([])
-/** 表格展开事件处理 */
-const handleExpandedRowsChange = (newExpandedRowKeys: Key[]) => {
-  expandedRowKeys.value = newExpandedRowKeys
-}
 
 const dataSource = reactive({
   data: { records: [] as SysOrganizationTree[] }

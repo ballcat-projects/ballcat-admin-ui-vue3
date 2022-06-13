@@ -6,7 +6,7 @@
   />
   <pro-table
     ref="tableRef"
-    :expanded-row-keys="expandedRowKeys"
+    v-model:expanded-row-keys="expandedRowKeys"
     header-title="菜单权限"
     row-key="id"
     :request="tableRequest"
@@ -15,7 +15,6 @@
     :pagination="false"
     :scroll="{ x: 1100 }"
     table-class-name="menu-tree-table"
-    @expanded-rows-change="handleExpandedRowsChange"
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
@@ -91,10 +90,6 @@ const sysMenuFormModalRef = ref()
 
 // 当前展开的节点 key
 const expandedRowKeys = ref<Key[]>()
-/** 表格展开事件处理 */
-const handleExpandedRowsChange = (newExpandedRowKeys: Key[]) => {
-  expandedRowKeys.value = newExpandedRowKeys
-}
 
 // 菜单列表，用于透传到子组件，减少查询开销
 const menuList = ref<SysMenuVO[]>([])
