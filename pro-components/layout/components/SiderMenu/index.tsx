@@ -10,7 +10,7 @@ const SiderMenuWrapper = defineComponent({
     ...siderMenuProps(),
     ...privateSiderMenuProps()
   },
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, attrs }) {
     // TODO 计算 flatMenuKeys
 
     // 当切换设备为手机时，会自动折叠菜单

@@ -113,7 +113,7 @@ const formRequestMapping: FormRequestMapping<SysUserDTO> = {
   [FormAction.UPDATE]: updateUser
 }
 
-const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos } = useAdminForm(
+const { submitLoading, validateAndSubmit, resetFields, validateInfos } = useAdminForm(
   formAction,
   formRequestMapping,
   formModel,

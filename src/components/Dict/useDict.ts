@@ -1,5 +1,5 @@
 import { useDictStore } from '@/stores/dict-store'
-import type { DictItemVO, DictValue, DictItem } from '@/api/system/dict/types'
+import type { DictValue, DictItem } from '@/api/system/dict/types'
 import type { DictComponentProps, DictDisplayComponentProps } from '@/components/Dict/types'
 import { DictStatus, DictValueTypeEnum } from '@/api/system/dict/types'
 

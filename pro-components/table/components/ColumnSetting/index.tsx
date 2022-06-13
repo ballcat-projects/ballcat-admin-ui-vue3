@@ -28,7 +28,6 @@ import type { ColumnsState } from '#/table/container'
 import { useContainer } from '#/table/container'
 import { computed, ref, watchEffect } from 'vue'
 import omit from 'ant-design-vue/es/_util/omit'
-import type { SetupContext } from 'vue'
 
 type ColumnSettingProps<T = any> = {
   columns: TableColumnType<T>[]
@@ -135,7 +134,7 @@ const CheckboxList = defineComponent({
       const checkedKeys: string[] = []
 
       const loopData = (data: any[], parentConfig?: ColumnsState): DataNode[] =>
-        data.map(({ key, dataIndex, children, ...rest }) => {
+        data.map(({ key, children, ...rest }) => {
           const columnKey = genColumnKey(key, rest.index)
           const config = columnsMap.value[columnKey || 'null'] || { show: true }
           if (config.show !== false && parentConfig?.show !== false && !children) {

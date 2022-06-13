@@ -1,5 +1,3 @@
-import zh_CN from 'ant-design-vue/es/locale/zh_CN'
-
 import arEG from './locale/ar_EG'
 import zhCN from './locale/zh_CN'
 import enUS from './locale/en_US'

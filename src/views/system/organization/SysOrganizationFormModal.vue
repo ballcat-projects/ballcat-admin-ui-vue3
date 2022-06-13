@@ -68,8 +68,8 @@ const props = defineProps<{
   organizationTree: SysOrganizationTree[]
 }>()
 
-const hasRootOrganizationTree = computed(() => [
-  { id: 0, key: 0, name: '根组织', children: props.organizationTree }
+const hasRootOrganizationTree = computed<SysOrganizationTree[]>(() => [
+  { id: 0, key: 0, name: '根组织', children: props.organizationTree } as SysOrganizationTree
 ])
 
 const { title, visible, openModal, closeModal } = useModal()
@@ -104,7 +104,7 @@ const formRule = reactive({
   remarks: [{ max: 512 }]
 })
 
-const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos } = useAdminForm(
+const { submitLoading, validateAndSubmit, resetFields, validateInfos } = useAdminForm(
   formAction,
   formRequestMapping,
   formModel,

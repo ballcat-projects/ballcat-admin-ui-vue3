@@ -19,7 +19,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button v-has="'system:role:add'" type="primary" @click="handleCreate">
+      <a-button v-has="'system:role:add'" type="primary" @click="handleCreate()">
         <plus-outlined />新建
       </a-button>
     </template>
@@ -100,7 +100,7 @@ const handleExpandedRowsChange = (newExpandedRowKeys: Key[]) => {
 const menuList = ref<SysMenuVO[]>([])
 
 // 搜索菜单标题，由前端进行数据检索过滤
-let searchTitle = ref('')
+const searchTitle = ref('')
 
 /* 菜单标题的匹配逻辑 */
 const titleMatcher = (node: SysMenuVOTree) => {
@@ -117,7 +117,7 @@ const tableRequest: TableRequest = async () => {
   if (res?.data) {
     const data = res.data
     menuList.value = data
-    let tree = listToTree<SysMenuVOTree>(data as SysMenuVOTree[], 0)
+    const tree = listToTree<SysMenuVOTree>(data as SysMenuVOTree[], 0)
 
     // 展开树
     if (searchTitle.value) {

@@ -12,8 +12,7 @@
     header-title="表格标题"
     table-prop-keys="tablePropKeys"
   >
-    <!-- @ts-ignore -->
-    <template #toolBarRender="action, rows">
+    <template #toolBarRender="{ rows }">
       <a-button key="show" @click="onclick"> 刷新表格</a-button>
       <a-button key="out">
         导出数据

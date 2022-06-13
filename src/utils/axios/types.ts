@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosInterceptorOptions, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosInterceptorOptions, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { ApiResult } from '@/api/types'
 import type { WithFalse } from '#/layout/types'
 

@@ -45,7 +45,10 @@ interface DictRadioGroupProps extends Omit<RadioGroupProps, 'options' | 'value'>
 }
 
 const props = withDefaults(defineProps<DictRadioGroupProps>(), {
-  type: 'radio'
+  type: 'radio',
+  value: undefined,
+  itemFilter: undefined,
+  itemDisabledChecker: undefined
 })
 
 const emits = defineEmits<{

@@ -160,6 +160,7 @@ function renderDefaultOption<T>(
     .filter(item => item)
 }
 
+// eslint-disable-next-line vue/one-component-per-file
 const ToolBar = defineComponent({
   name: 'ToolBar',
   props: toolBarProps(),
@@ -273,6 +274,7 @@ const toolbarRenderProps = () => ({
 export type ToolbarRenderProps = Partial<ExtractPropTypes<ReturnType<typeof toolbarRenderProps>>>
 
 /** 这里负责与table交互，并且减少 render次数 */
+// eslint-disable-next-line vue/one-component-per-file
 const ToolbarRender = defineComponent({
   name: 'ToolbarRender',
   props: toolbarRenderProps(),

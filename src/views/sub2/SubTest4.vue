@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-let router = useRouter()
+const router = useRouter()
 const jump = () => {
   router.push({ name: 'test3' })
 }

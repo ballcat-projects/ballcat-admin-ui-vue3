@@ -66,7 +66,7 @@ const formRequestMapping: FormRequestMapping<RoleScopeFormModel> = {
 // 表单行为类型
 const formAction = FormAction.OTHER
 
-const { submitLoading, validateAndSubmit, resetFields, validate } = useAdminForm(
+const { submitLoading, validateAndSubmit, resetFields } = useAdminForm(
   formAction,
   formRequestMapping,
   formModel

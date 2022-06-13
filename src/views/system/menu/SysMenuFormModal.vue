@@ -23,7 +23,7 @@
           :dropdown-style="{ maxHeight: '350px', overflow: 'auto' }"
           :tree-data="parentMenuTree"
           :tree-default-expanded-keys="[0]"
-          :field-names="{ key: 'id', value: 'id' }"
+          :field-names="{ value: 'id' }"
         >
           <template #title="treeNode">
             <span> 【{{ treeNode.title }}】{{ treeNode.id }} </span>
@@ -276,7 +276,7 @@ const formRequestMapping: FormRequestMapping<SysMenuDTO> = {
   [FormAction.UPDATE]: updateMenu
 }
 
-const { submitLoading, validateAndSubmit, resetFields, validate, validateInfos } = useAdminForm(
+const { submitLoading, validateAndSubmit, resetFields, validateInfos } = useAdminForm(
   formAction,
   formRequestMapping,
   formModel,

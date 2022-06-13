@@ -38,7 +38,7 @@
         cancel-text="No"
         @confirm="handleRevised"
       >
-        <a-button type="danger"><InteractionOutlined />校正层级深度</a-button>
+        <a-button danger><InteractionOutlined />校正层级深度</a-button>
       </a-popconfirm>
       <a-button v-has="'system:organization:add'" type="primary" @click="handleCreate">
         <plus-outlined /> 新建
@@ -113,7 +113,7 @@ const dataSource = reactive({
   data: { records: [] as SysOrganizationTree[] }
 })
 
-let searchName = ref('')
+const searchName = ref('')
 
 /* 组织名称的匹配逻辑 */
 const nameMatcher = (node: SysOrganizationTree) => node.name.indexOf(searchName.value) > -1

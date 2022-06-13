@@ -98,9 +98,9 @@ const resolveAllEunuchNodeId = (treeData: SysMenuGrantTree[], keyArr: Key[], res
 /* 提交 */
 const handleSubmit = () => {
   // 权限ID 求并集
-  let checkedKeySet = new Set(grantTreeState.checkedKeys)
-  let halfCheckedKeySet = new Set(grantTreeState.halfCheckedKeys)
-  let permissionIds = [...new Set([...checkedKeySet, ...halfCheckedKeySet])]
+  const checkedKeySet = new Set(grantTreeState.checkedKeys)
+  const halfCheckedKeySet = new Set(grantTreeState.halfCheckedKeys)
+  const permissionIds = [...new Set([...checkedKeySet, ...halfCheckedKeySet])]
 
   submitLoading.value = true
   updateRolePermissionIds(roleCode, permissionIds as number[])

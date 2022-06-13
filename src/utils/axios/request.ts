@@ -46,7 +46,7 @@ export function doRequest<T = unknown>(
     })
 }
 
-function alertMessage<T>(
+function alertMessage(
   type: AlertType,
   optionMessage: string | boolean | MessageInfo,
   resMessage: string

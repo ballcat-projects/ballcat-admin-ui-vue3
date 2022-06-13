@@ -194,7 +194,7 @@ const ProPageHeader = defineComponent({
     ...pageContainerProps(),
     prefixedClassName: { type: String, default: '' }
   },
-  setup(props, { attrs, slots }) {
+  setup(props, { slots }) {
     const routeContext = inject(routeContextInjectKey, {})
 
     const restProps = reactiveOmit(

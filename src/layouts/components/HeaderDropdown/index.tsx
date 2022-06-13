@@ -1,6 +1,5 @@
 import { Dropdown } from 'ant-design-vue'
 import type { DropdownProps } from 'ant-design-vue/es/dropdown'
-import type { FunctionalComponent } from 'vue'
 import type { VueNode } from '#/types'
 import styles from './index.module.less'
 import { dropdownProps } from 'ant-design-vue/es/dropdown'

@@ -2,7 +2,6 @@ import type {
   InputProps,
   SelectProps,
   TreeSelectProps,
-  PopoverProps,
   DatePickerProps,
   TimeRangePickerProps,
   CheckboxProps,

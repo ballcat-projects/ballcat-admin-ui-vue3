@@ -37,7 +37,7 @@ import { columnSort } from './utils/columnSort'
 import { getPrefixCls } from '#/layout/RouteContext'
 import type { VueKey, VueText } from '#/types'
 import { computed, ref, defineComponent, watchEffect } from 'vue'
-import type { CSSProperties, PropType, Ref } from 'vue'
+import type { CSSProperties, PropType } from 'vue'
 
 import omitUndefined from '../utils/omitUndefined'
 import { proTableProps } from './typing'
@@ -47,7 +47,6 @@ import { useContainer, useProvideContainer } from '#/table/container'
 import { tableProps } from 'ant-design-vue/es/table'
 import type { ProSchemaComponentTypes } from '#/utils/typing'
 import type { Key } from 'ant-design-vue/es/_util/type'
-import { getRender } from '#/layout/utils'
 
 const tablePropsInstance = tableProps()
 const tablePropKeys = Object.keys(tablePropsInstance) as unknown as [keyof TableProps]
@@ -57,6 +56,7 @@ export type ProTableInstanceExpose = {
   actionRef: ActionType
 }
 
+// eslint-disable-next-line vue/one-component-per-file
 const TableRender = defineComponent({
   name: 'TableRender',
   props: {
@@ -292,6 +292,7 @@ const TableRender = defineComponent({
   }
 })
 
+// eslint-disable-next-line vue/one-component-per-file
 const ProTable = defineComponent({
   name: 'ProTable',
   props: {
@@ -299,7 +300,7 @@ const ProTable = defineComponent({
     defaultClassName: { type: String, default: undefined },
     className: { type: String, default: undefined }
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { slots, expose }) {
     const className = [props.defaultClassName, props.className]
 
     const type: ProSchemaComponentTypes = 'table'
@@ -467,10 +468,9 @@ const ProTable = defineComponent({
     const preserveRecordsRef = computed<Map<any, unknown>>(() => {
       if (action.value.dataSource?.length) {
         const newCache = new Map<any, unknown>()
-        const keys = action.value.dataSource.map(data => {
+        action.value.dataSource.forEach(data => {
           const dataRowKey = getRowKey.value(data, -1)
           newCache.set(dataRowKey, data)
-          return dataRowKey
         })
         return newCache
       }
@@ -709,7 +709,7 @@ const ProTable = defineComponent({
             tableColumn={tableColumn.value}
             tooltip={props.tooltip}
             toolbar={props.toolbar}
-            onFormSearchSubmit={newValues => {
+            onFormSearchSubmit={() => {
               // setFormSearch({
               //   ...formSearch,
               //   ...newValues

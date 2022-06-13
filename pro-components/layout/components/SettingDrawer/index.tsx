@@ -24,7 +24,7 @@ import { defaultSettings } from '../../defaultSettings'
 
 import BlockCheckbox from './BlockCheckbox'
 import ThemeColor from './ThemeColor'
-import { getLanguage, gLocaleObject } from '../../locales'
+import { gLocaleObject } from '../../locales'
 import LayoutSetting, { renderLayoutSettingItem } from './LayoutChange'
 import RegionalSetting from './RegionalChange'
 import { genStringToTheme } from '../../utils/utils'

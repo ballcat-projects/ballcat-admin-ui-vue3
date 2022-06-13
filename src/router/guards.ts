@@ -9,7 +9,7 @@ import { generatorDynamicRouter } from '@/router/dynamic-routes'
 NProgress.configure({ showSpinner: false })
 
 const routerGuards = (router: Router) => {
-  router.beforeEach(async (to, from) => {
+  router.beforeEach(async to => {
     NProgress.start()
 
     const userStore = useUserStore()
