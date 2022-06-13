@@ -22,8 +22,6 @@ module.exports = {
     // 允许空方法
     '@typescript-eslint/no-empty-function': 'off',
     // 允许非空断言
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    // TODO 临时关闭 no-unused-vars， 等 @vue/eslint-config-typescript 修复
-    '@typescript-eslint/no-unused-vars': 'off'
+    '@typescript-eslint/no-non-null-assertion': 'off'
   }
 }
