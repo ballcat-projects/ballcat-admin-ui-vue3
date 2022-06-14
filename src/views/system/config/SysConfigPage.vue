@@ -49,7 +49,7 @@ import { mergePageParam } from '@/utils/page-utils'
 import { pageConfigs, removeConfig } from '@/api/system/config'
 import type { SysConfigPageVO, SysConfigQO } from '@/api/system/config/types'
 import SysConfigFormModal from '@/views/system/config/SysConfigFormModal.vue'
-import { FormAction } from "@/hooks/form";
+import { FormAction } from '@/hooks/form'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
