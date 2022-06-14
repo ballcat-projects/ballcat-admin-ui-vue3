@@ -158,7 +158,7 @@ const SettingDrawer = defineComponent({
   props: settingDrawerProps,
   emits: ['update:collapse', 'update:settings'],
   setup(props, { emit }) {
-    // const firstRender = useRef<boolean>(true)
+    const firstRender = ref<boolean>(true)
 
     // 隐藏显示，支持 双向绑定
     const show = ref<boolean>(false)
@@ -170,17 +170,18 @@ const SettingDrawer = defineComponent({
       show.value = props.collapse
     })
 
-    // TODO 语言切换
-
-    // TODO 监听更新主题色
-    // useEffect(() => {
-    //   updateTheme(settingState.navTheme === 'realDark', settingState.primaryColor)
-    // }, [settingState.primaryColor, settingState.navTheme])
-
     const settingState = reactive<ProSettings>({})
     watchEffect(() => {
       Object.assign(settingState, props.settings)
     })
+
+    // TODO 语言切换
+
+    // 监听更新主题色
+    const changeTheme = () =>
+      updateTheme(settingState.navTheme === 'realDark', settingState.primaryColor)
+    watch(() => settingState.primaryColor, changeTheme)
+    watch(() => settingState.navTheme, changeTheme)
 
     /**
      * 修改设置
