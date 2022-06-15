@@ -180,7 +180,7 @@ const SettingDrawer = defineComponent({
     // 监听更新主题色
     const changeTheme = () =>
       updateTheme(settingState.navTheme === 'realDark', settingState.primaryColor)
-    watch(() => settingState.primaryColor, changeTheme)
+    watch(() => settingState.primaryColor, changeTheme, { immediate: true })
     watch(() => settingState.navTheme, changeTheme)
 
     /**
