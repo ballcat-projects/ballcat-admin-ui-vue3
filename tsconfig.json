@@ -3,7 +3,6 @@
   "include": ["env.d.ts", "src/**/*.ts", "src/**/*.vue", "components.d.ts", "auto-imports.d.ts"],
   "exclude": ["node_modules/**"],
   "compilerOptions": {
-    "allowJs": true,
     "lib": ["esnext", "ES2016", "DOM", "DOM.Iterable"],
     "baseUrl": ".",
     "paths": {
