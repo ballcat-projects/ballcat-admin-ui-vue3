@@ -17,11 +17,11 @@
     "@vueuse/shared": "^8.6.0",
     "ant-design-vue": "^3.2.7",
     "axios": "^0.27.2",
+    "cropperjs": "^1.5.12",
     "crypto-js": "^4.1.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "vue": "^3.2.37",
-    "vue-cropper": "^1.0.3",
     "vue-router": "^4.0.16"
   },
   "devDependencies": {

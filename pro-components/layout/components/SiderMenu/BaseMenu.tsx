@@ -17,7 +17,7 @@ import omit from 'ant-design-vue/es/_util/omit'
 import { WithFalseVueNodeOrRenderPropType } from '#/types'
 import type { VueNodeOrRender } from '#/types'
 import { REDIRECT_PATH } from '@/constants'
-import AntIcon from '#/layout/components/AntIcon/index.vue'
+import AntIcon from '#/layout/components/AntIcon/index'
 
 export const baseMenuProps = () => ({
   ...omit(menuProps(), ['openKeys', 'onOpenChange']),
