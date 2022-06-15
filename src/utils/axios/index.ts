@@ -1,6 +1,4 @@
 import { Modal, notification, message } from 'ant-design-vue'
-import 'ant-design-vue/es/notification/style/css'
-import 'ant-design-vue/es/modal/style/css'
 
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { ApiResult } from '@/api/types'
