@@ -102,7 +102,15 @@ const handleUpdate = (record: SysRolePageVO) => {
   sysRoleFormModalRef.value.open(FormAction.UPDATE, record)
 }
 
-/* 对角色进行权限授权 */
+/* 删除角色 */
+const handleRemove = (record: SysRolePageVO) => {
+  doRequest(removeRole(record.id), {
+    successMessage: '删除成功！',
+    onSuccess: () => reloadTable()
+  })
+}
+
+/* 角色授权权限 */
 const handleGrant = (record: SysRolePageVO) => {
   sysRoleGrantDrawerRef.value.open(record)
 }
@@ -110,13 +118,6 @@ const handleGrant = (record: SysRolePageVO) => {
 /* 管理角色绑定的用户 */
 const handleBind = (record: SysRolePageVO) => {
   sysRoleUserModalRef.value.open(record)
-}
-
-const handleRemove = (record: SysRolePageVO) => {
-  doRequest(removeRole(record.id), {
-    successMessage: '删除成功！',
-    onSuccess: () => reloadTable()
-  })
 }
 
 const columns: ProColumns[] = [

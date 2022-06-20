@@ -1,7 +1,7 @@
 // ant-design-vue 的 message、notification（由于按需加载组件无法自动处理，这里直接全局引入）
-@import '../../node_modules/ant-design-vue/es/message/style/index.less';
-@import '../../node_modules/ant-design-vue/es/notification/style/index.less';
-@import '../../node_modules/ant-design-vue/es/modal/style/index.less';
+@import 'ant-design-vue/es/message/style/index.less';
+@import 'ant-design-vue/es/notification/style/index.less';
+@import 'ant-design-vue/es/modal/style/index.less';
 
 // 项目的一些全局样式
 @import 'global.less';
@@ -12,5 +12,9 @@
 
 // 警告文本，多用于删除按钮
 .ballcat-text-danger {
-  color: #ff4d4f;
+  color: @error-color;
+
+  &:hover {
+    color: @error-color-hover;
+  }
 }

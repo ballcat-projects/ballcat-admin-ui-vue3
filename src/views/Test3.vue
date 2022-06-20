@@ -46,15 +46,13 @@
 
 <script setup lang="ts">
 import GridContent from '#/layout/components/GridContent'
-import type { ProColumns } from '#/table'
 import { SmileOutlined } from '@ant-design/icons-vue'
 
 onMounted(() => {
   console.log('Test3 被渲染了')
 })
 
-type TestColumns = ProColumns & { name?: string }
-const columns: TestColumns[] = [
+const columns = [
   {
     name: 'Name',
     dataIndex: 'name',

@@ -27,7 +27,9 @@
                 <a-dropdown v-if="hasPermission('system:user:edit')">
                   <a @click.prevent> 批量操作&nbsp;<DownOutlined /> </a>
                   <template #overlay>
-                    <a-menu @click="e => handleUpdateStatus(selectedRowKeys, e.key)">
+                    <a-menu
+                      @click="(info: MenuInfo) => handleUpdateStatus(selectedRowKeys, info.key)"
+                    >
                       <a-menu-item :key="1">
                         <DeleteOutlined style="margin-right: 8px" />开启
                       </a-menu-item>
@@ -135,6 +137,7 @@ import useMediaQuery from '#/utils/hooks/useMediaQuery'
 import type { SysUserStatus } from '@/api/system/user/types'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
+import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
