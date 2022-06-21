@@ -967,6 +967,13 @@
   dependencies:
     "gitmojis" "^3.9.0"
 
+"@ballcat/vue-cropper@^1.0.4":
+  "integrity" "sha512-2cx6DJe00fRtNXcPRYEmFaWTEDJvdMroZuT7gyGpJZKEMwi1085cTdW45RM0XunNEgAjgiYXNPyW5OIa9nfEeA=="
+  "resolved" "https://registry.npmjs.org/@ballcat/vue-cropper/-/vue-cropper-1.0.4.tgz"
+  "version" "1.0.4"
+  dependencies:
+    "cropperjs" "^1.5.12"
+
 "@commitlint/cli@^17.0.2":
   "integrity" "sha512-Axe89Js0YzGGd4gxo3JLlF7yIdjOVpG1LbOorGc6PfYF+drBh14PvarSDLzyd2TNqdylUCq9wb9/A88ZjIdyhA=="
   "resolved" "https://registry.npmmirror.com/@commitlint/cli/-/cli-17.0.2.tgz"
