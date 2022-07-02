@@ -181,11 +181,9 @@ class MenuUtil {
     // if local is true formatMessage all name。
     const name = this.getIntlName(item)
     const { prefixCls } = this.props
-    const icon = isChildren ? null : getIcon(item.icon, this.props.iconPrefixes)
     const isHttpUrl = isUrl(itemPath)
     const defaultItem = (
       <span class={[`${prefixCls}-menu-item`, { [`${prefixCls}-menu-item-link`]: isHttpUrl }]}>
-        {icon}
         <span class={`${prefixCls}-menu-item-title`}>{name}</span>
       </span>
     )
