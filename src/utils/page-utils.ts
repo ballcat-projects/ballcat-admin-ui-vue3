@@ -16,8 +16,11 @@ export const mergePageParam: MergePageParamFunction = (params, sorter, filter) =
   for (const key in sorter) {
     sort.push(sorter[key] === 'ascend' ? `${key},asc` : `${key},desc`)
   }
+  const { pageSize, current, ...rest } = params
   return {
-    ...params,
+    size: pageSize,
+    page: current,
+    ...rest,
     ...filter,
     sort
   }
