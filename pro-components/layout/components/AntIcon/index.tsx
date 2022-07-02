@@ -11,18 +11,19 @@ const AntIcon = defineComponent({
     }
   },
   setup(props) {
-    let iconType = props.type
-      .replace(/-([a-z])/g, (p, m) => m.toUpperCase())
-      .replace(/^\S/, s => s.toUpperCase())
+    const iconDom = computed(() => {
+      let iconType = props.type
+        .replace(/-([a-z])/g, (p, m) => m.toUpperCase())
+        .replace(/^\S/, s => s.toUpperCase())
 
-    if (!iconType.endsWith('Outlined')) {
-      iconType = iconType + 'Outlined'
-    }
-
-    // @ts-ignore
-    const antIcon = AntIcons[iconType]
-
-    return () => (antIcon ? createVNode(antIcon) : props.type)
+      if (!iconType.endsWith('Outlined')) {
+        iconType = iconType + 'Outlined'
+      }
+      // @ts-ignore
+      const antIcon = AntIcons[iconType]
+      return antIcon ? createVNode(antIcon) : props.type
+    })
+    return () => iconDom.value
   }
 })
 
