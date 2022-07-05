@@ -30,3 +30,6 @@ coverage
 .eslintcache
 
 yarn.lock
+.eslintrc-auto-import.json
+components.d.ts
+auto-imports.d.ts
