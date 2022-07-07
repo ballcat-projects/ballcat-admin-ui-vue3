@@ -1,5 +1,4 @@
 import './index.less'
-import './import.less'
 
 import {
   CloseOutlined,
@@ -18,6 +17,15 @@ import {
   message,
   Switch
 } from 'ant-design-vue'
+import 'ant-design-vue/es/alert/style'
+import 'ant-design-vue/es/button/style'
+import 'ant-design-vue/es/divider/style'
+import 'ant-design-vue/es/drawer/style'
+import 'ant-design-vue/es/list/style'
+import 'ant-design-vue/es/message/style'
+import 'ant-design-vue/es/switch/style'
+import 'ant-design-vue/es/tooltip/style'
+import 'ant-design-vue/es/select/style'
 
 import type { ProSettings } from '../../defaultSettings'
 import { defaultSettings } from '../../defaultSettings'

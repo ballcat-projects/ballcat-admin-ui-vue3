@@ -1,4 +1,5 @@
 import { Modal, notification, message } from 'ant-design-vue'
+import 'ant-design-vue/es/button/style/index.less'
 
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { ApiResult } from '@/api/types'
