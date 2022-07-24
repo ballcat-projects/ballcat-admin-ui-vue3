@@ -17,6 +17,8 @@ declare module '@vue/runtime-core' {
     ACheckboxGroup: typeof import('ant-design-vue/es')['CheckboxGroup']
     ACol: typeof import('ant-design-vue/es')['Col']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
+    ADescriptions: typeof import('ant-design-vue/es')['Descriptions']
+    ADescriptionsItem: typeof import('ant-design-vue/es')['DescriptionsItem']
     ADivider: typeof import('ant-design-vue/es')['Divider']
     ADrawer: typeof import('ant-design-vue/es')['Drawer']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
@@ -35,6 +37,7 @@ declare module '@vue/runtime-core' {
     ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+    ARangePicker: typeof import('ant-design-vue/es')['RangePicker']
     AResult: typeof import('ant-design-vue/es')['Result']
     ARow: typeof import('ant-design-vue/es')['Row']
     ArrowDownOutlined: typeof import('@ant-design/icons-vue')['ArrowDownOutlined']
@@ -90,5 +93,4 @@ declare module '@vue/runtime-core' {
     ZoomInOutlined: typeof import('@ant-design/icons-vue')['ZoomInOutlined']
     ZoomOutOutlined: typeof import('@ant-design/icons-vue')['ZoomOutOutlined']
   }
-
 }
