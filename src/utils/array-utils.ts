@@ -25,3 +25,14 @@ export function hasAnyItem(array: string[] | undefined, items: string[] | string
     return hasItem(array, items)
   }
 }
+
+export function isEmpty(array: any[] | undefined) {
+  if (!array) {
+    return false
+  }
+  return array.length === 0
+}
+
+export function isNotEmpty(array: any[] | undefined) {
+  return !isEmpty(array)
+}
