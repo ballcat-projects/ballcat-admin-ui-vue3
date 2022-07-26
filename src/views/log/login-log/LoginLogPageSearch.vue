@@ -47,19 +47,13 @@
         </template>
 
         <a-col :xl="8" :md="12" :sm="24">
-          <a-form-item :wrapper-col="{ flex: '1 1 0' }" class="search-actions-wrapper">
-            <a-space size="middle">
-              <a-space>
-                <a-button type="primary" :loading="props.loading" @click="search">查询</a-button>
-                <a-button @click="reset">重置</a-button>
-              </a-space>
-              <a @click="() => toggleSearchCollapsed()">
-                {{ searchCollapsed ? '展开' : '收起' }}
-                <DownOutlined v-if="searchCollapsed" />
-                <UpOutlined v-else />
-              </a>
-            </a-space>
-          </a-form-item>
+          <search-actions
+            v-model:collapsed="searchCollapsed"
+            :collapsible="true"
+            :loading="props.loading"
+            @search="search"
+            @reset="reset"
+          />
         </a-col>
       </a-row>
     </a-form>
@@ -68,7 +62,6 @@
 
 <script setup lang="ts">
 import { Form } from 'ant-design-vue'
-import { useToggle } from '@vueuse/core'
 import dayjs from 'dayjs'
 import type { Dayjs } from 'dayjs'
 import type { LoginLogQO } from '@/api/log/login-log/types'
@@ -89,7 +82,7 @@ const emits = defineEmits<{
   (e: 'search', params: Record<string, any>): void
 }>()
 
-const [searchCollapsed, toggleSearchCollapsed] = useToggle(true)
+const searchCollapsed = ref(true)
 
 const searchTimeValue = ref<[Dayjs, Dayjs]>()
 const formModel = reactive<LoginLogQO>({

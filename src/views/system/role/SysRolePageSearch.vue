@@ -13,19 +13,12 @@
           </a-form-item>
         </a-col>
         <a-col :xl="8" :md="12" :sm="24">
-          <a-form-item :wrapper-col="{ flex: '1 1 0' }" class="search-actions-wrapper">
-            <a-space size="middle">
-              <a-space>
-                <a-button type="primary" :loading="props.loading" @click="search">查询</a-button>
-                <a-button @click="reset">重置</a-button>
-              </a-space>
-              <!--              <a @click="() => toggleSearchCollapsed()">-->
-              <!--                {{ searchCollapsed ? '展开' : '收起' }}-->
-              <!--                <DownOutlined v-if="searchCollapsed" />-->
-              <!--                <UpOutlined v-else />-->
-              <!--              </a>-->
-            </a-space>
-          </a-form-item>
+          <search-actions
+            :collapsible="false"
+            :loading="props.loading"
+            @search="search"
+            @reset="reset"
+          />
         </a-col>
       </a-row>
     </a-form>
