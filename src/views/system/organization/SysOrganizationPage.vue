@@ -2,13 +2,24 @@
   <pro-table
     ref="tableRef"
     v-model:expanded-row-keys="expandedRowKeys"
-    header-title="组织架构"
     row-key="id"
     :request="tableRequest"
     :columns="columns"
     :pagination="false"
     :scroll="{ x: 800 }"
   >
+    <template #headerTitle>
+      <a-space :size="24">
+        组织架构
+        <a-input-search
+          v-model:value="searchName"
+          placeholder="组织名称"
+          allow-clear
+          @search="searchTable"
+        />
+      </a-space>
+    </template>
+
     <!-- 修改展开的 icon -->
     <template #expandIcon="props">
       <template v-if="props.record.children?.length > 0">
@@ -24,12 +35,6 @@
 
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-input-search
-        v-model:value="searchName"
-        placeholder="组织名称"
-        allow-clear
-        @search="searchTable"
-      />
       <a-popconfirm
         v-if="hasPermission('system:organization:revised')"
         title="是否确认进行校正操作?"
