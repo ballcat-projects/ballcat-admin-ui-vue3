@@ -81,6 +81,7 @@ declare module '@vue/runtime-core' {
     RotateRightOutlined: typeof import('@ant-design/icons-vue')['RotateRightOutlined']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchActions: typeof import('./src/components/Search/SearchActions.vue')['default']
     SettingOutlined: typeof import('@ant-design/icons-vue')['SettingOutlined']
     SwapOutlined: typeof import('@ant-design/icons-vue')['SwapOutlined']
     SyncOutlined: typeof import('@ant-design/icons-vue')['SyncOutlined']
