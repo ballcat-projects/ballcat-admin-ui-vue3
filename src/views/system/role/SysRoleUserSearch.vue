@@ -26,12 +26,7 @@
         </a-form-item>
       </a-col>
       <a-col :md="6" :sm="24">
-        <a-form-item :wrapper-col="{ flex: '1 1 0' }" class="search-actions-wrapper">
-          <a-space>
-            <a-button type="primary" :loading="props.loading" @click="search">查询</a-button>
-            <a-button @click="reset">重置</a-button>
-          </a-space>
-        </a-form-item>
+        <search-actions :loading="props.loading" @search="search" @reset="reset" />
       </a-col>
     </a-row>
   </a-form>

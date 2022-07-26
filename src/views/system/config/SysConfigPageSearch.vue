@@ -18,12 +18,7 @@
           </a-form-item>
         </a-col>
         <a-col :xl="6" :md="12" :sm="24">
-          <search-actions
-            :collapsible="false"
-            :loading="props.loading"
-            @search="search"
-            @reset="reset"
-          />
+          <search-actions :loading="props.loading" @search="search" @reset="reset" />
         </a-col>
       </a-row>
     </a-form>

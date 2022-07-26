@@ -22,8 +22,8 @@ import { useVModel } from '@vueuse/core'
 const props = withDefaults(
   defineProps<{
     loading: boolean
-    collapsible: boolean
-    collapsed: boolean
+    collapsible?: boolean
+    collapsed?: boolean
   }>(),
   { loading: false, collapsible: false, collapsed: true }
 )
