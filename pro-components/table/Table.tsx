@@ -47,6 +47,8 @@ import { useContainer, useProvideContainer } from '#/table/container'
 import { tableProps } from 'ant-design-vue/es/table'
 import type { ProSchemaComponentTypes } from '#/utils/typing'
 import type { Key } from 'ant-design-vue/es/_util/type'
+import { getRender } from '#/layout/utils'
+import type { VueNodeOrRender } from '#/types'
 
 const tablePropsInstance = tableProps()
 const tablePropKeys = Object.keys(tablePropsInstance) as unknown as [keyof TableProps]
@@ -692,11 +694,12 @@ const ProTable = defineComponent({
     })
 
     return () => {
+      const headerTitle = getRender<VueNodeOrRender>(props, slots, 'headerTitle')
       /** 内置的工具栏 */
       const toolbarDom =
         props.toolBarRender === false ? null : (
           <Toolbar
-            headerTitle={props.headerTitle}
+            headerTitle={headerTitle}
             hideToolbar={
               props.options === false &&
               !props.headerTitle &&
