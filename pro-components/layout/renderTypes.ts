@@ -1,5 +1,5 @@
 import type { VNode } from 'vue'
-import type { SiderMenuProps } from './components/SiderMenu/SiderMenu'
+import type { PrivateSiderMenuProps, SiderMenuProps } from './components/SiderMenu/SiderMenu'
 import type { HeaderViewProps } from './Header'
 import type { MenuDataItem } from './types'
 import type { BaseMenuProps } from './components/SiderMenu/BaseMenu'
@@ -31,7 +31,7 @@ export type SubMenuItemRender = (
 export type MenuItemRender = (
   item: MenuDataItem & { isUrl: boolean; onClick: () => void },
   defaultDom: VueNodeOrRender,
-  menuProps: BaseMenuProps
+  menuProps: BaseMenuProps & Partial<PrivateSiderMenuProps>
 ) => VueNode
 
 // 菜单渲染器

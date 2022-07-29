@@ -35,6 +35,7 @@ type ColumnSettingProps<T = any> = {
   checkable?: boolean
   extra?: VueNode
   checkedReset?: boolean
+  listsHeight?: number
 }
 
 const ToolTipIcon: FunctionalComponent<{
@@ -124,7 +125,8 @@ const CheckboxList = defineComponent({
     title: { type: String, default: undefined },
     draggable: { type: Boolean, default: undefined },
     checkable: { type: Boolean, default: undefined },
-    showTitle: { type: Boolean, default: true }
+    showTitle: { type: Boolean, default: true },
+    listHeight: { type: Number, default: 280 }
   },
   setup(props) {
     const { columnsMap, setColumnsMap, sortKeyColumns, setSortKeyColumns } = useContainer()!
@@ -220,7 +222,7 @@ const CheckboxList = defineComponent({
           onCheck={(_, e) => onCheckTree(e)}
           checkedKeys={treeDataConfig.value.keys}
           showLine={false}
-          height={280}
+          height={props.listHeight}
           treeData={treeDataConfig.value.list}
         >
           {{
@@ -247,7 +249,8 @@ const GroupCheckboxList: FunctionalComponent<{
   className?: string
   draggable: boolean
   checkable: boolean
-}> = ({ localColumns, className, draggable, checkable }) => {
+  listsHeight?: number
+}> = ({ localColumns, className, draggable, checkable, listsHeight }) => {
   const rightList: (ProColumns<any> & { index?: number })[] = []
   const leftList: (ProColumns<any> & { index?: number })[] = []
   const list: (ProColumns<any> & { index?: number })[] = []
@@ -287,6 +290,7 @@ const GroupCheckboxList: FunctionalComponent<{
         draggable={draggable}
         checkable={checkable}
         className={className}
+        listHeight={listsHeight}
       />
       {/* 如果没有任何固定，不需要显示title */}
       <CheckboxList
@@ -296,6 +300,7 @@ const GroupCheckboxList: FunctionalComponent<{
         title={intl.getMessage('tableToolBar.noFixedTitle', '不固定')}
         showTitle={showLeft || showRight}
         className={className}
+        listHeight={listsHeight}
       />
       <CheckboxList
         title={intl.getMessage('tableToolBar.rightFixedTitle', '固定在右侧')}
@@ -303,6 +308,7 @@ const GroupCheckboxList: FunctionalComponent<{
         draggable={draggable}
         checkable={checkable}
         className={className}
+        listHeight={listsHeight}
       />
     </div>
   )
@@ -422,6 +428,7 @@ const ColumnSetting: FunctionalComponent<ColumnSettingProps> = (
           draggable={props.draggable ?? true}
           className={className}
           localColumns={localColumns}
+          listsHeight={props.listsHeight}
         />
       }
     >

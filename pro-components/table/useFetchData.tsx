@@ -42,7 +42,7 @@ const useFetchData = <T extends RequestData<any>>(
   })
 
   // 表格加载状态
-  const setLoading = (loading: UseFetchDataAction['loading']) => {
+  const setTableLoading = (loading: UseFetchDataAction['loading']) => {
     options.loading.value = loading
     options.onLoadingChange?.(loading)
   }
@@ -80,7 +80,7 @@ const useFetchData = <T extends RequestData<any>>(
    */
   const requestFinally = () => {
     requestAnimationFrame(() => {
-      setLoading(false)
+      setTableLoading(false)
       setPollingLoading(false)
     })
   }
@@ -100,7 +100,7 @@ const useFetchData = <T extends RequestData<any>>(
       return []
     }
     if (!isPolling) {
-      setLoading(true)
+      setTableLoading(true)
     } else {
       setPollingLoading(true)
     }

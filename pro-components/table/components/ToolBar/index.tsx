@@ -22,19 +22,20 @@ import type { ToolBarRender } from '#/table/renderTypes'
 import ColumnSetting from '#/table/components/ColumnSetting'
 import { isFunction } from '@vueuse/shared'
 
+export type SettingOptionType = {
+  draggable?: boolean
+  checkable?: boolean
+  checkedReset?: boolean
+  listsHeight?: number
+  extra?: VueNode
+  children?: VueNode
+}
+
 export type OptionConfig = {
   density?: boolean
   fullScreen?: OptionsType
   reload?: OptionsType
-  setting?:
-    | boolean
-    | {
-        draggable?: boolean
-        checkable?: boolean
-        checkedReset?: boolean
-        extra?: VueNode
-        children?: VueNode
-      }
+  setting?: boolean | SettingOptionType
   search?: (OptionSearchProps & { name?: string }) | boolean
 }
 
