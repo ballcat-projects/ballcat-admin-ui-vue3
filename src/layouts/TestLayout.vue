@@ -15,7 +15,7 @@
     @menu-header-click="toHome"
   >
     <template #logo>
-      <img src="@/assets/logo.svg" alt="logo" />
+      <img src="@/assets/logo.png" alt="logo" />
     </template>
 
     <template #rightContentRender>

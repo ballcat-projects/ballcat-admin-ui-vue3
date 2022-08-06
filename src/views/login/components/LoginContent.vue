@@ -4,7 +4,7 @@
       <div :class="getCls('header')">
         <!-- logoAndTitle -->
         <span :class="getCls('logo')">
-          <img alt="logo" src="@/assets/logo.svg" />
+          <img alt="logo" src="@/assets/logo.png" />
         </span>
         <!-- 标题 -->
         <span :class="getCls('title')"> Ball Cat </span>
