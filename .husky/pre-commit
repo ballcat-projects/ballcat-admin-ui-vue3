@@ -1,5 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# 暂时注释，等待 @vue/eslint-config-typescript 版本升级
-# npx lint-staged
+npx lint-staged
