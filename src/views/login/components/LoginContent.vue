@@ -7,10 +7,10 @@
           <img alt="logo" src="@/assets/logo.png" />
         </span>
         <!-- 标题 -->
-        <span :class="getCls('title')"> Ball Cat </span>
+        <span :class="getCls('title')"> {{ PROJECT_TITLE }} </span>
       </div>
       <!-- 描述 -->
-      <div :class="getCls('desc')">BallCat 一个简单的项目启动脚手架</div>
+      <div :class="getCls('desc')">{{ PROJECT_DESC }}</div>
     </div>
 
     <div :class="getCls('main')" style="width: 368px">
@@ -73,6 +73,7 @@ import MobileLoginForm from '@/views/login/components/MobileLoginForm.vue'
 import type { LoginFormInstance, LoginType } from '@/views/login/components/types'
 import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
+import { PROJECT_TITLE, PROJECT_DESC } from '@/constants'
 
 const prefixCls = 'ant'
 const baseClassName = 'pro-login-content'

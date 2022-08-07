@@ -1,6 +1,9 @@
 // 项目名
 export const PROJECT_TITLE = 'Ballcat Admin'
 
+// 项目描述
+export const PROJECT_DESC = 'Ballcat Admin 是一套简单好用的后台管理系统'
+
 // Local Storage/ Session Storage 的 key 前缀 prefix
 export const STORAGE_KEY_PREFIX = 'ballcat-admin/'
 
