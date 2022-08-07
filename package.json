@@ -14,23 +14,23 @@
   },
   "dependencies": {
     "@ballcat/vue-cropper": "^1.0.4",
-    "@vueuse/core": "^8.9.4",
-    "@vueuse/shared": "^8.9.4",
+    "@vueuse/core": "^9.1.0",
+    "@vueuse/shared": "^9.1.0",
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
     "nprogress": "^0.2.0",
-    "pinia": "^2.0.16",
+    "pinia": "^2.0.17",
     "qs": "^6.11.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.3"
   },
   "devDependencies": {
     "@ballcat/commitlint-config-gitmoji": "^1.0.4",
     "@commitlint/cli": "^17.0.3",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/crypto-js": "^4.1.1",
-    "@types/node": "^18.0.6",
+    "@types/node": "^18.6.4",
     "@types/nprogress": "^0.2.0",
     "@types/qs": "^6.9.7",
     "@vitejs/plugin-vue": "^3.0.1",
@@ -38,18 +38,18 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "@vue/tsconfig": "^0.1.3",
-    "eslint": "^8.20.0",
-    "eslint-plugin-vue": "^9.2.0",
+    "eslint": "^8.21.0",
+    "eslint-plugin-vue": "^9.3.0",
     "husky": "^8.0.1",
     "less": "^4.1.3",
     "lint-staged": "^13.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "typescript": "~4.7.4",
-    "unplugin-auto-import": "^0.9.3",
-    "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.2",
+    "unplugin-auto-import": "^0.11.1",
+    "unplugin-vue-components": "^0.22.0",
+    "vite": "^3.0.4",
     "vite-plugin-html": "^3.2.0",
-    "vue-tsc": "^0.38.9"
+    "vue-tsc": "^0.39.5"
   }
 }
