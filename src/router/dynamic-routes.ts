@@ -74,7 +74,7 @@ const menuToRoutes = (menuTree: SysMenuRouterTree[], parent?: RouteRecordRaw) =>
 
     // 是否设置了隐藏菜单
     if (item.hidden === 1) {
-      meta.hiddenInMenu = true
+      meta.hideInMenu = true
     }
 
     // @ts-ignore
