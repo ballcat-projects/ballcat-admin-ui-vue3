@@ -27,9 +27,7 @@
                 <a-dropdown v-if="hasPermission('system:user:edit')">
                   <a @click.prevent> 批量操作&nbsp;<DownOutlined /> </a>
                   <template #overlay>
-                    <a-menu
-                      @click="(info: MenuInfo) => handleUpdateStatus(selectedRowKeys, info.key)"
-                    >
+                    <a-menu @click="(info: MenuInfo) => handleUpdateStatus(selectedRowKeys, info)">
                       <a-menu-item :key="1">
                         <DeleteOutlined style="margin-right: 8px" />开启
                       </a-menu-item>
@@ -215,8 +213,9 @@ const handleRemove = (record: SysUserPageVO) => {
 }
 
 /* 修改用户状态 */
-const handleUpdateStatus = (userIds: number[], status: Key) => {
-  doRequest(updateUserStatus(userIds, status as SysUserStatus), {
+const handleUpdateStatus = (userIds: number[], info: MenuInfo) => {
+  const status = info.key as SysUserStatus
+  doRequest(updateUserStatus(userIds, status), {
     successMessage: '修改状态成功！',
     onSuccess: () => reloadTable()
   })

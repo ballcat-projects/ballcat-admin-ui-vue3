@@ -16,14 +16,15 @@ const HOME_ROUTE: RouteRecordRaw = {
   component: () => import('@/layouts/TestLayout.vue'),
   meta: {
     keepAlive: false
-  }
+  },
+  children: []
 }
 
 export const generatorDynamicRouter = (userMenus: SysMenuRouterVO[]): RouteRecordRaw => {
   const routes: RouteRecordRaw = { ...HOME_ROUTE }
   // 后端数据, 根级树数组,  根级 PID
-  const menuTree = listToTree(userMenus, 0)
-  routes.children = menuToRoutes(menuTree as SysMenuRouterTree[])
+  const menuTree = listToTree(userMenus, 0) as SysMenuRouterTree[]
+  routes.children = menuToRoutes(menuTree)
   routes.children.push(buildNotFoundRoute('PageNotFound'))
   fillRedirect(routes)
 

@@ -6,7 +6,7 @@ import 'ant-design-vue/es/tabs/style/index.less'
 
 import { RightOutlined } from '@ant-design/icons-vue'
 
-import type { Breakpoint, CardProps, Gutter } from '../../types'
+import type { Breakpoint, Gutter } from '../../types'
 
 import Loading from '../Loading'
 import Actions from '../Actions'
@@ -70,28 +70,28 @@ const Card = defineComponent({
       return withStyle ? appendStyle : {}
     }
 
-    const getColSpanStyle = (colSpan: CardProps['colSpan']) => {
-      let span = colSpan
-
-      // colSpan 响应式
-      if (typeof colSpan === 'object') {
-        for (let i = 0; i < responsiveArray.length; i += 1) {
-          const breakpoint: Breakpoint = responsiveArray[i]
-          if (screens.value[breakpoint] && colSpan[breakpoint] !== undefined) {
-            span = colSpan[breakpoint]
-            break
-          }
-        }
-      }
-
-      // 当 colSpan 为 30% 或 300px 时
-      const colSpanStyle = getStyle(typeof span === 'string' && /\d%|\dpx/i.test(span), {
-        width: span as string,
-        flexShrink: 0
-      })
-
-      return { span, colSpanStyle }
-    }
+    // const getColSpanStyle = (colSpan: CardProps['colSpan']) => {
+    //   let span = colSpan
+    //
+    //   // colSpan 响应式
+    //   if (typeof colSpan === 'object') {
+    //     for (let i = 0; i < responsiveArray.length; i += 1) {
+    //       const breakpoint: Breakpoint = responsiveArray[i]
+    //       if (screens.value[breakpoint] && colSpan[breakpoint] !== undefined) {
+    //         span = colSpan[breakpoint]
+    //         break
+    //       }
+    //     }
+    //   }
+    //
+    //   // 当 colSpan 为 30% 或 300px 时
+    //   const colSpanStyle = getStyle(typeof span === 'string' && /\d%|\dpx/i.test(span), {
+    //     width: span as string,
+    //     flexShrink: 0
+    //   })
+    //
+    //   return { span, colSpanStyle }
+    // }
 
     const prefixCls = getPrefixCls('pro-card')
 

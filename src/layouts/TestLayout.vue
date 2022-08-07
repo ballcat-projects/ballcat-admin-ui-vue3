@@ -100,9 +100,6 @@ const settingDrawerCollapse = ref(false)
 watchEffect(() => {
   console.log(settingDrawerCollapse.value, '切换了开关')
 })
-const test = () => {
-  settingDrawerCollapse.value = !settingDrawerCollapse.value
-}
 
 // 布局设置
 const settingStore = useSettingStore()
@@ -113,9 +110,6 @@ watch(
   },
   { deep: true }
 )
-const fixHeader = () => {
-  settingStore.setting.fixedHeader = !settingStore.setting.fixedHeader
-}
 
 const router = useRouter()
 const route = useRoute()
@@ -136,16 +130,10 @@ watchEffect(() => {
   menuState.matchMenuKeys = matchedRoutes.filter(x => x.path !== '/').map(x => x.path)
 })
 
-// 打开菜单时候的触发事件 TODO 支持排他展开
-const handleOpenChange = (openKeys: Key[]) => {
-  menuState.openKeys = openKeys
-}
-
 const routes = computed(() => router.getRoutes())
 console.log(routes.value)
 
 const toHome = () => {
-  console.log('跳转到首页')
   router.push({ path: '/' })
 }
 

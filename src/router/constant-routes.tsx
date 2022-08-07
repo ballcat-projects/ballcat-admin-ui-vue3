@@ -1,7 +1,6 @@
 // notFound 路由，使用函数获取，方便使用不同的路由名称，支持登录后 content 中显示异常信息
 import type { RouteRecordRaw } from 'vue-router'
 import { LOGIN_PATH } from '@/constants'
-import { DashboardOutlined, GithubOutlined } from '@ant-design/icons-vue'
 
 export const ExceptionComponentImport = () => import('@/views/basic/exception/index.vue')
 

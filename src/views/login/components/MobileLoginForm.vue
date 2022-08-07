@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-const loginStatus = ref('none')
-const loginErrorMessage = ref('手机验证码错误!')
+// const loginStatus = ref('none')
+// const loginErrorMessage = ref('手机验证码错误!')
 </script>
 
 <style scoped></style>
