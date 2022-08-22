@@ -10,6 +10,10 @@ import AutoImport from 'unplugin-auto-import/vite'
 // 按需加载 ant-design-vue 此组件无法处理非组件模块，如 message、notification
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+// 修改 index.html 插件
+import { createHtmlPlugin } from 'vite-plugin-html'
+// @ts-ignore
+import { PROJECT_TITLE } from './src/constants'
 
 const serverAddress = 'http://admin.ballcat.cn'
 
@@ -65,6 +69,15 @@ export default defineConfig({
           importStyle: 'less'
         })
       ]
+    }),
+    createHtmlPlugin({
+      minify: false,
+      // 注入变量
+      inject: {
+        data: {
+          title: PROJECT_TITLE
+        }
+      }
     })
   ],
   resolve: {

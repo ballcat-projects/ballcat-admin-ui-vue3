@@ -91,14 +91,14 @@ export function columnRender<T>({
   text,
   rowData,
   index,
-  columnEmptyText,
-  type,
-  subName,
+  // columnEmptyText,
+  // type,
+  // subName,
   editableUtils
 }: ColumnRenderInterface<T>): any {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { actionRef, prefixName } = useContainer()!
-  const { isEditable, recordKey } = editableUtils.isEditable({ ...rowData, index })
+  const { actionRef } = useContainer()!
+  const { isEditable } = editableUtils.isEditable({ ...rowData, index })
   const { renderText = (val: any) => val } = columnProps
 
   const renderTextStr = renderText(text, rowData, index, actionRef.value as ActionType)

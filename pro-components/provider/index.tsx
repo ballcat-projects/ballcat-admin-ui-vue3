@@ -223,16 +223,16 @@ export type ConfigContextPropsType = {
  *
  * @param localeKey
  */
-const findIntlKeyByAntdLocaleKey = <T extends string | undefined>(localeKey: T) => {
-  if (!localeKey) {
-    return 'zh-CN' as T
-  }
-  const localeName = localeKey.toLocaleLowerCase()
-  return intlMapKeys.find(intlKey => {
-    const LowerCaseKey = intlKey.toLocaleLowerCase()
-    return LowerCaseKey.includes(localeName)
-  }) as T
-}
+// const findIntlKeyByAntdLocaleKey = <T extends string | undefined>(localeKey: T) => {
+//   if (!localeKey) {
+//     return 'zh-CN' as T
+//   }
+//   const localeName = localeKey.toLocaleLowerCase()
+//   return intlMapKeys.find(intlKey => {
+//     const LowerCaseKey = intlKey.toLocaleLowerCase()
+//     return LowerCaseKey.includes(localeName)
+//   }) as T
+// }
 
 // export { ConfigConsumer, ConfigProvider, createIntl }
 

@@ -16,14 +16,15 @@ const HOME_ROUTE: RouteRecordRaw = {
   component: () => import('@/layouts/TestLayout.vue'),
   meta: {
     keepAlive: false
-  }
+  },
+  children: []
 }
 
 export const generatorDynamicRouter = (userMenus: SysMenuRouterVO[]): RouteRecordRaw => {
   const routes: RouteRecordRaw = { ...HOME_ROUTE }
   // 后端数据, 根级树数组,  根级 PID
-  const menuTree = listToTree(userMenus, 0)
-  routes.children = menuToRoutes(menuTree as SysMenuRouterTree[])
+  const menuTree = listToTree(userMenus, 0) as SysMenuRouterTree[]
+  routes.children = menuToRoutes(menuTree)
   routes.children.push(buildNotFoundRoute('PageNotFound'))
   fillRedirect(routes)
 
@@ -73,7 +74,7 @@ const menuToRoutes = (menuTree: SysMenuRouterTree[], parent?: RouteRecordRaw) =>
 
     // 是否设置了隐藏菜单
     if (item.hidden === 1) {
-      meta.hiddenInMenu = true
+      meta.hideInMenu = true
     }
 
     // @ts-ignore

@@ -41,7 +41,7 @@ const MultiTab = defineComponent({
     /** 添加缓存的组件：嵌套路由时，缓存匹配路由下的所有组件 */
     const addCachedComponentNames = (matchedRoutes: RouteLocationMatched[]) => {
       matchedRoutes.forEach(route => {
-        const componentName = route.components.default.name
+        const componentName = route.components?.default.name
         if (componentName && route.meta.keepAlive !== false) {
           multiTabStore.cachedComponentNames.add(componentName)
         }
@@ -96,7 +96,7 @@ const MultiTab = defineComponent({
 
         // 移除缓存
         routeList[index].matched.forEach(route => {
-          const componentName = route.components.default.name
+          const componentName = route.components?.default.name
           if (componentName && componentName !== ROUTER_LAYOUT_NAME) {
             multiTabStore.cachedComponentNames.delete(componentName)
           }
@@ -140,7 +140,7 @@ const MultiTab = defineComponent({
       // 获取当前页面的缓存,
       const componentNames: string[] = []
       router.currentRoute.value.matched.forEach(route => {
-        const componentName = route.components.default.name
+        const componentName = route.components?.default.name
         // 这里不能删除 RouterLayout 的缓存，否则影响嵌套路由的缓存
         if (componentName && componentName !== ROUTER_LAYOUT_NAME) {
           componentNames.push(componentName)

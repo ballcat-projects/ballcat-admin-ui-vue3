@@ -4,7 +4,6 @@ import type { ListToolBarHeaderMenuProps } from './HeaderMenu'
 import HeaderMenu from './HeaderMenu'
 
 import './index.less'
-import { useIntl } from '#/provider'
 import type { CSSProperties, FunctionalComponent } from 'vue'
 import type { VueKey, VueNode } from '#/types'
 import useMediaQuery from '../../../utils/hooks/useMediaQuery'
@@ -123,8 +122,8 @@ const ListToolBar: FunctionalComponent<ListToolBarProps> = (
     title,
     subTitle,
     tooltip,
-    search,
-    onSearch,
+    // search,
+    // onSearch,
     multipleLine = false,
     filter,
     actions = [],
@@ -134,13 +133,13 @@ const ListToolBar: FunctionalComponent<ListToolBarProps> = (
   },
   { attrs }
 ) => {
-  const intl = useIntl()
+  // const intl = useIntl()
 
   const colSize = useMediaQuery()
 
   const isMobile = computed(() => colSize.value === 'sm' || colSize.value === 'xs')
 
-  const placeholder = intl.getMessage('tableForm.inputPlaceholder', '请输入')
+  // const placeholder = intl.getMessage('tableForm.inputPlaceholder', '请输入')
 
   /**
    * 获取搜索栏 DOM

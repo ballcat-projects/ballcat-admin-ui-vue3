@@ -12,7 +12,7 @@ import SiderMenuWrapper from './components/SiderMenu'
 import { clearMenuItem } from './utils/utils'
 import { privateSiderMenuProps, siderMenuProps } from './components/SiderMenu/SiderMenu'
 import { transformRouteToMenuItem } from './utils/menuUtils'
-import { toReactive, toRefs } from '@vueuse/core'
+import { toRefs } from '@vueuse/core'
 
 import type { CSSProperties, PropType, Slots, VNode, ExtractPropTypes } from 'vue'
 import type { MenuDataItem, MessageDescriptor, WithFalse } from './types'

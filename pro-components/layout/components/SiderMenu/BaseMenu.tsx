@@ -148,7 +148,7 @@ class MenuUtil {
         }}
       >
         {{
-          default: () => this.getMenuItemPath(item, isChildren),
+          default: () => this.getMenuItemPath(item),
           icon: () => getIcon(item.icon, this.props.iconPrefixes)
         }}
       </Menu.Item>
@@ -172,7 +172,7 @@ class MenuUtil {
    *
    * @memberof SiderMenu
    */
-  getMenuItemPath = (item: MenuDataItem, isChildren: boolean): VueNodeOrRender => {
+  getMenuItemPath = (item: MenuDataItem): VueNodeOrRender => {
     const itemPath = this.conversionPath(item.path || '/')
 
     // TODO 这个 location 的传递问题
