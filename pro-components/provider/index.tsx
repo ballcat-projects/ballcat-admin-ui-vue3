@@ -118,7 +118,7 @@ function get(
  * @param locale
  * @param localeMap
  */
-const createIntl = (locale: string, localeMap: Record<string, any>): IntlType => ({
+export const createIntl = (locale: string, localeMap: Record<string, any>): IntlType => ({
   getMessage: (id: string, defaultMessage: string) =>
     get(localeMap, id, defaultMessage) || defaultMessage,
   locale

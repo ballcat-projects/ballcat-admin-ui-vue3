@@ -142,7 +142,7 @@ class MenuUtil {
         disabled={item.disabled}
         onClick={(e: Event) => {
           if (isUrl(item?.path)) {
-            window.open(item.path)
+            window.open(item.path, '_blank')
           }
           item.onTitleClick?.(e)
         }}

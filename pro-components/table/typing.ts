@@ -116,7 +116,7 @@ export type ProColumnType<T = unknown, ValueType = 'text'> = ProSchema<
     initialValue?: any
 
     /** 是否缩略 */
-    ellipsis?: boolean
+    ellipsis?: boolean | { showTitle?: boolean }
     /** 是否拷贝 */
     copyable?: boolean
 

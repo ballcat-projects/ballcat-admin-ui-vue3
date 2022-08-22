@@ -27,7 +27,7 @@ export type WaterMarkProps = {
   /** 高清印图片源, 为了高清屏幕显示，建议使用 2倍或3倍图，优先使用图片渲染水印。 */
   image?: string
   /** 水印文字内容 */
-  content?: string
+  content?: string | string[]
   /** 文字颜色 */
   fontColor?: string
   /** 文字样式 */
@@ -92,7 +92,7 @@ const waterMarkProps = {
     default: ''
   },
   content: {
-    type: String,
+    type: [String, Array] as PropType<WaterMarkProps['content']>,
     default: ''
   },
   fontColor: {
@@ -180,7 +180,13 @@ const WaterMark = defineComponent({
           const markSize = Number(props.fontSize) * ratio
           ctx.font = `${props.fontStyle} normal ${props.fontWeight} ${markSize}px/${markHeight}px ${props.fontFamily}`
           ctx.fillStyle = props.fontColor
-          ctx.fillText(props.content, 0, 0)
+          if (Array.isArray(props.content)) {
+            props.content?.forEach((item: string, index: number) =>
+              ctx.fillText(item, 0, index * 50)
+            )
+          } else {
+            ctx.fillText(props.content, 0, 0)
+          }
           base64Url.value = canvas.toDataURL()
         }
       } else {
@@ -210,7 +216,11 @@ const WaterMark = defineComponent({
             backgroundSize: `${props.gapX + props.width}px`,
             pointerEvents: 'none',
             backgroundRepeat: 'repeat',
-            backgroundImage: `url('${base64Url.value}')`,
+            ...(base64Url
+              ? {
+                  backgroundImage: `url('${base64Url}')`
+                }
+              : null),
             ...props.markStyle
           }}
         />

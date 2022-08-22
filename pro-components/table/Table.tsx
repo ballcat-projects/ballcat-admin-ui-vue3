@@ -7,7 +7,6 @@ import ProCard from '#/card'
 
 import type {
   TableCurrentDataSource,
-  SorterResult,
   SortOrder,
   GetRowKey
 } from 'ant-design-vue/es/table/interface'
@@ -127,7 +126,7 @@ const TableRender = defineComponent({
       onChange: (
         changePagination: TablePaginationConfig,
         filters: Record<string, (VueKey | boolean)[] | null>,
-        sorter: SorterResult<unknown> | SorterResult<unknown>[],
+        sorter: any,
         extra: TableCurrentDataSource<unknown>
       ) => {
         props.onChange?.(changePagination, filters, sorter, extra)
@@ -233,7 +232,7 @@ const TableRender = defineComponent({
 
       /** Table 区域的 dom，为了方便 render */
       const tableAreaDom =
-        // cardProps 或者 有了name 就不需要这个padding了，不然会导致不好对其
+        // cardProps 或者 有了name 就不需要这个padding了，不然会导致不好对齐
         props.cardProps === false ? (
           tableContentDom.value
         ) : (
@@ -458,7 +457,7 @@ const ProTable = defineComponent({
         if (index === -1) {
           return (record as any)?.[props.rowKey as string]
         }
-        // 如果 props 中有name 的话，用index 来做行好，这样方便转化为 index
+        // 如果 props 中有name 的话，用index 来做行号，这样方便转化为 index
         // if (props.name) {
         //   return index?.toString()
         // }

@@ -221,9 +221,11 @@ const ListToolBar: FunctionalComponent<ListToolBarProps> = (
     }
     return (
       <Space class={`${prefixCls}-left`}>
-        <div class={`${prefixCls}-title`}>
-          <LabelIconTip tooltip={tooltip} label={title} subTitle={subTitle} />
-        </div>
+        {hasTitle.value && !menu && (
+          <div class={`${prefixCls}-title`}>
+            <LabelIconTip tooltip={tooltip} label={title} subTitle={subTitle} />
+          </div>
+        )}
         {menu && <HeaderMenu {...menu} prefixCls={prefixCls} />}
         {!hasTitle.value && searchNode ? (
           <div class={`${prefixCls}-search`}>{searchNode}</div>

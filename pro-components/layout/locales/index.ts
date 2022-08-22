@@ -18,19 +18,15 @@ type GLocaleWindow = {
 
 export type LocaleType = keyof typeof locales
 
-const getLanguage = (): string => {
+export const getLanguage = (): string => {
   // support ssr
   // if (!isBrowser()) return 'zh-CN'
   const lang = window.localStorage.getItem('umi_locale')
   return lang || (window as unknown as GLocaleWindow).g_locale || navigator.language
 }
 
-export { getLanguage }
-
-const gLocaleObject = (): Record<string, string> => {
+export const gLocaleObject = (): Record<string, string> => {
   const gLocale = getLanguage()
   // @ts-ignore
   return locales[gLocale] || locales['zh-CN']
 }
-
-export { gLocaleObject }
