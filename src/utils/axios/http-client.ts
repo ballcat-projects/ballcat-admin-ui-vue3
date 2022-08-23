@@ -2,9 +2,13 @@ import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import type { HttpClientConfig } from '@/utils/axios/types'
 import qs from 'qs'
+import JSONBig from 'json-bigint'
+
+// 使用字符串处理 bigint 类型
+const jsonBigInt = JSONBig({ storeAsString: true })
 
 // HttpClient 默认的请求配置
-const DefaultRequestConfig = {
+const DefaultRequestConfig: AxiosRequestConfig = {
   paramsSerializer: function (params: any) {
     return qs.stringify(params, {
       // 数组的格式化方式为重复参数，例如 { a: ['1', '2']} => a=1&a=2
@@ -17,7 +21,23 @@ const DefaultRequestConfig = {
         return value
       }
     })
-  }
+  },
+
+  transformResponse: [
+    function transform(data: any) {
+      // Replacing the default transformResponse in axios because this uses JSON.parse and causes problems
+      // with precision of big numbers.
+      // https://github.com/axios/axios/blob/6642ca9aa1efae47b1a9d3ce3adc98416318661c/lib/defaults.js#L57
+      if (typeof data === 'string') {
+        try {
+          data = jsonBigInt.parse(data)
+        } catch (e) {
+          /* Ignore */
+        }
+      }
+      return data
+    }
+  ]
 }
 
 export class HttpClient {
