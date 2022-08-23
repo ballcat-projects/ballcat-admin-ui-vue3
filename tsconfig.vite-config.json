@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.node.json",
-  "include": ["vite.config.*"],
+  "include": ["vite.config.*", "./src/utils/resolvers.ts"],
   "compilerOptions": {
     "composite": true,
     "types": ["node"]

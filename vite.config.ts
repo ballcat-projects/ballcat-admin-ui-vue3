@@ -14,6 +14,7 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { createHtmlPlugin } from 'vite-plugin-html'
 // @ts-ignore
 import { PROJECT_TITLE } from './src/constants'
+import { antdvStyleDeps } from './src/utils/resolvers'
 
 const serverAddress = 'http://admin.ballcat.cn'
 
@@ -98,13 +99,17 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
+      ...antdvStyleDeps,
       'vue',
       'vue-router',
       'pinia',
       'axios',
       '@vueuse/core',
       '@ant-design/icons-vue',
-      'ant-design-vue/es'
+      'ant-design-vue/es',
+      'dayjs',
+      'crypto-js/index',
+      '@ballcat/vue-cropper'
     ]
   }
 })
