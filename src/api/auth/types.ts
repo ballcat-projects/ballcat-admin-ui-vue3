@@ -2,8 +2,8 @@
  * 用户名密码登录所需参数
  */
 export interface AccountLoginParam {
-  username?: string
-  password?: string
+  username: string
+  password: string
 }
 
 /**

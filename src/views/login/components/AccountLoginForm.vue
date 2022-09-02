@@ -34,6 +34,7 @@ import { Form } from 'ant-design-vue'
 
 import type { AccountLoginParam } from '@/api/auth/types'
 import type { LoginFormInstance } from './types'
+import { passEncrypt } from '@/utils/password-utils'
 
 // 登录表单参数
 const useForm = Form.useForm
@@ -61,7 +62,10 @@ function trySubmit() {
 defineExpose<LoginFormInstance>({
   validate,
   doLogin() {
-    return accountLogin(modelRef)
+    return accountLogin({
+      username: modelRef.username,
+      password: passEncrypt(modelRef.password) // 密码加密
+    })
   }
 })
 </script>
