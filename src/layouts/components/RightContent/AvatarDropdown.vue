@@ -35,7 +35,7 @@
 import HeaderDropdown from '@/layouts/components/HeaderDropdown'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { Modal } from 'ant-design-vue'
-import { logout } from '@/api/auth/inedx'
+import { logout } from '@/api/auth/index'
 import { useUserStore } from '@/stores/user-store'
 import { LOGIN_PATH } from '@/constants'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
