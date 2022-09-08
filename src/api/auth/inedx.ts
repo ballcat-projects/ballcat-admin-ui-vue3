@@ -7,7 +7,7 @@ import type {
 } from '@/api/auth/types'
 
 // Base64(clientId:clientSecret)
-const BASIC_AUTHORIZATION = 'Basic dWk6dWk='
+const BASIC_AUTHORIZATION = 'Basic bm8tY2FwdGNoYTpuby1jYXB0Y2hh'
 
 /**
  * 账号密码登录
