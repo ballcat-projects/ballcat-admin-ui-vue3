@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { accountLogin } from '@/api/auth/inedx'
+import { accountLogin } from '@/api/auth/index'
 import { Form } from 'ant-design-vue'
 
 import type { AccountLoginParam } from '@/api/auth/types'
