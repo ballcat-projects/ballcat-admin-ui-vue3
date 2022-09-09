@@ -18,6 +18,7 @@
         v-model:value="modelRef.password"
         size="large"
         placeholder="密码: a123456"
+        autocomplete="on"
         @press-enter="trySubmit"
       >
         <template #prefix>
@@ -29,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { accountLogin } from '@/api/auth/index'
+import { accountLogin } from '@/api/auth'
 import { Form } from 'ant-design-vue'
 
 import type { AccountLoginParam } from '@/api/auth/types'
