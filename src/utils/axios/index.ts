@@ -55,25 +55,29 @@ const onResponseRejected = (error: AxiosError) => {
     const errorStatus = error.response.status
     switch (errorStatus) {
       case 400:
-        error.resolved = true
-        message.error(data.message || error.message)
+        if (router.currentRoute.value.path !== LOGIN_PATH) {
+          error.resolved = true
+          message.error(data.message || error.message)
+        }
         break
       case 401:
         error.resolved = true
         useUserStore().clean()
-        // 防止重复弹出 TODO 这里拦截所有其他的 axios 的请求
-        Modal.destroyAll()
-        Modal.info({
-          title: '系统提示',
-          content: '登录状态已过期, 请退出重新登录!',
-          okText: '重新登录',
-          onOk: () => {
-            router.push({
-              path: LOGIN_PATH,
-              query: { redirect: router.currentRoute.value.fullPath }
-            })
-          }
-        })
+        if (router.currentRoute.value.path !== LOGIN_PATH) {
+          // 防止重复弹出 TODO 这里拦截所有其他的 axios 的请求
+          Modal.destroyAll()
+          Modal.info({
+            title: '系统提示',
+            content: '登录状态已过期, 请退出重新登录!',
+            okText: '重新登录',
+            onOk: () => {
+              router.push({
+                path: LOGIN_PATH,
+                query: { redirect: router.currentRoute.value.fullPath }
+              })
+            }
+          })
+        }
         break
       case 403:
         error.resolved = true
