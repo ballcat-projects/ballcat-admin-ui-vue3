@@ -73,7 +73,7 @@ import MobileLoginForm from '@/views/login/components/MobileLoginForm.vue'
 import type { LoginFormInstance, LoginType } from '@/views/login/components/types'
 import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
-import { PROJECT_TITLE, PROJECT_DESC } from '@/constants'
+import { PROJECT_DESC, PROJECT_TITLE } from '@/constants'
 
 const prefixCls = 'ant'
 const baseClassName = 'pro-login-content'
@@ -100,11 +100,9 @@ watchEffect(() => {
   switch (currentLoginType.value) {
     case 'account':
       loginFormRef = accountLoginFormRef
-      loginErrorMessage.value = '用户名或密码错误！'
       break
     case 'mobile':
       loginFormRef = mobileLoginFormRef
-      loginErrorMessage.value = '手机验证码错误！'
       break
   }
 })
@@ -134,23 +132,28 @@ const router = useRouter()
 function handleLogin() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const loginFormInstance = loginFormRef.value!
-  loginFormInstance.validate().then(() => {
-    loginLoading.value = true
-    return loginFormInstance
-      .doLogin()
-      .then(res => {
-        isLoginError.value = false
-        store(res)
-        const nextPath = (router.currentRoute.value.query.redirect as string) || '/'
-        router.push(nextPath)
-      })
-      .catch(() => {
-        isLoginError.value = true
-      })
-      .finally(() => {
-        loginLoading.value = false
-      })
-  })
+  loginFormInstance
+    .validate()
+    .then(() => {
+      loginLoading.value = true
+      return loginFormInstance
+        .doLogin()
+        .then(res => {
+          isLoginError.value = false
+          store(res)
+          const nextPath = (router.currentRoute.value.query.redirect as string) || '/'
+          router.push(nextPath)
+        })
+        .catch(err => {
+          isLoginError.value = true
+          loginErrorMessage.value =
+            ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试'
+        })
+        .finally(() => {
+          loginLoading.value = false
+        })
+    })
+    .catch(e => {})
 }
 </script>
 
