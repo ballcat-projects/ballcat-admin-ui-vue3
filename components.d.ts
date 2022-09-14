@@ -89,6 +89,7 @@ declare module '@vue/runtime-core' {
     UploadOutlined: typeof import('@ant-design/icons-vue')['UploadOutlined']
     UpOutlined: typeof import('@ant-design/icons-vue')['UpOutlined']
     UserOutlined: typeof import('@ant-design/icons-vue')['UserOutlined']
+    VerifyCaptcha: typeof import('./src/components/Verifition/VerifyCaptcha.vue')['default']
     VueCropper: typeof import('./src/components/Cropper/VueCropper.vue')['default']
     WeiboOutlined: typeof import('@ant-design/icons-vue')['WeiboOutlined']
     ZoomInOutlined: typeof import('@ant-design/icons-vue')['ZoomInOutlined']

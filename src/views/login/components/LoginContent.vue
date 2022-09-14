@@ -64,6 +64,11 @@
         <a style="float: right"> 注册账户 </a>
       </div>
     </div>
+    <verify-captcha
+      v-if="enableLoginCaptcha"
+      v-model="enableLoginCaptcha"
+      :success="handleSubmit"
+    />
   </div>
 </template>
 
@@ -89,6 +94,8 @@ const isLoginError = ref(false)
 const loginErrorMessage = ref('')
 // 自动登录（记住我）
 const rememberMe = ref(false)
+// 显示/隐藏弹出框
+const enableLoginCaptcha = ref(false)
 
 // 当前登录类型，以及对应的登录组件
 const currentLoginType = ref<LoginType>('account')
@@ -127,33 +134,32 @@ function store(res: LoginResult) {
   // const refreshToken = res.refresh_token
 }
 
+function handleLogin() {
+  const loginFormInstance = loginFormRef.value!
+  loginFormInstance.validate().then(() => (enableLoginCaptcha.value = true))
+}
+
 const router = useRouter()
 
-function handleLogin() {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+function handleSubmit(captchaId: string) {
   const loginFormInstance = loginFormRef.value!
-  loginFormInstance
-    .validate()
-    .then(() => {
-      loginLoading.value = true
-      return loginFormInstance
-        .doLogin()
-        .then(res => {
-          isLoginError.value = false
-          store(res)
-          const nextPath = (router.currentRoute.value.query.redirect as string) || '/'
-          router.push(nextPath)
-        })
-        .catch(err => {
-          isLoginError.value = true
-          loginErrorMessage.value =
-            ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试'
-        })
-        .finally(() => {
-          loginLoading.value = false
-        })
+  loginLoading.value = true
+  return loginFormInstance
+    .doLogin(captchaId)
+    .then(res => {
+      isLoginError.value = false
+      store(res)
+      const nextPath = (router.currentRoute.value.query.redirect as string) || '/'
+      router.push(nextPath)
     })
-    .catch(e => {})
+    .catch(err => {
+      isLoginError.value = true
+      loginErrorMessage.value =
+        ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试'
+    })
+    .finally(() => {
+      loginLoading.value = false
+    })
 }
 </script>
 

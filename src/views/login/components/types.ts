@@ -7,5 +7,5 @@ export type LoginType = 'account' | 'mobile'
 
 export interface LoginFormInstance {
   validate: <T = any>(names?: namesType, option?: validateOptions) => Promise<T>
-  doLogin: () => Promise<LoginResult>
+  doLogin: (captchaId?: string) => Promise<LoginResult>
 }
