@@ -62,10 +62,11 @@ function trySubmit() {
 
 defineExpose<LoginFormInstance>({
   validate,
-  doLogin() {
+  doLogin(captchaId) {
     return accountLogin({
       username: modelRef.username,
-      password: passEncrypt(modelRef.password) // 密码加密
+      password: passEncrypt(modelRef.password), // 密码加密
+      captchaId // 验证码id
     })
   }
 })
