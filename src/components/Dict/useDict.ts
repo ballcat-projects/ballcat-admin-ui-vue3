@@ -1,10 +1,11 @@
 import { useDictStore } from '@/stores/dict-store'
 import type { DictValue, DictItem } from '@/api/system/dict/types'
 import type { DictComponentProps, DictDisplayComponentProps } from '@/components/Dict/types'
-import { DictStatus, DictValueTypeEnum } from '@/api/system/dict/types'
+import { DictItemStatus, DictValueTypeEnum } from '@/api/system/dict/types'
 
 // 默认的 item 是否禁用的判断器
-const defaultItemDisabledChecker = (dictItem: DictItem) => dictItem.status !== DictStatus.ENABLED
+const defaultItemDisabledChecker = (dictItem: DictItem) =>
+  dictItem.status !== DictItemStatus.ENABLED
 
 export const useDict = (props: DictComponentProps) => {
   const dictStore = useDictStore()
