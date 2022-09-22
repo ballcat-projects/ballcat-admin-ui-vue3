@@ -106,8 +106,12 @@ export default defineConfig({
       'pinia',
       'axios',
       '@vueuse/core',
+      '@vueuse/shared',
       '@ant-design/icons-vue',
-      'ant-design-vue/es',
+      'ant-design-vue/es/table',
+      'ant-design-vue/es/tree-select',
+      'ant-design-vue/es/vc-util/get',
+      'ant-design-vue/es/_util/props-util',
       'dayjs',
       'crypto-js/index',
       '@ballcat/vue-cropper'
