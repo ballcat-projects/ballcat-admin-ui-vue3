@@ -53,10 +53,9 @@ import type { TableRequest } from '#/table/typing'
 import { mergePageParam } from '@/utils/page-utils'
 import { useAuthorize } from '@/hooks/permission'
 import type { SysDictPageVO, SysDictQO } from '@/api/system/dict/types'
-import { pageDicts } from '@/api/system/dict'
+import { pageDicts, removeDict } from '@/api/system/dict'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
-import { removeRole } from '@/api/system/role'
 import SysDictPageSearch from '@/views/system/dict/SysDictPageSearch.vue'
 import SysDictFormModal from '@/views/system/dict/SysDictFormModal.vue'
 import SysDictItemModal from '@/views/system/dict/SysDictItemModal.vue'
@@ -101,7 +100,7 @@ const handleUpdate = (record: SysDictPageVO) => {
 
 /* 删除角色 */
 const handleRemove = (record: SysDictPageVO) => {
-  doRequest(removeRole(record.id), {
+  doRequest(removeDict(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

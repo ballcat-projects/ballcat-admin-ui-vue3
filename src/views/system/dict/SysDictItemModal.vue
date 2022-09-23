@@ -3,15 +3,15 @@
     :title="title"
     :visible="visible"
     :mask-closable="false"
-    :body-style="{ padding: '2px 18px 15px 18px' }"
+    :body-style="{ padding: '18px 15px' }"
     :confirm-loading="tableLoading"
     :footer="null"
     :width="1000"
-    :centered="true"
     @cancel="handleClose"
   >
     <!-- 表格区域 -->
     <pro-table
+      v-show="tableShow"
       ref="tableRef"
       row-key="id"
       :request="tableRequest"
@@ -47,6 +47,13 @@
         </template>
       </template>
     </pro-table>
+
+    <sys-dict-item-form
+      v-show="!tableShow"
+      ref="sysDictItemFormRef"
+      @show-table="setTableShow(true)"
+      @submit-success="reloadTable"
+    />
   </a-modal>
 </template>
 
@@ -54,34 +61,35 @@
 import ProTable from '#/table'
 import type { ProColumns } from '#/table'
 import { useModal } from '@/hooks/modal'
-import { FormAction } from '@/hooks/form'
 import { DictItemStatus } from '@/api/system/dict/types'
-import type { SysDictItemPageVO, SysDictItemQO, SysDictPageVO } from '@/api/system/dict/types'
-import { overrideProperties } from '@/utils/bean-utils'
+import type { SysDictItemPageVO, SysDictPageVO } from '@/api/system/dict/types'
 import type { TableRequest } from '#/table'
 import { mergePageParam } from '@/utils/page-utils'
 import { pageDictItems, removeDictItem, updateDictItemStatus } from '@/api/system/dict'
 import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
+import SysDictItemForm from '@/views/system/dict/SysDictItemForm.vue'
+import { useToggle } from '@vueuse/core'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
 const tableRef = ref()
+const sysDictItemFormRef = ref()
 
+// 显示表格
+const [tableShow, setTableShow] = useToggle(true)
 const tableLoading = ref(false)
 
 const { title, visible, openModal, closeModal } = useModal()
 
-// 查询参数
-let searchParams: SysDictItemQO = {
-  dictCode: ''
-}
+// 当前的字典标识
+let dictCode = ''
 
 /* 远程加载表格数据 */
 const tableRequest: TableRequest = (params, sorter, filter) => {
   const pageParam = mergePageParam(params, sorter, filter)
-  return pageDictItems({ ...pageParam, ...searchParams })
+  return pageDictItems({ ...pageParam, dictCode })
 }
 
 /* 刷新表格 */
@@ -90,19 +98,20 @@ const reloadTable = (resetPageIndex?: boolean) => {
 }
 
 /* 查询表格 */
-const searchTable = (params: SysDictItemQO) => {
-  searchParams = params
+const searchTable = () => {
   reloadTable(true) // 会调用 tableRequest
 }
 
 /* 创建字典项 */
 const handleCreate = () => {
-  // sysRoleFormModalRef.value.open(FormAction.CREATE)
+  setTableShow(false)
+  sysDictItemFormRef.value.create(dictCode)
 }
 
 /* 修改字典项 */
 const handleUpdate = (record: SysDictItemPageVO) => {
-  // sysRoleFormModalRef.value.open(FormAction.UPDATE, record)
+  setTableShow(false)
+  sysDictItemFormRef.value.update(record)
 }
 
 /* 删除字典项 */
@@ -177,8 +186,8 @@ const columns: ProColumns[] = [
 
 defineExpose({
   open: (record: SysDictPageVO) => {
+    dictCode = record.code
     title.value = `字典项：${record.title}`
-    searchParams = { dictCode: record.code }
     openModal()
   }
 })
@@ -190,4 +199,13 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+/** 保证切换时的高度不要相差太多 */
+:deep(.ant-table-content) {
+  height: 400px;
+  overflow: auto;
+}
+:deep(.ant-pro-table-list-toolbar-container) {
+  padding: 0 0 16px;
+}
+</style>

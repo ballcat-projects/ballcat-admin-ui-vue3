@@ -92,7 +92,7 @@ export type SysDictItemPageParam = SysDictItemQO & PageParam
  * 字典项基础属性
  */
 interface SysDictItemBase {
-  id: number
+  id?: number
   // 字典标识
   dictCode: string
   // 数据值
@@ -126,7 +126,7 @@ export type SysDictItemDTO = SysDictItemBase
 /**
  * 字典项属性
  */
-interface DictItemAttributes extends Record<string, any> {
+export interface DictItemAttributes extends Record<string, any> {
   languages?: Record<string, string>
   tagColor?: string
   textColor?: string

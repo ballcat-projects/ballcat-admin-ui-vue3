@@ -40,7 +40,7 @@ export interface SysRole {
 }
 
 /**
- * 角色新建修改的传输对象
+ * 角色分页视图对象
  */
 export interface SysRolePageVO extends SysRole {
   id: number

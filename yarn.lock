@@ -315,6 +315,15 @@
   dependencies:
     "cropperjs" "^1.5.12"
 
+"@ckpack/vue-color@^1.2.0":
+  "integrity" "sha512-c9X82nppYjSxjlITO6jdLLdt9HoyZzqEWpqDL2V6NJd859d6GCh/2AHeRXk+37uRJ1UdTkCuty93WOEqja8quw=="
+  "resolved" "https://registry.npmmirror.com/@ckpack/vue-color/-/vue-color-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "@ctrl/tinycolor" "^3.4.0"
+    "lodash-es" "^4.17.21"
+    "material-colors" "^1.2.6"
+
 "@commitlint/cli@^17.1.2":
   "integrity" "sha512-h/4Hlka3bvCLbnxf0Er2ri5A44VMlbMSkdTRp8Adv2tRiklSTRIoPGs7OEXDv3EoDs2AAzILiPookgM4Gi7LOw=="
   "resolved" "https://registry.npmmirror.com/@commitlint/cli/-/cli-17.1.2.tgz"
@@ -2803,7 +2812,7 @@
   dependencies:
     "p-locate" "^5.0.0"
 
-"lodash-es@^4.17.15":
+"lodash-es@^4.17.15", "lodash-es@^4.17.21":
   "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
   "resolved" "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz"
   "version" "4.17.21"
@@ -2885,6 +2894,11 @@
   "integrity" "sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ=="
   "resolved" "https://registry.npmmirror.com/map-obj/-/map-obj-4.3.0.tgz"
   "version" "4.3.0"
+
+"material-colors@^1.2.6":
+  "integrity" "sha512-6qE4B9deFBIa9YSpOc9O0Sgc43zTeVYbgDT5veRKSlB2+ZuHNoVVxA1L/ckMUayV9Ay9y7Z/SZCLcGteW9i7bg=="
+  "resolved" "https://registry.npmmirror.com/material-colors/-/material-colors-1.2.6.tgz"
+  "version" "1.2.6"
 
 "memorystream@^0.3.1":
   "integrity" "sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw=="
