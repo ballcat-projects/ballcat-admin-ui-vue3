@@ -34,17 +34,17 @@
 import { captchaGen, captchaCheck, type CaptchaResponse } from '@/api/auth/captcha'
 import type { CaptchaConfig, Track } from '@/components/Verifition/types'
 
-// const verifyImg = reactive({
-//   backgroundImage: '',
-//   sliderImage: '',
-//   id: ''
-// })
-const props = defineProps({ success: { type: Function, default() {} }, modelValue: Boolean })
+const props = defineProps({
+  success: { type: Function, default() {} },
+  modelValue: Boolean,
+  captchaType: { type: String, default: 'SLIDER' }
+})
 const emit = defineEmits(['update:modelValue'])
 
 const bgImgRef = ref()
 const sliderImgRef = ref()
 const verifyImgRef = ref<CaptchaResponse>()
+const moveX = ref(0)
 
 let currentCaptchaConfig: CaptchaConfig = { trackArr: [] }
 onMounted(() => {
@@ -73,7 +73,10 @@ const getPicture = () => {
   })
 }
 
-const trackArr = []
+const refresh = () => {
+  getPicture()
+  currentCaptchaConfig = { ...currentCaptchaConfig, trackArr: [], startTime: new Date() }
+}
 
 const down = (event: MouseEvent | TouchEvent) => {
   const targetTouches = (event as TouchEvent)?.targetTouches
@@ -103,17 +106,15 @@ const down = (event: MouseEvent | TouchEvent) => {
   // 手机端
   window.addEventListener('touchmove', move, false)
   window.addEventListener('touchend', up, false)
-  doDown(currentCaptchaConfig)
 }
 
-const moveX = ref(0)
 function move(event: MouseEvent | TouchEvent) {
-  let touchList: Touch
+  let touchMouseEvent: MouseEvent | Touch = event as MouseEvent
   if (event instanceof TouchEvent) {
-    touchList = event.touches[0]
+    touchMouseEvent = event.touches[0]
   }
-  const pageX = Math.round((event as MouseEvent).pageX)
-  const pageY = Math.round((event as MouseEvent).pageY)
+  const pageX = Math.round(touchMouseEvent.pageX)
+  const pageY = Math.round(touchMouseEvent.pageY)
   const startX = currentCaptchaConfig.startX as number
   const startY = currentCaptchaConfig.startY as number
   const startTime = currentCaptchaConfig.startTime as Date
@@ -139,17 +140,17 @@ function move(event: MouseEvent | TouchEvent) {
 }
 
 function up(event: MouseEvent | TouchEvent) {
-  let touch: Touch
+  let touchMouseEvent: MouseEvent | Touch = event as MouseEvent
   window.removeEventListener('mousemove', move)
   window.removeEventListener('mouseup', up)
   window.removeEventListener('touchmove', move)
   window.removeEventListener('touchend', up)
   if (event instanceof TouchEvent) {
-    touch = event.changedTouches[0]
+    touchMouseEvent = event.changedTouches[0]
   }
   currentCaptchaConfig.stopTime = new Date()
-  const pageX = Math.round((event as MouseEvent).pageX)
-  const pageY = Math.round((event as MouseEvent).pageY)
+  const pageX = Math.round(touchMouseEvent.pageX)
+  const pageY = Math.round(touchMouseEvent.pageY)
   const startX = currentCaptchaConfig.startX as number
   const startY = currentCaptchaConfig.startY as number
   const startTime = currentCaptchaConfig.startTime as Date
@@ -164,8 +165,6 @@ function up(event: MouseEvent | TouchEvent) {
   trackArr.push(track)
   valid(currentCaptchaConfig)
 }
-
-const doDown = (config: CaptchaConfig) => {}
 
 const valid = (config: CaptchaConfig) => {
   const {
@@ -190,8 +189,10 @@ const valid = (config: CaptchaConfig) => {
   captchaCheck(id, captchaCheckConfig).then(res => {
     if (res) {
       props.success(id)
+      emit('update:modelValue', false)
+    } else {
+      refresh()
     }
-    emit('update:modelValue', false)
   })
 }
 
