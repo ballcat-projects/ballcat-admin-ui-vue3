@@ -192,6 +192,7 @@ const valid = (config: CaptchaConfig) => {
       emit('update:modelValue', false)
     } else {
       refresh()
+      moveX.value = 0
     }
   })
 }

@@ -2,7 +2,7 @@
   "name": "ballcat-ui-vue3",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "run-p type-check build-only",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
@@ -25,11 +25,13 @@
     "pinia": "^2.0.22",
     "qs": "^6.11.0",
     "vue": "^3.2.39",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@ballcat/commitlint-config-gitmoji": "^1.1.0",
     "@commitlint/cli": "^17.1.2",
+    "@intlify/unplugin-vue-i18n": "^0.7.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/crypto-js": "^4.1.1",
     "@types/json-bigint": "^1.0.1",

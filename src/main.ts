@@ -12,10 +12,13 @@ import 'ant-design-vue/es/modal/style/index.less'
 import { setupGlobDirectives } from '@/directives'
 
 import App from './App.vue'
+import { setupI18n } from './locales/setupI18n'
 
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
+
+setupI18n(app)
 
 // 自定义指令
 setupGlobDirectives(app)
