@@ -76,6 +76,7 @@ const getPicture = () => {
 const refresh = () => {
   getPicture()
   currentCaptchaConfig = { ...currentCaptchaConfig, trackArr: [], startTime: new Date() }
+  moveX.value = 0
 }
 
 const down = (event: MouseEvent | TouchEvent) => {
