@@ -12,9 +12,12 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 // 修改 index.html 插件
 import { createHtmlPlugin } from 'vite-plugin-html'
+// vue-i18n bundle tool
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 // @ts-ignore
 import { PROJECT_TITLE } from './src/constants'
 import { antdvStyleDeps } from './src/utils/resolvers'
+import { resolve, dirname } from 'node:path'
 
 // const serverAddress = 'http://admin.ballcat.cn'
 const serverAddress = 'http://127.0.0.1:8080'
@@ -43,7 +46,8 @@ export default defineConfig({
         // presets
         'vue',
         'vue-router',
-        'pinia'
+        'pinia',
+        'vue-i18n'
       ],
       // Generate corresponding .eslintrc-auto-import.json file.
       // eslint globals Docs - https://eslint.org/docs/user-guide/configuring/language-options#specifying-globals
@@ -80,6 +84,9 @@ export default defineConfig({
           title: PROJECT_TITLE
         }
       }
+    }),
+    VueI18nPlugin({
+      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/lang/**')
     })
   ],
   resolve: {

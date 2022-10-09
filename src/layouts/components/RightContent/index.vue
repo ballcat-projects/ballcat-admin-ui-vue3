@@ -3,14 +3,15 @@
     <span :class="$style.action" @click="openDoc">
       <QuestionCircleOutlined />
     </span>
+    <LangSelect class="action" />
     <avatar-dropdown />
-    <!--    <SelectLang class="action" />-->
   </a-space>
 </template>
 
 <script setup lang="ts">
 import { useSettingStore } from '@/stores/setting-store'
 import AvatarDropdown from './AvatarDropdown.vue'
+import LangSelect from './LangSelect.vue'
 
 const openDoc = () => {
   window.open('http://www.ballcat.cn')
