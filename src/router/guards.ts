@@ -20,8 +20,8 @@ const routerGuards = (router: Router) => {
         return { path: '/' }
       }
 
-      // 如果没有动态路由，则更新
-      if (!userStore.userMenus || userStore.userMenus.length === 0) {
+      // 如果是 layout 内部的页面，且没有动态路由，则更新
+      if (!to.meta.withoutLayout && (!userStore.userMenus || userStore.userMenus.length === 0)) {
         const userMenus = await userStore.fetchUserMenus()
         if (userMenus) {
           const dynamicRouter = generatorDynamicRouter(userMenus)

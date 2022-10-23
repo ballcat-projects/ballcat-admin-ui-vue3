@@ -32,5 +32,7 @@ declare module 'vue-router' {
     keepAlive?: boolean
     // 允许匿名访问
     allowAnonymous?: boolean
+    // 在 layout 布局之外的页面
+    withoutLayout?: boolean
   }
 }

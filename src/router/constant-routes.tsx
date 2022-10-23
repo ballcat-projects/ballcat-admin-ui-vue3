@@ -27,7 +27,26 @@ const constantRoutes: RouteRecordRaw[] = [
     // which is lazy-loaded when the route is visited.
     component: () => import('@/views/login/index.vue'),
     meta: {
-      allowAnonymous: true
+      allowAnonymous: true,
+      withoutLayout: true
+    }
+  },
+  {
+    // OAuth2 授权码登录处理页
+    path: '/oauth2/authorize',
+    name: 'OAuth2Authorize',
+    component: () => import('@/views/oauth2/OAuth2Authorize.vue'),
+    meta: {
+      withoutLayout: true
+    }
+  },
+  {
+    // OAuth2 授权码登录处理页
+    path: '/oauth2/consent',
+    name: 'OAuth2Consent',
+    component: () => import('@/views/oauth2/OAuth2Consent.vue'),
+    meta: {
+      withoutLayout: true
     }
   },
   // 404 路由
