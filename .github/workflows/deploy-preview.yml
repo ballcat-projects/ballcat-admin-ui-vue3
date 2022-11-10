@@ -33,6 +33,6 @@ jobs:
           ARGS: '-avz --delete'
           SOURCE: 'dist/'
           REMOTE_HOST: ${{ secrets.PREVIEW_SERVER_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.PREVIEW_SERVER_USER }}
+          REMOTE_USER: ${{ secrets.PREVIEW_SERVER_USER }}
+          TARGET: ${{ secrets.VUE3_TARGET }}
           EXCLUDE: "/dist/, /node_modules/"
