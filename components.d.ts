@@ -59,6 +59,8 @@ declare module '@vue/runtime-core' {
     AUpload: typeof import('ant-design-vue/es')['Upload']
     CaretDownOutlined: typeof import('@ant-design/icons-vue')['CaretDownOutlined']
     CaretRightOutlined: typeof import('@ant-design/icons-vue')['CaretRightOutlined']
+    CloseCircleFilled: typeof import('@ant-design/icons-vue')['CloseCircleFilled']
+    CloseOutlined: typeof import('@ant-design/icons-vue')['CloseOutlined']
     CopyrightOutlined: typeof import('@ant-design/icons-vue')['CopyrightOutlined']
     CropperModal: typeof import('./src/components/CropperModal/index.vue')['default']
     DeleteOutlined: typeof import('@ant-design/icons-vue')['DeleteOutlined']

@@ -20,10 +20,13 @@
           class="slider-move-btn"
           :style="`transform:translateX(${moveX}px)`"
           @mousedown="down"
-          @touchstart="down"
+          @touchstart.prevent="down"
         ></div>
       </div>
       <div class="bottom">
+        <div class="close-wrapped" @click="$emit('update:modelValue', false)">
+          <close-outlined :style="{ fontSize: '14px', color: '#777777' }" />
+        </div>
         <div class="refresh-btn" @click="getPicture"></div>
       </div>
     </div>
@@ -76,6 +79,7 @@ const getPicture = () => {
 const refresh = () => {
   getPicture()
   currentCaptchaConfig = { ...currentCaptchaConfig, trackArr: [], startTime: new Date() }
+  moveX.value = 0
 }
 
 const down = (event: MouseEvent | TouchEvent) => {
@@ -99,7 +103,6 @@ const down = (event: MouseEvent | TouchEvent) => {
     type: 'down',
     t: new Date().getTime() - startTime!.getTime()
   })
-  // printLog('start', startX, startY)
   // pc
   window.addEventListener('mousemove', move)
   window.addEventListener('mouseup', up)
