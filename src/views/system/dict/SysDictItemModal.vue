@@ -123,8 +123,9 @@ const handleRemove = (record: SysDictItemPageVO) => {
 }
 
 /* 修改字典项状态 */
-const handleUpdateStatus = (record: SysDictItemPageVO, checked: DictItemStatus) => {
-  doRequest(updateDictItemStatus(record.id, checked), {
+const handleUpdateStatus = (record: SysDictItemPageVO, checked: unknown) => {
+  const status = checked as DictItemStatus
+  doRequest(updateDictItemStatus(record.id, status), {
     onSuccess: () => reloadTable()
   })
 }

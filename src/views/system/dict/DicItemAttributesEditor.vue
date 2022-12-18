@@ -99,10 +99,24 @@
 import { Sketch } from '@ckpack/vue-color'
 import { DeleteTwoTone, HighlightTwoTone } from '@ant-design/icons-vue'
 import type { DictItemAttributes } from '@/api/system/dict/types'
-import type { PresetStatusColorType } from 'ant-design-vue/es/_util/colors'
+import type { PresetColorType, PresetStatusColorType } from 'ant-design-vue/es/_util/colors'
 
-const antdTagColor = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple']
-const antdBadgeStatus = ['success', 'processing', 'default', 'error', 'warning']
+const antdTagColor = [
+  'pink',
+  'red',
+  'orange',
+  'green',
+  'cyan',
+  'blue',
+  'purple'
+] as PresetColorType[]
+const antdBadgeStatus = [
+  'success',
+  'processing',
+  'default',
+  'error',
+  'warning'
+] as PresetStatusColorType[]
 const antdBadgeColor = [
   'pink',
   'red',
@@ -168,8 +182,8 @@ const clearBadgeColor = () => {
   attributes.value.badgeColor = ''
   emits('update:value', attributes.value)
 }
-const changeBadgeStatus = (value: PresetStatusColorType) => {
-  attributes.value.badgeStatus = value
+const changeBadgeStatus = (value: any) => {
+  attributes.value.badgeStatus = value as PresetStatusColorType
   emits('update:value', attributes.value)
 }
 

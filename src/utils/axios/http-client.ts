@@ -9,18 +9,20 @@ const jsonBigInt = JSONBig({ storeAsString: true })
 
 // HttpClient 默认的请求配置
 const DefaultRequestConfig: AxiosRequestConfig = {
-  paramsSerializer: function (params: any) {
-    return qs.stringify(params, {
-      // 数组的格式化方式为重复参数，例如 { a: ['1', '2']} => a=1&a=2
-      arrayFormat: 'repeat',
-      filter: (prefix, value) => {
-        // 空字符串不进行提交
-        if (typeof value == 'string' && value.length === 0) {
-          return
+  paramsSerializer: {
+    serialize: params => {
+      return qs.stringify(params, {
+        // 数组的格式化方式为重复参数，例如 { a: ['1', '2']} => a=1&a=2
+        arrayFormat: 'repeat',
+        filter: (prefix: string, value: any) => {
+          // 空字符串不进行提交
+          if (typeof value == 'string' && value.length === 0) {
+            return
+          }
+          return value
         }
-        return value
-      }
-    })
+      })
+    }
   },
 
   transformResponse: [

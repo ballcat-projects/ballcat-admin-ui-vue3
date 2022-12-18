@@ -460,7 +460,10 @@ export const proTableProps = <T, U = Record<string, any>, ValueType = 'text'>() 
   /**
    * 可编辑表格修改数据的改变
    */
-  // onDataSourceChange?: (dataSource: T[]) => void
+  onDataSourceChange: {
+    type: Function as PropType<(dataSource: T[]) => void>,
+    default: undefined
+  },
 
   /** 查询表单和 Table 的卡片 border 配置 */
   cardBordered: {

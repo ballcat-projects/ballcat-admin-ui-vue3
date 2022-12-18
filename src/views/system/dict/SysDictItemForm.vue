@@ -54,7 +54,7 @@
 import { useAdminForm, useFormAction, FormAction } from '@/hooks/form'
 import type { FormRequestMapping } from '@/hooks/form'
 import { createDictItem, updateDictItem } from '@/api/system/dict'
-import type { SysDictItemDTO, SysDictItemPageVO } from '@/api/system/dict/types'
+import type { DictItemAttributes, SysDictItemDTO, SysDictItemPageVO } from '@/api/system/dict/types'
 import { DictItemStatus } from '@/api/system/dict/types'
 import { overrideProperties } from '@/utils/bean-utils'
 import type { ColProps } from 'ant-design-vue'
@@ -78,7 +78,7 @@ const emits = defineEmits<{
 const { formAction, isUpdateForm } = useFormAction()
 
 // 表单模型
-const formModel = reactive<SysDictItemDTO>({
+const formModel = reactive<SysDictItemDTO & { attributes: DictItemAttributes }>({
   id: undefined,
   dictCode: '',
   value: '',

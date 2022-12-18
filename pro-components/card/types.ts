@@ -81,7 +81,9 @@ export const cardProps = () => ({
   /** 是否展示选中样式 */
   checked: { type: Boolean, default: false },
   /** 选中改变 */
-  onChecked: Function as PropType<(e: MouseEvent) => void>
+  onChecked: Function as PropType<(e: MouseEvent) => void>,
+  /** 点击事件 */
+  onClick: Function as PropType<(e: MouseEvent) => void>
 })
 
 export type CardProps = Partial<ExtractPropTypes<ReturnType<typeof cardProps>>>

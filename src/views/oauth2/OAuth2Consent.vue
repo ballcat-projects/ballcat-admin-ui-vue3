@@ -12,7 +12,7 @@
         <p>
           <span class="font-weight-bold text-primary">{{ clientId }}</span>
           wants to access your account
-          <span class="font-weight-bold">{{ userInfo.username }}</span>
+          <span class="font-weight-bold">{{ userInfo?.username }}</span>
         </p>
       </div>
     </div>
