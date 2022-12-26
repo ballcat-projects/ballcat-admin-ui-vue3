@@ -113,7 +113,7 @@ const down = (event: MouseEvent | TouchEvent) => {
 
 function move(event: MouseEvent | TouchEvent) {
   let touchMouseEvent: MouseEvent | Touch = event as MouseEvent
-  if (event instanceof TouchEvent) {
+  if (window.TouchEvent && event instanceof TouchEvent) {
     touchMouseEvent = event.touches[0]
   }
   const pageX = Math.round(touchMouseEvent.pageX)
@@ -148,7 +148,7 @@ function up(event: MouseEvent | TouchEvent) {
   window.removeEventListener('mouseup', up)
   window.removeEventListener('touchmove', move)
   window.removeEventListener('touchend', up)
-  if (event instanceof TouchEvent) {
+  if (window.TouchEvent && event instanceof TouchEvent) {
     touchMouseEvent = event.changedTouches[0]
   }
   currentCaptchaConfig.stopTime = new Date()
