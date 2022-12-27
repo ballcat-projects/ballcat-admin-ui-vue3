@@ -35,7 +35,7 @@ const menuToRoutes = (menuTree: SysMenuRouterTree[], parent?: RouteRecordRaw) =>
   return menuTree.map(item => {
     // 内容打开方式
     const targetType = item.targetType
-    const path = `${(parent && parent.path) || ''}/${item.path}`
+    let path = `${(parent && parent.path) || ''}/${item.path}`
 
     // 路由名称，由路由地址生成，大驼峰形式
     const name = path
@@ -68,7 +68,9 @@ const menuToRoutes = (menuTree: SysMenuRouterTree[], parent?: RouteRecordRaw) =>
           component = () => import('@/views/basic/iframe/index.vue')
         } else if (targetType === 3) {
           // 外链
+          path = item.uri
           meta.target = item.uri
+          meta.hideInTab = true
         }
     }
 
