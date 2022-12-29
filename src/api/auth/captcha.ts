@@ -1,11 +1,7 @@
-import type { CaptchaConfig } from '@/components/Verifition/types'
+import type { CaptchaConfig } from '@/components/Captcha/types'
 import httpClient from '@/utils/axios'
 
-export interface CaptchaRequest {
-  type?: string
-}
-
-export interface CaptchaResponse {
+export interface CaptchaData {
   id: string
   captcha: {
     backgroundImage: string
@@ -20,15 +16,16 @@ export interface CaptchaResponse {
 
 /**
  * 获取验证码图片
- * @param params 图像验证码类型
+ * @param type 图像验证码类型
  * @returns
  */
-export function captchaGen(params?: CaptchaRequest) {
-  return httpClient.get<CaptchaResponse>('/captcha/tianai/gen', { params })
+export function captchaGen(type?: string) {
+  return httpClient.get<CaptchaData>('/captcha/tianai/gen', { params: { type: type } })
 }
 
 /**
  * 验证码校验
+ * @param id 验证码id
  * @param data true:校验通过/false:校验失败
  * @returns
  */

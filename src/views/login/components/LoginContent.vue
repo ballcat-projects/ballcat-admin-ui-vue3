@@ -39,7 +39,7 @@
       <mobile-login-form v-show="currentLoginType === 'mobile'" ref="mobileLoginFormRef" />
 
       <div style="margin-bottom: 24px">
-        <a-checkbox v-model:checked="rememberMe" no-style name="autoLogin"> 自动登录 </a-checkbox>
+        <a-checkbox v-model:checked="rememberMe" no-style name="autoLogin"> 自动登录</a-checkbox>
         <a style="float: right">忘记密码</a>
       </div>
 
@@ -64,11 +64,9 @@
         <a style="float: right"> 注册账户 </a>
       </div>
     </div>
-    <verify-captcha
-      v-if="enableLoginCaptcha"
-      v-model="enableLoginCaptcha"
-      :success="handleSubmit"
-    />
+
+    <!-- 滑动验证码 -->
+    <slider-captcha ref="loginCaptchaRef" @success="handleSubmit" />
   </div>
 </template>
 
@@ -79,6 +77,7 @@ import type { LoginFormInstance, LoginType } from '@/views/login/components/type
 import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
 import { PROJECT_DESC, PROJECT_TITLE } from '@/constants'
+import { SliderCaptcha } from '@/components/Captcha'
 
 const prefixCls = 'ant'
 const baseClassName = 'pro-login-content'
@@ -94,8 +93,9 @@ const isLoginError = ref(false)
 const loginErrorMessage = ref('')
 // 自动登录（记住我）
 const rememberMe = ref(false)
-// 显示/隐藏弹出框
-const enableLoginCaptcha = ref(false)
+
+// 登陆验证码组件
+const loginCaptchaRef = ref()
 
 // 当前登录类型，以及对应的登录组件
 const currentLoginType = ref<LoginType>('account')
@@ -136,7 +136,7 @@ function store(res: LoginResult) {
 
 function handleLogin() {
   const loginFormInstance = loginFormRef.value!
-  loginFormInstance.validate().then(() => (enableLoginCaptcha.value = true))
+  loginFormInstance.validate().then(() => loginCaptchaRef.value?.show())
 }
 
 const router = useRouter()

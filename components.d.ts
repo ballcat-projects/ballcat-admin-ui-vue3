@@ -85,6 +85,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchActions: typeof import('./src/components/Search/SearchActions.vue')['default']
     SettingOutlined: typeof import('@ant-design/icons-vue')['SettingOutlined']
+    SliderCaptcha: typeof import('./src/components/Captcha/SliderCaptcha.vue')['default']
     SwapOutlined: typeof import('@ant-design/icons-vue')['SwapOutlined']
     SyncOutlined: typeof import('@ant-design/icons-vue')['SyncOutlined']
     TaobaoOutlined: typeof import('@ant-design/icons-vue')['TaobaoOutlined']
