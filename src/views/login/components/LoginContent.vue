@@ -65,8 +65,8 @@
       </div>
     </div>
 
-    <!-- 滑动验证码 -->
-    <slider-captcha ref="loginCaptchaRef" @success="handleSubmit" />
+    <!-- 登陆验证码 -->
+    <login-captcha ref="loginCaptchaRef" @success="handleSubmit" />
   </div>
 </template>
 
@@ -77,7 +77,7 @@ import type { LoginFormInstance, LoginType } from '@/views/login/components/type
 import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
 import { PROJECT_DESC, PROJECT_TITLE } from '@/constants'
-import { SliderCaptcha } from '@/components/Captcha'
+import { SliderCaptcha as LoginCaptcha } from '@/components/Captcha'
 
 const prefixCls = 'ant'
 const baseClassName = 'pro-login-content'
