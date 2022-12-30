@@ -61,6 +61,7 @@ declare module '@vue/runtime-core' {
     CaretDownOutlined: typeof import('@ant-design/icons-vue')['CaretDownOutlined']
     CaretRightOutlined: typeof import('@ant-design/icons-vue')['CaretRightOutlined']
     CloseOutlined: typeof import('@ant-design/icons-vue')['CloseOutlined']
+    ConcatCaptcha: typeof import('./src/components/Captcha/ConcatCaptcha.vue')['default']
     CopyrightOutlined: typeof import('@ant-design/icons-vue')['CopyrightOutlined']
     CropperModal: typeof import('./src/components/CropperModal/index.vue')['default']
     DeleteOutlined: typeof import('@ant-design/icons-vue')['DeleteOutlined']
@@ -79,6 +80,7 @@ declare module '@vue/runtime-core' {
     MobileOutlined: typeof import('@ant-design/icons-vue')['MobileOutlined']
     PlusOutlined: typeof import('@ant-design/icons-vue')['PlusOutlined']
     QuestionCircleOutlined: typeof import('@ant-design/icons-vue')['QuestionCircleOutlined']
+    RotateCaptcha: typeof import('./src/components/Captcha/RotateCaptcha.vue')['default']
     RotateLeftOutlined: typeof import('@ant-design/icons-vue')['RotateLeftOutlined']
     RotateRightOutlined: typeof import('@ant-design/icons-vue')['RotateRightOutlined']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -94,6 +96,7 @@ declare module '@vue/runtime-core' {
     UserOutlined: typeof import('@ant-design/icons-vue')['UserOutlined']
     VerifyCaptcha: typeof import('./src/components/Verifition/VerifyCaptcha.vue')['default']
     WeiboOutlined: typeof import('@ant-design/icons-vue')['WeiboOutlined']
+    WordClickCaptcha: typeof import('./src/components/Captcha/WordClickCaptcha.vue')['default']
     ZoomInOutlined: typeof import('@ant-design/icons-vue')['ZoomInOutlined']
     ZoomOutOutlined: typeof import('@ant-design/icons-vue')['ZoomOutOutlined']
   }

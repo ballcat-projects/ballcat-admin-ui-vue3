@@ -16,8 +16,8 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import { PROJECT_TITLE } from './src/constants'
 import { antdvStyleDeps } from './src/utils/resolvers'
 
-// const serverAddress = 'http://admin.ballcat.cn'
-const serverAddress = 'http://127.0.0.1:8080'
+const serverAddress = 'http://admin.ballcat.cn'
+// const serverAddress = 'http://127.0.0.1:8080'
 
 // https://vitejs.dev/config/
 export default defineConfig({
