@@ -5,6 +5,7 @@ import type {
   MobileLoginParam,
   LoginResult
 } from '@/api/auth/types'
+import { useUserStore } from '@/stores/user-store'
 
 // Base64(clientId:clientSecret)
 // const BASIC_AUTHORIZATION = 'Basic bm8tY2FwdGNoYTpuby1jYXB0Y2hh'
@@ -32,7 +33,7 @@ export function mobileLogin(parameter: MobileLoginParam) {
  */
 function login(parameter: OAuth2LoginParam) {
   return httpClient.request<LoginResult>({
-    url: '/oauth/token',
+    url: '/oauth2/token',
     method: 'POST',
     headers: {
       Authorization: BASIC_AUTHORIZATION
@@ -47,7 +48,7 @@ function login(parameter: OAuth2LoginParam) {
  */
 export function checkToken(token: string) {
   return httpClient.request({
-    url: '/oauth/check_token',
+    url: '/oauth2/check_token',
     method: 'POST',
     headers: {
       Authorization: BASIC_AUTHORIZATION
@@ -60,5 +61,13 @@ export function checkToken(token: string) {
  * 登出
  */
 export function logout() {
-  return httpClient.delete('/oauth/logout')
+  const accessToken = useUserStore().accessToken
+  return httpClient.request({
+    url: '/oauth2/revoke',
+    method: 'POST',
+    headers: {
+      Authorization: BASIC_AUTHORIZATION
+    },
+    params: { token: accessToken }
+  })
 }
