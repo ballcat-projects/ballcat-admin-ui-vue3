@@ -72,8 +72,8 @@ function reset() {
 
 /* 刷新验证码 */
 function refreshCaptcha() {
+  reset()
   captchaGen('CONCAT').then(res => {
-    reset()
     captchaData.value = res
 
     bgImgDivStyle.value.backgroundImage = `url(${res.captcha.backgroundImage})`

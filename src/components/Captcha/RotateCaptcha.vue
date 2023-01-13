@@ -77,8 +77,8 @@ function reset() {
 
 /* 刷新验证码 */
 function refreshCaptcha() {
+  reset()
   captchaGen('ROTATE').then(res => {
-    reset()
     captchaData.value = res
     nextTick(() => {
       initConfig(

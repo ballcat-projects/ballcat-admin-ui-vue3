@@ -126,8 +126,8 @@ function reset() {
 
 /* 刷新验证码 */
 function refreshCaptcha() {
+  reset()
   captchaGen('WORD_IMAGE_CLICK').then(res => {
-    reset()
     captchaData.value = res
     backgroundImageUrl.value = res.captcha.backgroundImage
     sliderImageUrl.value = res.captcha.sliderImage
