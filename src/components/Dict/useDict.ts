@@ -12,8 +12,8 @@ export const useDict = (props: DictComponentProps) => {
 
   const dictItems = ref<DictItem[]>([])
 
-  watchEffect(() => {
-    dictStore.getDictData(props.dictCode).then(dictData => {
+  watch(props,(newVal,oldVal) => {
+    dictStore.getDictData(newVal.dictCode).then(dictData => {
       if (!dictData) return
 
       const result = []
@@ -43,7 +43,9 @@ export const useDict = (props: DictComponentProps) => {
 
       dictItems.value = result
     })
-  })
+  },
+  { immediate: true }
+  )
 
   return dictItems
 }
