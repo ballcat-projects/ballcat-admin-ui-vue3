@@ -16,7 +16,6 @@ import type { CheckboxGroupProps } from 'ant-design-vue'
 import type { DictValue } from '@/api/system/dict/types'
 import { useDict } from '@/components/Dict/useDict'
 import type { DictItem } from '@/api/system/dict/types'
-import type { CheckboxChangeEvent } from 'ant-design-vue/es/checkbox/interface'
 
 // 不支持导入类型 https://github.com/vuejs/core/issues/4294
 interface DictCheckboxGroupProps extends Omit<CheckboxGroupProps, 'options'> {
@@ -36,8 +35,8 @@ const emits = defineEmits<{
   (e: 'update:value', selectedValue: DictValue | DictValue[]): void
 }>()
 
-const onChange = (e: CheckboxChangeEvent) => {
-  emits('update:value', e.target.value)
+const onChange = (checkedValue: any[]) => {
+  emits('update:value', checkedValue)
 }
 
 const dictItems = useDict(props)
@@ -45,7 +44,7 @@ const dictItems = useDict(props)
 
 <script lang="ts">
 export default {
-  name: 'DictCheckBoxGroup'
+  name: 'DictCheckboxGroup'
 }
 </script>
 

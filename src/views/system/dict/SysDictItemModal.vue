@@ -189,6 +189,7 @@ defineExpose({
   open: (record: SysDictPageVO) => {
     dictCode = record.code
     title.value = `字典项：${record.title}`
+    reloadTable(true)
     openModal()
   }
 })
