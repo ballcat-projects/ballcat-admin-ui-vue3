@@ -34,7 +34,6 @@ import OperationLogPageSearch from './OperationLogPageSearch.vue'
 import { DictText, DictTag } from '@/components/Dict'
 import { pageOperationLogs } from '@/api/log/operation-log'
 import type { OperationLogPageParam } from '@/api/log/operation-log/type'
-import { isEmpty } from '@/utils/array-utils'
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
@@ -44,7 +43,7 @@ let searchParams: OperationLogPageParam = {}
 /* 远程加载表格数据 */
 const tableRequest: TableRequest = (params, sorter, filter) => {
   const pageParam = mergePageParam(params, sorter, filter)
-  if (isEmpty(pageParam.sort)) {
+  if (!pageParam.sort || pageParam.sort.length == 0) {
     pageParam.sort = 'id,desc'
   }
   return pageOperationLogs({ ...pageParam, ...searchParams })

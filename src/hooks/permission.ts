@@ -1,21 +1,39 @@
 import { useUserStore } from '@/stores/user-store'
-import { hasAnyItem, hasItem } from '@/utils/array-utils'
 
 export const useAuthorize = () => {
   const { userInfo } = useUserStore()
 
   function hasPermission(permissionCode: string) {
-    return hasItem(userInfo?.permissions, permissionCode)
+    return includes(userInfo?.permissions || [], permissionCode)
   }
+
   function hasAnyPermission(permissionCodes: string[]) {
-    return hasAnyItem(userInfo?.permissions, permissionCodes)
+    return includesAny(userInfo?.permissions || [], permissionCodes)
   }
+
   function hasRole(rolCode: string) {
-    return hasItem(userInfo?.roleCodes, rolCode)
+    return includes(userInfo?.roleCodes || [], rolCode)
   }
+
   function hasAnyRole(rolCodes: string[]) {
-    return hasAnyItem(userInfo?.roleCodes, rolCodes)
+    return includesAny(userInfo?.roleCodes || [], rolCodes)
   }
 
   return { hasPermission, hasAnyPermission, hasRole, hasAnyRole }
+}
+
+function includes(array: string[], item: string) {
+  return array.includes(item)
+}
+
+function includesAny(array: string[], items: string[]) {
+  if (items.length == 0) {
+    return true
+  }
+  for (const item of items) {
+    if (includes(array, item)) {
+      return true
+    }
+  }
+  return false
 }
