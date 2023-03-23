@@ -17,6 +17,21 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
+// i18n
+import { createI18n } from 'vue-i18n'
+import { messages as i18nMessages } from '@/locale'
+import { DEFAULT_LANGUAGE } from '@/constants'
+
+const i18n = createI18n({
+  local: DEFAULT_LANGUAGE,
+  globalInjection: true,
+  legacy: false,
+  fallbackLocale: DEFAULT_LANGUAGE,
+  messages: i18nMessages
+})
+
+i18n.install(app)
+
 // 自定义指令
 setupGlobDirectives(app)
 
