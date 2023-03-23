@@ -1,3 +1,4 @@
 export default {
-  'locale.ballcat': 'BallCat en_us'
+  'locale.ballcat': 'BallCat en_us',
+  'user.login.submit': 'Login'
 }
