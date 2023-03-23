@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <!-- 国际化语言切换 -->
-    <div class="lang" data-lang>
-      <!--          {SelectLang && <SelectLang />}-->
+    <div class="lang">
+      <SelectLanguage />
     </div>
 
     <!-- 内容 -->
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import LoginContent from './components/LoginContent.vue'
 import LoginFooter from './components/LoginFooter.vue'
+import SelectLanguage from '@/components/SelctLanguage/index.vue'
 </script>
 
 <script lang="ts">

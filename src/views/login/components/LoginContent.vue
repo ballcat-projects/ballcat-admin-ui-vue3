@@ -50,7 +50,7 @@
         :loading="loginLoading"
         @click="handleLogin"
       >
-        登录
+        {{ $t('user.login.submit') }}
       </a-button>
 
       <!-- 扩展部分 -->
