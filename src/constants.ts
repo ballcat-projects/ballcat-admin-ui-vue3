@@ -18,3 +18,6 @@ export const REDIRECT_PATH = '/redirect'
 
 // 登录页的地址
 export const LOGIN_PATH = '/login'
+
+// 默认语言
+export const DEFAULT_LANGUAGE = 'zh-CN'
