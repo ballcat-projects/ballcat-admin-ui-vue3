@@ -69,7 +69,7 @@ export class HttpClient {
     return this.axiosInstance.getUri(config)
   }
 
-  request<T = any, D = any>(config: AxiosRequestConfig<D>) {
+  request<T = any, D = any>(config: AxiosRequestConfig<D>): Promise<T> {
     const mergeConfig = Object.assign({}, DefaultRequestConfig, config)
     return this.axiosInstance.request<void, T, D>(mergeConfig)
   }

@@ -87,3 +87,7 @@ export interface HttpClientConfig<D = unknown> {
    */
   interceptorOptions?: HttpInterceptorOptions
 }
+
+export type BallcatAxiosRequestConfig<D> = {
+  setLoading?: (flag: boolean) => void
+} & AxiosRequestConfig<D>
