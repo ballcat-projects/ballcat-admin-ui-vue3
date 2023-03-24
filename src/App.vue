@@ -12,6 +12,7 @@ import 'dayjs/locale/zh-cn'
 import dayjs from 'dayjs'
 import { useI18n } from 'vue-i18n'
 import type { Language } from '@/locale'
+import { setT } from '@/utils/i18n-utils'
 
 const antdLocalDict = {
   'zh-CN': zhCN,
@@ -19,8 +20,8 @@ const antdLocalDict = {
 }
 
 const i18nStore = useI18nStore()
-const { locale } = useI18n()
-
+const { t, locale } = useI18n()
+setT(t)
 const setLocal = (newLanguage: Language) => {
   locale.value = newLanguage
   dayjs.locale(newLanguage)
