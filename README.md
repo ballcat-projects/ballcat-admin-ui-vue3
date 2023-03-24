@@ -8,6 +8,13 @@
 目前功能还在移植中，由于工作量太大，初版本只考虑移植 pro-layout 以及 pro-table(精简掉 searchform 模块)，
 后续 pro-components 将独立出一个仓库进行维护，同时会发布到 npm 仓库，方便引用。
 
+## 包管理工具
+
+项目强制要求使用 pnpm 进行依赖管理，使用 npm 或者 yarn 下载依赖将会报错。
+```shell
+npm install -g pnpm
+pnpm install
+```
 
 ## Recommended IDE Setup
 

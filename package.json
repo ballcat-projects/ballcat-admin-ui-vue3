@@ -10,7 +10,11 @@
     "preview": "vite preview --port 5050",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "prepare": "husky install"
+    "preinstall": "node ./scripts/preinstall.js"
+  },
+  "engines": {
+    "node": ">=16.11.0",
+    "pnpm": ">=6"
   },
   "dependencies": {
     "@ballcat/vue-cropper": "^1.0.4",
