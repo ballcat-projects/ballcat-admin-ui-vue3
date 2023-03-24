@@ -8,6 +8,7 @@ import { useUserStore } from '@/stores/user-store'
 import { LOGIN_PATH } from '@/constants'
 import router from '@/router'
 import { HttpClient } from '@/utils/axios/http-client'
+import { useI18nStore } from '@/stores/i18n-store'
 
 const onRequestFulfilled = (requestConfig: AxiosRequestConfig) => {
   const headers = requestConfig.headers || {}
@@ -21,12 +22,10 @@ const onRequestFulfilled = (requestConfig: AxiosRequestConfig) => {
   }
 
   // i18n
-  // if (enableI18n) {
-  //   const appLanguage = store.getters.lang
-  //   if (appLanguage) {
-  //     headers['Accept-Language'] = appLanguage
-  //   }
-  // }
+  const appLanguage = useI18nStore().language
+  if (appLanguage) {
+    headers['Accept-Language'] = appLanguage
+  }
 
   if (requestConfig.headers) {
     requestConfig.headers = headers
