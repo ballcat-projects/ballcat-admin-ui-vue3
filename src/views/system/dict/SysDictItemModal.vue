@@ -204,8 +204,9 @@ export default {
 <style scoped>
 /** 保证切换时的高度不要相差太多 */
 :deep(.ant-table-content) {
-  height: 400px;
-  overflow: auto;
+  height: 450px;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
 }
 :deep(.ant-pro-table-list-toolbar-container) {
   padding: 0 0 16px;
