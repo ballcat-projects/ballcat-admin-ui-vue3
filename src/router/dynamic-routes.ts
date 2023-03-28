@@ -107,7 +107,7 @@ const menuToRoutes = (menuTree: SysMenuRouterTree[], parent?: RouteRecordRaw) =>
  */
 function fillRedirect(currentRouter: RouteRecordRaw) {
   if (!currentRouter.children) return
-  const redirectRouter = currentRouter.children.find(x => !x.meta?.hiddenInMenu)
+  const redirectRouter = currentRouter.children.find(x => !x.meta?.hideInMenu)
   redirectRouter && (currentRouter.redirect = redirectRouter.path)
 }
 
