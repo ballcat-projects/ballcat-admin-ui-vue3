@@ -1,4 +1,4 @@
-import { request } from '@/utils/axios'
+import httpClient from '@/utils/axios'
 import type { ApiResult } from '@/api/types'
 import type { LoginLogPageParam } from '@/api/log/login-log/types'
 
@@ -7,8 +7,7 @@ import type { LoginLogPageParam } from '@/api/log/login-log/types'
  * @param pageParams 分页参数
  */
 export function pageLoginLogs(pageParams: LoginLogPageParam) {
-  return request<ApiResult>('/log/login-log/page', {
-    method: 'get',
+  return httpClient.get<ApiResult>('/log/login-log/page', {
     params: pageParams
   })
 }

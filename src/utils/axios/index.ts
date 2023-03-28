@@ -1,7 +1,7 @@
 import { Modal, notification, message } from 'ant-design-vue'
 import 'ant-design-vue/es/button/style/index.less'
 
-import { AxiosError, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
+import type { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 import type { ApiResult } from '@/api/types'
 
 import { useUserStore } from '@/stores/user-store'
@@ -9,7 +9,6 @@ import { LOGIN_PATH } from '@/constants'
 import router from '@/router'
 import { HttpClient } from '@/utils/axios/http-client'
 import { useI18nStore } from '@/stores/i18n-store'
-import type { BallcatAxiosRequestConfig } from '@/utils/axios/types'
 import i18n from '@/utils/i18n-utils'
 
 const onRequestFulfilled = (requestConfig: InternalAxiosRequestConfig) => {
@@ -43,18 +42,6 @@ const onResponseFulfilled = (response: AxiosResponse) => {
     headers['content-type'] &&
     headers['content-type'].startsWith('application/json')
   ) {
-    const { code, message } = response.data || {}
-    // 业务请求异常处理
-    if (code && code !== 200) {
-      throw new AxiosError(
-        i18n.text('system.tip.operate.error', { message }),
-        code,
-        response.config,
-        response.request,
-        response
-      )
-    }
-
     return response.data
   } else {
     return response
@@ -133,19 +120,5 @@ const httpClient = new HttpClient({
     onResponseRejected: onResponseRejected
   }
 })
-
-export const request = <T = any, D = any>(
-  uri: string,
-  { setLoading, ...options }: Partial<BallcatAxiosRequestConfig<D>>
-): Promise<T> => {
-  if (setLoading) {
-    setLoading(true)
-  }
-  return httpClient.request<T, D>({ ...options, url: uri }).finally(() => {
-    if (setLoading) {
-      setLoading(false)
-    }
-  })
-}
 
 export default httpClient
