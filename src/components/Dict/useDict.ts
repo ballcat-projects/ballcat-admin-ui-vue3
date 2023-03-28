@@ -1,55 +1,52 @@
 import { useDictStore } from '@/stores/dict-store'
-import type { DictValue, DictItem } from '@/api/system/dict/types'
-import type { DictComponentProps, DictDisplayComponentProps } from '@/components/Dict/types'
+import type { DictItem, DictValue } from '@/api/system/dict/types'
 import { DictItemStatus, DictValueTypeEnum } from '@/api/system/dict/types'
+import type { DictComponentProps, DictDisplayComponentProps } from '@/components/Dict/types'
 
 // 默认的 item 是否禁用的判断器
 const defaultItemDisabledChecker = (dictItem: DictItem) =>
   dictItem.status !== DictItemStatus.ENABLED
 
 export const useDict = (props: DictComponentProps) => {
-  const dictStore = useDictStore()
+  const { dictDataCache, getDictData } = useDictStore()
 
-  const dictItems = ref<DictItem[]>([])
-
+  // 先尝试初始化
   watch(
-    props,
-    newVal => {
-      dictStore.getDictData(newVal.dictCode).then(dictData => {
-        if (!dictData) return
-
-        const result = []
-
-        const dictItemVOs = dictData.dictItems
-        for (const item of dictItemVOs) {
-          const dictItem = item as unknown as DictItem
-
-          // 转换字典项的值为其真实类型
-          dictItem.value = convertValueType(item.value, dictData.valueType)
-
-          // 过滤字典项
-          if (props.itemFilter && !props.itemFilter(dictItem)) {
-            continue
-          }
-
-          // 选择名称，国际化处理
-          // dictItem.name = props.i18nName(dictItem)
-
-          // 字典项是否 disable
-          const itemDisabledChecker = props.itemDisabledChecker || defaultItemDisabledChecker
-          dictItem.disabled = itemDisabledChecker(dictItem)
-
-          // 添加字典项
-          result.push(dictItem)
-        }
-
-        dictItems.value = result
-      })
-    },
+    () => props.dictCode,
+    dictCode => getDictData(dictCode),
     { immediate: true }
   )
 
-  return dictItems
+  return computed(() => {
+    const dictData = dictDataCache[props.dictCode]
+    if (!dictData) return []
+
+    const result = []
+
+    const dictItemVOs = dictData.dictItems
+    for (const item of dictItemVOs) {
+      const dictItem = item as unknown as DictItem
+
+      // 转换字典项的值为其真实类型
+      dictItem.value = convertValueType(item.value, dictData.valueType)
+
+      // 过滤字典项
+      if (props.itemFilter && !props.itemFilter(dictItem)) {
+        continue
+      }
+
+      // 选择名称，国际化处理
+      // dictItem.name = props.i18nName(dictItem)
+
+      // 字典项是否 disable
+      const itemDisabledChecker = props.itemDisabledChecker || defaultItemDisabledChecker
+      dictItem.disabled = itemDisabledChecker(dictItem)
+
+      // 添加字典项
+      result.push(dictItem)
+    }
+    return result
+  })
 }
 
 export const useDictDisplay = (props: DictDisplayComponentProps) => {
