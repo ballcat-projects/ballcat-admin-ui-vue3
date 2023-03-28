@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import LoginContent from './components/LoginContent.vue'
 import LoginFooter from './components/LoginFooter.vue'
-import SelectLanguage from '@/components/SelctLanguage/index.vue'
+import SelectLanguage from '@/components/SelectLanguage/index.vue'
 </script>
 
 <script lang="ts">

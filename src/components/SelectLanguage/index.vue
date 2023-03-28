@@ -20,7 +20,7 @@ import { useI18nStore } from '@/stores/i18n-store'
 import type { Language } from '@/locale'
 
 export default defineComponent({
-  name: 'SelctLanguage',
+  name: 'SelectLanguage',
   components: {
     TranslationOutlined
   },

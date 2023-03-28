@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { useSettingStore } from '@/stores/setting-store'
 import AvatarDropdown from './AvatarDropdown.vue'
-import SelectLanguage from '@/components/SelctLanguage/index.vue'
+import SelectLanguage from '@/components/SelectLanguage/index.vue'
 
 const openDoc = () => {
   window.open('http://www.ballcat.cn')
