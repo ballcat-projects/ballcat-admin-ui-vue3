@@ -1,4 +1,9 @@
-import type { AxiosInterceptorOptions, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type {
+  AxiosInterceptorOptions,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from 'axios'
 import type { ApiResult } from '@/api/types'
 import type { WithFalse } from '#/layout/types'
 
@@ -42,8 +47,8 @@ export interface HttpInterceptorOptions {
    * @param value AxiosRequestConfig 请求配置
    */
   onRequestFulfilled?: (
-    value: AxiosRequestConfig
-  ) => AxiosRequestConfig | Promise<AxiosRequestConfig>
+    value: InternalAxiosRequestConfig
+  ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>
 
   /**
    * 请求失败后处理

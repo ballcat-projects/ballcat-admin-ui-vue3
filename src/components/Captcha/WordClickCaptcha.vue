@@ -70,7 +70,7 @@ type ClickPosition = {
 }
 const clickPositions = ref<ClickPosition[]>([])
 
-function wordClick(event: PointerEvent) {
+function wordClick(event: MouseEvent) {
   if (clickCount.value >= 4) {
     return
   }

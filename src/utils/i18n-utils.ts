@@ -1,7 +1,7 @@
 import type { messages } from '@/locale'
 import { message } from 'ant-design-vue'
 
-type KEYS = keyof typeof messages['zh-CN']
+type KEYS = keyof (typeof messages)['zh-CN']
 type OnClose = () => void
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

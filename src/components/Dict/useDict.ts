@@ -12,39 +12,41 @@ export const useDict = (props: DictComponentProps) => {
 
   const dictItems = ref<DictItem[]>([])
 
-  watch(props,(newVal,oldVal) => {
-    dictStore.getDictData(newVal.dictCode).then(dictData => {
-      if (!dictData) return
+  watch(
+    props,
+    newVal => {
+      dictStore.getDictData(newVal.dictCode).then(dictData => {
+        if (!dictData) return
 
-      const result = []
+        const result = []
 
-      const dictItemVOs = dictData.dictItems
-      for (const item of dictItemVOs) {
-        const dictItem = item as unknown as DictItem
+        const dictItemVOs = dictData.dictItems
+        for (const item of dictItemVOs) {
+          const dictItem = item as unknown as DictItem
 
-        // 转换字典项的值为其真实类型
-        dictItem.value = convertValueType(item.value, dictData.valueType)
+          // 转换字典项的值为其真实类型
+          dictItem.value = convertValueType(item.value, dictData.valueType)
 
-        // 过滤字典项
-        if (props.itemFilter && !props.itemFilter(dictItem)) {
-          continue
+          // 过滤字典项
+          if (props.itemFilter && !props.itemFilter(dictItem)) {
+            continue
+          }
+
+          // 选择名称，国际化处理
+          // dictItem.name = props.i18nName(dictItem)
+
+          // 字典项是否 disable
+          const itemDisabledChecker = props.itemDisabledChecker || defaultItemDisabledChecker
+          dictItem.disabled = itemDisabledChecker(dictItem)
+
+          // 添加字典项
+          result.push(dictItem)
         }
 
-        // 选择名称，国际化处理
-        // dictItem.name = props.i18nName(dictItem)
-
-        // 字典项是否 disable
-        const itemDisabledChecker = props.itemDisabledChecker || defaultItemDisabledChecker
-        dictItem.disabled = itemDisabledChecker(dictItem)
-
-        // 添加字典项
-        result.push(dictItem)
-      }
-
-      dictItems.value = result
-    })
-  },
-  { immediate: true }
+        dictItems.value = result
+      })
+    },
+    { immediate: true }
   )
 
   return dictItems

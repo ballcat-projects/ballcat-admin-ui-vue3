@@ -21,6 +21,7 @@ const antdLocalDict = {
 
 const i18nStore = useI18nStore()
 const { t, locale } = useI18n()
+// @ts-ignore TODO i18n 优化
 setT(t)
 const setLocal = (newLanguage: Language) => {
   locale.value = newLanguage

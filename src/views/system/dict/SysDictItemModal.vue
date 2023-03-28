@@ -31,7 +31,7 @@
             :checked-value="DictItemStatus.ENABLED"
             :un-checked-value="DictItemStatus.DISABLED"
             :checked="record.status"
-            @change="checked => handleUpdateStatus(record, checked)"
+            @change="(checked: unknown) => handleUpdateStatus(record, checked)"
           />
         </template>
         <template v-else-if="column.key === 'operate'">
@@ -95,11 +95,6 @@ const tableRequest: TableRequest = (params, sorter, filter) => {
 /* 刷新表格 */
 const reloadTable = (resetPageIndex?: boolean) => {
   tableRef.value?.actionRef?.reload(resetPageIndex)
-}
-
-/* 查询表格 */
-const searchTable = () => {
-  reloadTable(true) // 会调用 tableRequest
 }
 
 /* 创建字典项 */

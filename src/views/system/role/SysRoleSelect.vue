@@ -1,5 +1,5 @@
 <template>
-  <a-select show-search v-bind="props" :filter-option="filterOption" @update:value="onChange">
+  <a-select v-bind="props" :filter-option="filterOption" @update:value="onChange">
     <a-select-option
       v-for="selectData in selectDataList"
       :key="selectData.value"
@@ -25,7 +25,8 @@ interface RoleSelectProps extends Omit<SelectProps, 'value'> {
 
 const props = withDefaults(defineProps<RoleSelectProps>(), {
   value: undefined,
-  placeholder: '请选择角色'
+  placeholder: '请选择角色',
+  showSearch: true
 })
 
 const emits = defineEmits<{

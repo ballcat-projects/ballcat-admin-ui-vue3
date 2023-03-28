@@ -1,5 +1,5 @@
 <template>
-  <a-select show-search v-bind="props" :filter-option="filterOption" @update:value="onChange">
+  <a-select v-bind="props" :filter-option="filterOption" @update:value="onChange">
     <a-select-option
       v-for="dictItem in dictItems"
       :key="dictItem.id"
@@ -29,7 +29,11 @@ interface DictSelectProps extends Omit<SelectProps, 'options'> {
   itemDisabledChecker?: (dictItem: DictItem) => boolean
 }
 
-const props = defineProps<DictSelectProps>()
+const props = withDefaults(defineProps<DictSelectProps>(), {
+  showSearch: true,
+  itemFilter: undefined,
+  itemDisabledChecker: undefined
+})
 
 const emits = defineEmits<{
   (e: 'update:value', selectedValue: DictValue | DictValue[]): void

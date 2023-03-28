@@ -1,7 +1,7 @@
 import { Modal, notification, message } from 'ant-design-vue'
 import 'ant-design-vue/es/button/style/index.less'
 
-import { AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios'
+import { AxiosError, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
 import type { ApiResult } from '@/api/types'
 
 import { useUserStore } from '@/stores/user-store'
@@ -12,7 +12,7 @@ import { useI18nStore } from '@/stores/i18n-store'
 import type { BallcatAxiosRequestConfig } from '@/utils/axios/types'
 import i18n from '@/utils/i18n-utils'
 
-const onRequestFulfilled = (requestConfig: AxiosRequestConfig) => {
+const onRequestFulfilled = (requestConfig: InternalAxiosRequestConfig) => {
   const headers = requestConfig.headers || {}
 
   // token

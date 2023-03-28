@@ -16,6 +16,7 @@ import { defineComponent } from 'vue'
 import { TranslationOutlined } from '@ant-design/icons-vue'
 import { useI18n } from 'vue-i18n'
 import { useI18nStore } from '@/stores/i18n-store'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Language } from '@/locale'
 
 export default defineComponent({
