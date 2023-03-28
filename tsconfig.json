@@ -8,7 +8,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "#/*": ["./pro-components/*"]
-    }
+    },
+    // TODO 等 vue type 升级后移除
+    "ignoreDeprecations": "5.0"
   },
   "references": [
     {
