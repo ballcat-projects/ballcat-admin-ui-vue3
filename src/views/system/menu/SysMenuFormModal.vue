@@ -99,7 +99,7 @@
                   <AntIcon v-if="formModel.icon" :type="formModel.icon" />
                 </template>
                 <template #addonAfter>
-                  <SettingOutlined />
+                  <SettingOutlined @click="showIconSelect" />
                 </template>
               </a-input>
             </a-form-item>
@@ -169,6 +169,8 @@
       </a-form-item>
     </a-form>
   </a-modal>
+
+  <icon-selector-modal ref="iconSelectorModalRef" @choose="handleIconChoose"></icon-selector-modal>
 </template>
 
 <script setup lang="ts">
@@ -183,6 +185,8 @@ import { SysMenuType } from '@/api/system/menu/types'
 import type { SysMenuVO, SysMenuDTO } from '@/api/system/menu/types'
 import { listToTree } from '@/utils/tree-utils'
 import { overrideProperties } from '@/utils/bean-utils'
+import IconSelectorModal from '@/components/IconSelector/IconSelectorModal.vue'
+import type { Icon } from '@/components/IconSelector/types'
 
 const props = defineProps<{
   menuList: SysMenuVO[]
@@ -213,6 +217,8 @@ watchEffect(() => {
 const { title, visible, openModal, closeModal } = useModal()
 
 const { formAction, isUpdateForm } = useFormAction()
+
+const iconSelectorModalRef = ref()
 
 // 表单模型
 const formModel = reactive<SysMenuDTO>({
@@ -255,6 +261,14 @@ const checkMenuId = async (_rule: Rule, value: number) => {
   }
 
   return Promise.resolve()
+}
+//菜单图标选择
+const showIconSelect = () => {
+  iconSelectorModalRef.value.show()
+}
+
+const handleIconChoose = (icon: Icon) => {
+  formModel.icon = icon
 }
 
 // 表单的校验规则
