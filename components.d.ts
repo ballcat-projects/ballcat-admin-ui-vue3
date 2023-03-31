@@ -76,6 +76,8 @@ declare module '@vue/runtime-core' {
     DictText: typeof import('./src/components/Dict/display/DictText.vue')['default']
     DownOutlined: typeof import('@ant-design/icons-vue')['DownOutlined']
     GithubOutlined: typeof import('@ant-design/icons-vue')['GithubOutlined']
+    IconSelector: typeof import('./src/components/IconSelector/IconSelector.vue')['default']
+    IconSelectorModal: typeof import('./src/components/IconSelector/IconSelectorModal.vue')['default']
     InteractionOutlined: typeof import('@ant-design/icons-vue')['InteractionOutlined']
     LockOutlined: typeof import('@ant-design/icons-vue')['LockOutlined']
     LogoutOutlined: typeof import('@ant-design/icons-vue')['LogoutOutlined']
