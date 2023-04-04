@@ -50,9 +50,7 @@ watch(
   () => props.value,
   (value, oldValue, onCleanup) => {
     selectedIcon.value = value
-    console.log(selectedIcon.value)
     autoSwitchTab()
-    console.log(11)
   }
 )
 
