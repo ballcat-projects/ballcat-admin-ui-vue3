@@ -4,13 +4,13 @@
       style="border-bottom: 1px solid #ccc"
       :editor="editorRef"
       :default-config="toolbarConfig"
-      :mode="mode"
+      :mode="props.mode"
     />
     <Editor
-      v-model:value="html"
-      style="height: 500px; overflow-y: hidden"
+      v-model:value="valueHtml"
+      :style="editorStyle"
       :default-config="editorConfig"
-      :mode="mode"
+      :mode="props.mode"
       @onChange="handleUpdate"
       @onCreated="handleCreated"
     />
@@ -23,21 +23,44 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
 import type { InsertFnType, UploadFunction } from '@/components/Editor/types'
 
-const mode = 'default'
-
-const props = defineProps<{
-  modelValue?: string
-  uploadImgReq: UploadFunction
-}>()
-
-const html = ref<string>()
+const props = withDefaults(
+  defineProps<{
+    mode?: string
+    height?: number | string
+    modelValue?: string
+    uploadImgReq: UploadFunction
+  }>(),
+  {
+    mode: 'default',
+    height: '300px',
+    modelValue: ''
+  }
+)
 
 const emits = defineEmits(['update:modelValue'])
 
+// 编辑器样式
+const editorStyle = reactive({
+  height: props.height,
+  overflowY: 'auto'
+})
+
+// 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
+
+// 内容 HTML
+const valueHtml = ref<string>()
 
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容...', MENU_CONF: {} }
+
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
+})
+
 editorConfig.MENU_CONF['uploadImage'] = {
   // 自定义上传
   async customUpload(file: File, insertFn: InsertFnType) {
@@ -55,6 +78,8 @@ editorConfig.MENU_CONF['uploadImage'] = {
 
 const handleCreated = editor => {
   editorRef.value = editor // 记录 editor 实例，重要！
+  // 初始赋值
+  editorRef.value.setHtml(props.modelValue)
 }
 
 const handleUpdate = value => {
@@ -64,19 +89,15 @@ const handleUpdate = value => {
 watch(
   () => props.modelValue,
   () => {
-    html.value = props.modelValue
-    if (html.value !== editorRef.value.getHtml()) {
-      editorRef.value.setHtml(html.value)
+    valueHtml.value = props.modelValue
+    // 需要等待编辑器渲染完成
+    if (valueHtml.value !== editorRef.value.getHtml()) {
+      editorRef.value?.setHtml(valueHtml.value)
     }
   }
 )
-
-onBeforeUnmount(() => {
-  const editor = editorRef.value
-  if (editor == null) return
-  editor.destroy()
-})
 </script>
+
 <script lang="ts">
 export default {
   name: 'WangEditor'
