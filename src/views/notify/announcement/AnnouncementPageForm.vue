@@ -52,11 +52,11 @@
           mode="multiple"
           placeholder="请选择用户类型"
         />
-        <!--        <lov-local-->
-        <!--          v-if='recipientFilterType === 5'-->
-        <!--          v-decorator="['recipientFilterCondition', formRules.recipientFilterType]"-->
-        <!--          v-bind='sysUserLov'-->
-        <!--        />-->
+        <lov-local
+          v-if="recipientFilterType === 5"
+          v-model="formModel.recipientFilterCondition"
+          v-bind="sysUserLov"
+        />
       </a-form-item>
 
       <a-form-item label="接收方式" v-bind="validateInfos.receiveMode">
@@ -105,13 +105,14 @@ import type { FormRequestMapping } from '@/hooks/form'
 import { FormAction, labelCol, useAdminForm, useFormAction } from '@/hooks/form'
 import { addAnnouncement, updateAnnouncement, uploadImage } from '@/api/notify/announcement'
 import { listRoleSelectData } from '@/api/system/role'
-// import { sysUserLov } from '@/components/Lov/lovOptions'
 import type { SelectData } from '@/api/types'
 import type { AnnouncementDTO, AnnouncementPageVO } from '@/api/notify/announcement/types'
 import { overrideProperties } from '@/utils/bean-utils'
 import WangEditor from '@/components/Editor/index.vue'
 import SysOrganizationTreeSelect from '@/views/system/organization/SysOrganizationTreeSelect.vue'
 import type { ColProps } from 'ant-design-vue'
+import { sysUserLov } from '@/components/Lov/lovOptions'
+import { LovLocal } from '@/components/Lov'
 
 const wrapperCol: ColProps = {
   sm: { span: 24 },
@@ -186,6 +187,8 @@ defineExpose({
       overrideProperties(formModel, record)
       formModel.id = record?.id
       echoDataProcess(formModel)
+      formModel.recipientFilterCondition = record?.recipientFilterCondition
+      recipientFilterTypeChange(formModel.recipientFilterType, false)
     }
     formAction.value = newFormAction
   }
@@ -194,24 +197,24 @@ defineExpose({
 function echoDataProcess(data) {
   recipientFilterType.value = data.recipientFilterType
   isImmortal.value = data.immortal === 1
-  recipientFilterTypeChange(recipientFilterType.value)
 }
 
 const showTable = () => {
   emits('show-table')
 }
 
-function recipientFilterTypeChange(val) {
-  recipientFilterType.value = val
+function recipientFilterTypeChange(type: number, clearCondition = true) {
+  recipientFilterType.value = type
   if (recipientFilterType.value === 1) {
     formRules.recipientFilterCondition = [{ required: false, message: '请指定接收人范围!' }]
   } else {
     formRules.recipientFilterCondition = [{ required: true, message: '请指定接收人范围!' }]
   }
   // 筛选方式变更时，清空之前选中的条件数据
-  formModel.recipientFilterCondition = undefined
-
-  formRef.value.resetFields({ recipientFilterCondition: undefined })
+  if (clearCondition) {
+    formModel.recipientFilterCondition = []
+    formRef.value.resetFields({ recipientFilterCondition: [] })
+  }
 }
 
 function preview() {

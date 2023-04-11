@@ -1,23 +1,23 @@
 <template>
-  <div style='border: 1px solid #ccc'>
+  <div style="border: 1px solid #ccc">
     <Toolbar
-      style='border-bottom: 1px solid #ccc'
-      :editor='editorRef'
-      :default-config='toolbarConfig'
-      :mode='mode'
+      style="border-bottom: 1px solid #ccc"
+      :editor="editorRef"
+      :default-config="toolbarConfig"
+      :mode="mode"
     />
     <Editor
-      v-model:value='html'
-      style='height: 500px; overflow-y: hidden'
-      :default-config='editorConfig'
-      :mode='mode'
-      @onChange='handleUpdate'
-      @onCreated='handleCreated'
+      v-model:value="html"
+      style="height: 500px; overflow-y: hidden"
+      :default-config="editorConfig"
+      :mode="mode"
+      @onChange="handleUpdate"
+      @onCreated="handleCreated"
     />
   </div>
 </template>
 
-<script lang='ts' setup>
+<script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
@@ -61,12 +61,15 @@ const handleUpdate = value => {
   emits('update:modelValue', value.getHtml())
 }
 
-watch(() => props.modelValue, () => {
-  html.value = props.modelValue
-  if (html.value !== editorRef.value.getHtml()) {
-    editorRef.value.setHtml(html.value)
+watch(
+  () => props.modelValue,
+  () => {
+    html.value = props.modelValue
+    if (html.value !== editorRef.value.getHtml()) {
+      editorRef.value.setHtml(html.value)
+    }
   }
-})
+)
 
 onBeforeUnmount(() => {
   const editor = editorRef.value
@@ -74,7 +77,7 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 </script>
-<script lang='ts'>
+<script lang="ts">
 export default {
   name: 'WangEditor'
 }

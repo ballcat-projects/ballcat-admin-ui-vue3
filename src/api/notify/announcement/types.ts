@@ -1,6 +1,5 @@
 import type { PageParam } from '@/api/types'
 
-
 /**
  * 公告状态
  */

@@ -62,7 +62,7 @@ export default {
       // 展示公告
       this.$refs.announcementModal.show(this.announcement)
     },
-    onAnnouncementPush: function(data) {
+    onAnnouncementPush: function (data) {
       // 添加公告
       let announcement = {
         id: data.id,
@@ -71,7 +71,7 @@ export default {
       }
       this.announcements.push(announcement)
     },
-    onAnnouncementClose: function(data) {
+    onAnnouncementClose: function (data) {
       this.announcements.splice(
         this.announcements.findIndex(item => item.id === data.id),
         1

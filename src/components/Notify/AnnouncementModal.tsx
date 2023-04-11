@@ -14,8 +14,8 @@ export const AnnouncementModal = defineComponent({
         width: 800,
         // JSX support
         icon: () => <NotificationOutlined />,
-        content: () => <div class='preview' innerHTML={announcement.content}></div>,
-        onOk: function() {
+        content: () => <div class="preview" innerHTML={announcement.content}></div>,
+        onOk: function () {
           // 不是预览且状态是未读
           if (!isPreview && announcement.status === 0) {
             return readAnnouncement(announcement.id!)
@@ -25,7 +25,6 @@ export const AnnouncementModal = defineComponent({
     }
 
     expose({ show })
-    return () => {
-    }
+    return () => {}
   }
 })

@@ -68,7 +68,6 @@ const reset = () => {
   resetFields()
   search()
 }
-
 </script>
 
 <script lang="ts">
