@@ -2,82 +2,85 @@
   <div v-if="announcementNum > 0" class="text-container">
     <transition class="" name="slide" mode="out-in">
       <span :key="announcement.id" class="announcement-content">
-        <a-icon type="sound" theme="filled" />
+        <AntIcon type="sound" />
         <a href="javascript:" class="text" @click="readAnnouncement">{{ announcement.title }}</a>
       </span>
     </transition>
-    <announcement-modal ref="announcementModal" />
+    <announcement-modal ref="announcementModalRef" />
   </div>
 </template>
 
-<script>
-import AnnouncementModal from '@/components/Notify/AnnouncementModal'
+<script lang="ts" setup>
 import { getUserAnnouncements } from '@/api/notify/announcement'
 
-export default {
-  name: 'AnnouncementRibbon',
-  components: { AnnouncementModal },
-  data() {
-    return {
-      activeIndex: 0, // 当前索引
-      intervalId: null, // 定时器ID
-      playTime: 4000, // 定时器执行间隔
-      announcements: [] // 公告信息
-    }
-  },
-  computed: {
-    announcementNum() {
-      return this.announcements.length
-    },
-    announcement() {
-      return this.announcements[this.activeIndex]
-    }
-  },
-  created() {
-    // 获取公告信息
-    getUserAnnouncements().then(res => {
-      this.announcements = res.data
-    })
-    // 定义定时器
-    this.intervalId = setInterval(() => {
-      if (this.activeIndex < this.announcementNum - 1) {
-        this.activeIndex++ // 自增
-      } else {
-        this.activeIndex = 0
-      }
-    }, this.playTime)
-    // 注册监听事件
-    this.$bus.$on('announcement-push', this.onAnnouncementPush)
-    this.$bus.$on('announcement-close', this.onAnnouncementClose)
-  },
-  destroyed() {
-    // 清除定时器
-    clearInterval(this.intervalId)
-    // 删除事件监听
-    this.$bus.$off('announcement-push', this.onAnnouncementPush)
-    this.$bus.$off('announcement-close', this.onAnnouncementClose)
-  },
-  methods: {
-    readAnnouncement() {
-      // 展示公告
-      this.$refs.announcementModal.show(this.announcement)
-    },
-    onAnnouncementPush: function (data) {
-      // 添加公告
-      let announcement = {
-        id: data.id,
-        title: data.title,
-        content: data.content
-      }
-      this.announcements.push(announcement)
-    },
-    onAnnouncementClose: function (data) {
-      this.announcements.splice(
-        this.announcements.findIndex(item => item.id === data.id),
-        1
-      )
-    }
+import AntIcon from '#/layout/components/AntIcon'
+import { bus } from '@/utils/EventBus'
+import { AnnouncementModal } from '@/components/Notify/AnnouncementModal'
+import type { Announcement } from '@/api/notify/announcement/types'
+
+const announcementModalRef = ref()
+
+const activeIndex = ref(0) // 当前索引
+const intervalId = ref() // 定时器ID
+const playTime = ref(4000) // 定时器执行间隔
+const announcements = ref<Announcement[]>([]) // 公告信息
+
+const announcementNum = computed(() => {
+  return announcements.value.length
+})
+const announcement = computed(() => {
+  return announcements.value[activeIndex.value]
+})
+
+const readAnnouncement = () => {
+  // 展示公告
+  announcementModalRef.value.show({ ...announcement.value })
+}
+const onAnnouncementPush = data => {
+  // 添加公告
+  const announcement = {
+    id: data.id,
+    title: data.title,
+    content: data.content
   }
+  announcements.value.push(announcement)
+}
+const onAnnouncementClose = data => {
+  announcements.value.splice(
+    announcements.value.findIndex(item => item.id === data.id),
+    1
+  )
+}
+
+onMounted(() => {
+  // 获取公告信息
+  getUserAnnouncements().then(res => {
+    announcements.value = res.data
+  })
+  // 定义定时器
+  intervalId.value = setInterval(() => {
+    if (activeIndex.value < announcementNum.value - 1) {
+      activeIndex.value++ // 自增
+    } else {
+      activeIndex.value = 0
+    }
+  }, playTime.value)
+  // 注册监听事件
+  bus.on('announcement-push', onAnnouncementPush)
+  bus.on('announcement-close', onAnnouncementClose)
+})
+
+onUnmounted(() => {
+  // 清除定时器
+  clearInterval(intervalId.value)
+  // 删除事件监听
+  bus.off('announcement-push', onAnnouncementPush)
+  bus.off('announcement-close', onAnnouncementClose)
+})
+</script>
+<script lang="ts">
+export default {
+  name: 'AnnouncementRibbon'
 }
 </script>
 
