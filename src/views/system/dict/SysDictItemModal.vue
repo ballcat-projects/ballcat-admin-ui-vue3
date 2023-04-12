@@ -21,7 +21,7 @@
     >
       <template #headerTitle>
         <a-button key="show" v-has="'system:dict:add'" type="primary" @click="handleCreate">
-          <plus-outlined />
+          <PlusOutlined />
           新建
         </a-button>
       </template>
@@ -35,15 +35,19 @@
           />
         </template>
         <template v-else-if="column.key === 'operate'">
-          <a v-has="'system:dict:edit'" @click="handleUpdate(record)">修改</a>
-          <a-divider type="vertical" />
-          <a-popconfirm
-            v-if="hasPermission('system:dict:del')"
-            title="确认要删除吗？"
-            @confirm="handleRemove(record)"
-          >
-            <a href="javascript:" class="ballcat-text-danger">删除</a>
-          </a-popconfirm>
+          <a-space>
+            <template #split>
+              <a-divider type="vertical" style="margin: 0" />
+            </template>
+            <a v-has="'system:dict:edit'" @click="handleUpdate(record)">修改</a>
+            <a-popconfirm
+              v-if="hasPermission('system:dict:del')"
+              title="确认要删除吗？"
+              @confirm="handleRemove(record)"
+            >
+              <a href="javascript:" class="ballcat-text-danger">删除</a>
+            </a-popconfirm>
+          </a-space>
         </template>
       </template>
     </pro-table>

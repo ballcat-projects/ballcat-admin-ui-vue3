@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { Form } from 'ant-design-vue'
+import type { SysRoleQO } from '@/api/system/role/types'
 const useForm = Form.useForm
 
 // 表单 label 全局配置
@@ -40,9 +41,9 @@ const emits = defineEmits<{
 
 // const [searchCollapsed, toggleSearchCollapsed] = useToggle(true)
 
-const formModel = reactive({
-  name: '',
-  code: ''
+const formModel = reactive<SysRoleQO>({
+  name: undefined,
+  code: undefined
 })
 
 const { resetFields } = useForm(formModel)

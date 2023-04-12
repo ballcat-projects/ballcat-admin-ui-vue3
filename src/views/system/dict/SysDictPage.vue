@@ -13,27 +13,27 @@
   >
     <template #toolBarRender>
       <a-button key="show" v-has="'system:dict:add'" type="primary" @click="handleCreate">
-        <plus-outlined />
+        <PlusOutlined />
         新建
       </a-button>
     </template>
 
     <template #bodyCell="{ column, record }">
-      <template v-if="column.key === 'valueType'">
-        <dict-tag :value="record.valueType" dict-code="dict_value_type" />
-      </template>
-      <template v-else-if="column.key === 'operate'">
-        <a v-has="'system:dict:edit'" @click="handleUpdate(record)">修改</a>
-        <a-divider type="vertical" />
-        <a v-has="'system:dict:read'" @click="openDictItemModal(record)">字典项</a>
-        <a-divider type="vertical" />
-        <a-popconfirm
-          v-if="hasPermission('system:dict:del')"
-          title="确认要删除吗？"
-          @confirm="handleRemove(record)"
-        >
-          <a href="javascript:" class="ballcat-text-danger">删除</a>
-        </a-popconfirm>
+      <template v-if="column.key === 'operate'">
+        <a-space>
+          <template #split>
+            <a-divider type="vertical" style="margin: 0" />
+          </template>
+          <a v-has="'system:dict:edit'" @click="handleUpdate(record)">修改</a>
+          <a v-has="'system:dict:read'" @click="openDictItemModal(record)">字典项</a>
+          <a-popconfirm
+            v-if="hasPermission('system:dict:del')"
+            title="确认要删除吗？"
+            @confirm="handleRemove(record)"
+          >
+            <a href="javascript:" class="ballcat-text-danger">删除</a>
+          </a-popconfirm>
+        </a-space>
       </template>
     </template>
   </pro-table>
@@ -59,6 +59,7 @@ import { doRequest } from '@/utils/axios/request'
 import SysDictPageSearch from '@/views/system/dict/SysDictPageSearch.vue'
 import SysDictFormModal from '@/views/system/dict/SysDictFormModal.vue'
 import SysDictItemModal from '@/views/system/dict/SysDictItemModal.vue'
+import { DictTag } from '@/components/Dict'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -126,7 +127,10 @@ const columns: ProColumns[] = [
   {
     title: '数据类型',
     dataIndex: 'valueType',
-    width: 180
+    width: 180,
+    customRender: function ({ value }) {
+      return h(DictTag, { dictCode: 'dict_value_type', value: value })
+    }
   },
   {
     title: '备注',

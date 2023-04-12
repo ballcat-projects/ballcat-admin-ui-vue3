@@ -62,15 +62,19 @@
       </template>
       <!-- 操作栏 -->
       <template v-else-if="column.key === 'operate'">
-        <a v-has="'system:organization:edit'" @click="handleUpdate(record)">修改</a>
-        <a-divider type="vertical" />
-        <a-popconfirm
-          v-if="hasPermission('system:organization:del')"
-          title="确认要删除吗？"
-          @confirm="() => handleRemove(record)"
-        >
-          <a href="javascript:" class="ballcat-text-danger">删除</a>
-        </a-popconfirm>
+        <a-space>
+          <template #split>
+            <a-divider type="vertical" style="margin: 0" />
+          </template>
+          <a v-has="'system:organization:edit'" @click="handleUpdate(record)">修改</a>
+          <a-popconfirm
+            v-if="hasPermission('system:organization:del')"
+            title="确认要删除吗？"
+            @confirm="() => handleRemove(record)"
+          >
+            <a href="javascript:" class="ballcat-text-danger">删除</a>
+          </a-popconfirm>
+        </a-space>
       </template>
     </template>
   </pro-table>

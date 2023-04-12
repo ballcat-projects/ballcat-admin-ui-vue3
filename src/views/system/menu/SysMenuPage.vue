@@ -19,7 +19,7 @@
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
       <a-button v-has="'system:role:add'" type="primary" @click="handleCreate()">
-        <plus-outlined />新建
+        <PlusOutlined />新建
       </a-button>
     </template>
 
@@ -35,23 +35,22 @@
           {{ enableI18n ? record.i18nTitle : record.title }}
         </a-tooltip>
       </template>
-      <!-- 菜单可见性 -->
-      <template v-else-if="column.key === 'hidden'">
-        <dict-text dict-code="yes_or_no" :value="record.hidden ? 0 : 1" />
-      </template>
       <!-- 操作栏 -->
       <template v-else-if="column.key === 'operate'">
-        <a v-has="'system:menu:add'" @click="handleCreate(record)">添加</a>
-        <a-divider type="vertical" />
-        <a v-has="'system:menu:edit'" @click="handleUpdate(record)">修改</a>
-        <a-divider type="vertical" />
-        <a-popconfirm
-          v-if="hasPermission('system:menu:del')"
-          title="确认要删除吗？"
-          @confirm="() => handleRemove(record)"
-        >
-          <a href="javascript:" class="ballcat-text-danger">删除</a>
-        </a-popconfirm>
+        <a-space>
+          <template #split>
+            <a-divider type="vertical" style="margin: 0" />
+          </template>
+          <a v-has="'system:menu:add'" @click="handleCreate(record)">添加</a>
+          <a v-has="'system:menu:edit'" @click="handleUpdate(record)">修改</a>
+          <a-popconfirm
+            v-if="hasPermission('system:menu:del')"
+            title="确认要删除吗？"
+            @confirm="() => handleRemove(record)"
+          >
+            <a href="javascript:" class="ballcat-text-danger">删除</a>
+          </a-popconfirm>
+        </a-space>
       </template>
     </template>
   </pro-table>
@@ -79,6 +78,7 @@ import SysMenuPageSearch from '@/views/system/menu/SysMenuPageSearch.vue'
 import SysMenuFormModal from '@/views/system/menu/SysMenuFormModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
+import { DictText } from '@/components/Dict'
 
 const enableI18n = false
 
@@ -195,7 +195,10 @@ const columns: ProColumns[] = [
   {
     title: '可见',
     dataIndex: 'hidden',
-    width: 50
+    width: 50,
+    customRender: function ({ value: hidden }) {
+      return h(DictText, { dictCode: 'yes_or_no', value: hidden ? 0 : 1 })
+    }
   },
   {
     title: '创建时间',

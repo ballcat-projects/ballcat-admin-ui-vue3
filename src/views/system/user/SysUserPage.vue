@@ -45,7 +45,7 @@
 
             <template #toolBarRender>
               <a-button key="show" v-has="'system:user:add'" type="primary" @click="handleCreate">
-                <plus-outlined />
+                <PlusOutlined />
                 新建
               </a-button>
             </template>
@@ -60,12 +60,6 @@
                 >
                   <template #icon><UserOutlined /></template>
                 </a-avatar>
-              </template>
-              <template v-else-if="column.key === 'sex'">
-                <dict-text dict-code="gender" :value="record.sex" />
-              </template>
-              <template v-else-if="column.key === 'status'">
-                <dict-badge dict-code="user_status" :value="record.status" />
               </template>
               <template v-else-if="column.key === 'operate'">
                 <a-dropdown :trigger="['click']">
@@ -136,6 +130,7 @@ import type { SysUserStatus } from '@/api/system/user/types'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
+import { DictBadge, DictText } from '@/components/Dict'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -267,7 +262,10 @@ const columns: ProColumns[] = [
   },
   {
     title: '性别',
-    dataIndex: 'sex'
+    dataIndex: 'sex',
+    customRender: function ({ value }) {
+      return h(DictText, { dictCode: 'gender', value: value })
+    }
   },
   {
     title: '组织',
@@ -280,7 +278,10 @@ const columns: ProColumns[] = [
   {
     title: '状态',
     dataIndex: 'status',
-    width: '80px'
+    width: '80px',
+    customRender: function ({ value }) {
+      return h(DictBadge, { dictCode: 'user_status', value: value })
+    }
   },
   {
     title: '创建时间',

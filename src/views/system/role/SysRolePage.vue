@@ -8,31 +8,31 @@
     :columns="columns"
     :scroll="{ x: 1100 }"
   >
+    <!-- 操作按钮区域 -->
     <template #toolBarRender>
       <a-button key="show" v-has="'system:role:add'" type="primary" @click="handleCreate">
-        <plus-outlined />
+        <PlusOutlined />
         新建
       </a-button>
     </template>
 
     <template #bodyCell="{ column, record }">
-      <template v-if="column.key === 'type'">
-        <dict-tag :value="record.type" dict-code="role_type"></dict-tag>
-      </template>
-      <template v-else-if="column.key === 'operate'">
-        <a v-has="'system:role:edit'" @click="handleUpdate(record)">修改</a>
-        <a-divider type="vertical" />
-        <a v-has="'system:role:grant'" @click="handleGrant(record)">授权</a>
-        <a-divider type="vertical" />
-        <a v-has="'system:role:grant'" @click="handleBind(record)">绑定</a>
-        <a-divider type="vertical" />
-        <a-popconfirm
-          v-if="hasPermission('system:role:del')"
-          title="确认要删除吗？"
-          @confirm="handleRemove(record)"
-        >
-          <a href="javascript:" class="ballcat-text-danger">删除</a>
-        </a-popconfirm>
+      <template v-if="column.key === 'operate'">
+        <a-space>
+          <template #split>
+            <a-divider type="vertical" style="margin: 0" />
+          </template>
+          <a v-has="'system:role:edit'" @click="handleUpdate(record)">修改</a>
+          <a v-has="'system:role:grant'" @click="handleGrant(record)">授权</a>
+          <a v-has="'system:role:grant'" @click="handleBind(record)">绑定</a>
+          <a-popconfirm
+            v-if="hasPermission('system:role:del')"
+            title="确认要删除吗？"
+            @confirm="handleRemove(record)"
+          >
+            <a href="javascript:" class="ballcat-text-danger">删除</a>
+          </a-popconfirm>
+        </a-space>
       </template>
     </template>
   </pro-table>
@@ -62,6 +62,7 @@ import SysRoleGrantDrawer from '@/views/system/role/SysRoleGrantDrawer.vue'
 import SysRoleUserModal from '@/views/system/role/SysRoleUserModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
+import { DictTag } from '@/components/Dict'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -139,7 +140,10 @@ const columns: ProColumns[] = [
     title: '类型',
     dataIndex: 'type',
     sorter: true,
-    width: 80
+    width: 80,
+    customRender: function ({ value }) {
+      return h(DictTag, { dictCode: 'role_type', value: value })
+    }
   },
   {
     title: '备注',
