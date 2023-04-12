@@ -1,7 +1,7 @@
 <template>
   <div v-if="announcementNum > 0" class="text-container">
     <transition class="" name="slide" mode="out-in">
-      <span :key="announcement.id" class="announcement-content">
+      <span v-if="announcement" :key="announcement.id" class="announcement-content">
         <AntIcon type="sound" />
         <a href="javascript:" class="text" @click="readAnnouncement">{{ announcement.title }}</a>
       </span>

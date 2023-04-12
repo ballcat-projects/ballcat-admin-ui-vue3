@@ -71,14 +71,17 @@ export const useAdminForm = <T, R = unknown>(
 
   /* 表单校验后并提交 */
   const validateAndSubmit = (model: T, requestOptions?: RequestOptions<R>) => {
-    useFormResult
-      .validate()
-      .then(() => {
-        submit(model, requestOptions)
-      })
-      .catch(e => {
-        import.meta.env.DEV && console.log('error', e)
-      })
+    // 防止动态 formRule 异常抛出 outOfDate，使用 setTimeout 包一层
+    setTimeout(() => {
+      useFormResult
+        .validate()
+        .then(() => {
+          submit(model, requestOptions)
+        })
+        .catch(e => {
+          import.meta.env.DEV && console.log('error', e)
+        })
+    }, 0)
   }
 
   return {

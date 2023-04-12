@@ -11,16 +11,12 @@ import 'ant-design-vue/es/modal/style/index.less'
 
 import { setupGlobDirectives } from '@/directives'
 
-import App from './App.vue'
-
-const app = createApp(App)
-app.use(createPinia())
-app.use(router)
-
 // i18n
 import { createI18n } from 'vue-i18n'
 import { messages as i18nMessages } from '@/locale'
 import { DEFAULT_LANGUAGE } from '@/constants'
+
+import App from './App.vue'
 
 const i18n = createI18n({
   local: DEFAULT_LANGUAGE,
@@ -29,6 +25,10 @@ const i18n = createI18n({
   fallbackLocale: DEFAULT_LANGUAGE,
   messages: i18nMessages
 })
+
+const app = createApp(App)
+app.use(createPinia())
+app.use(router)
 
 i18n.install(app)
 

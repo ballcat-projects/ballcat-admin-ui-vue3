@@ -2,6 +2,7 @@ import { Modal } from 'ant-design-vue'
 import { readAnnouncement } from '@/api/notify/announcement'
 import type { AnnouncementDTO } from '@/api/notify/announcement/types'
 import { NotificationOutlined } from '@ant-design/icons-vue'
+import { defineComponent } from 'vue'
 import '@wangeditor/editor/dist/css/style.css'
 import './index.less'
 

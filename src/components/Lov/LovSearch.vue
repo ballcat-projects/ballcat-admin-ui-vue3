@@ -4,8 +4,8 @@
       <a-row :gutter="8">
         <a-col v-for="item in formModel.domains" :key="item.field" :md="8" :sm="16">
           <a-form-item
-            :label="item.label"
             :key="item.field"
+            :label="item.label"
             :label-col="{ span: 7 }"
             :wrapper-col="{ span: 16 }"
             style="height: 30px"

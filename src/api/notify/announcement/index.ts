@@ -5,36 +5,64 @@ import type {
   AnnouncementDTO,
   AnnouncementPageParam,
   AnnouncementPageVO
-} from '@/api/notify/announcement/types'
+} from './types'
 import type { FileObject } from '@/components/CropperModal/types'
 
-export function getAnnouncementPage(query: AnnouncementPageParam) {
+/**
+ * 分页查询公告
+ * @param query 分页查询参数
+ */
+export function pageAnnouncements(query: AnnouncementPageParam) {
   return httpClient.get<ApiResult<AnnouncementPageVO>>('/notify/announcement/page', {
     params: query
   })
 }
 
-export function addAnnouncement(obj: AnnouncementDTO) {
-  return httpClient.post<ApiResult<void>>('/notify/announcement', obj)
+/**
+ * 创建公告信息
+ * @param announcementDTO
+ */
+export function createAnnouncement(announcementDTO: AnnouncementDTO) {
+  return httpClient.post<ApiResult<void>>('/notify/announcement', announcementDTO)
 }
 
-export function delAnnouncement(id: number) {
+/**
+ * 修改公告信息
+ * @param announcementDTO
+ */
+export function updateAnnouncement(announcementDTO: AnnouncementDTO) {
+  return httpClient.put<ApiResult<void>>('/notify/announcement', announcementDTO)
+}
+
+/**
+ * 删除公告信息
+ * @param id 公告id
+ */
+export function removeAnnouncement(id: number) {
   return httpClient.delete<ApiResult<void>>('/notify/announcement/' + id)
 }
 
-export function updateAnnouncement(obj: AnnouncementDTO) {
-  return httpClient.put<ApiResult<void>>('/notify/announcement', obj)
-}
-
-export function publish(id: number) {
+/**
+ * 发布公告信息
+ * @param id 公告id
+ */
+export function publishAnnouncement(id: number) {
   return httpClient.patch<ApiResult<void>>('/notify/announcement/publish/' + id)
 }
 
-export function close(id: number) {
+/**
+ * 关闭公告信息
+ * @param id 公告id
+ */
+export function closeAnnouncement(id: number) {
   return httpClient.patch<ApiResult<void>>('/notify/announcement/close/' + id)
 }
 
-export function uploadImage(resultFiles: FileObject[]) {
+/**
+ * 上传公告图片
+ * @param resultFiles
+ */
+export function uploadAnnouncementImage(resultFiles: FileObject[]) {
   const formData = new FormData()
   resultFiles.forEach(file => {
     formData.append('files', file.data, file.name)
