@@ -9,8 +9,6 @@ import 'ant-design-vue/es/message/style/index.less'
 import 'ant-design-vue/es/notification/style/index.less'
 import 'ant-design-vue/es/modal/style/index.less'
 
-import { setupGlobDirectives } from '@/directives'
-
 // i18n
 import { createI18n } from 'vue-i18n'
 import { messages as i18nMessages } from '@/locale'
@@ -31,8 +29,5 @@ app.use(createPinia())
 app.use(router)
 
 i18n.install(app)
-
-// 自定义指令
-setupGlobDirectives(app)
 
 app.mount('#app')

@@ -12,7 +12,12 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button key="show" v-has="'system:config:add'" type="primary" @click="handleCreate">
+      <a-button
+        v-if="hasPermission('system:config:add')"
+        key="show"
+        type="primary"
+        @click="handleCreate"
+      >
         <PlusOutlined />
         新建
       </a-button>
@@ -25,7 +30,7 @@
           <template #split>
             <a-divider type="vertical" style="margin: 0" />
           </template>
-          <a v-has="'system:config:edit'" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:config:edit')" @click="handleUpdate(record)">修改</a>
           <a-popconfirm
             v-if="hasPermission('system:config:del')"
             title="确认要删除吗？"

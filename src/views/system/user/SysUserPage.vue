@@ -44,7 +44,12 @@
             </template>
 
             <template #toolBarRender>
-              <a-button key="show" v-has="'system:user:add'" type="primary" @click="handleCreate">
+              <a-button
+                v-if="hasPermission('system:user:add')"
+                key="show"
+                type="primary"
+                @click="handleCreate"
+              >
                 <PlusOutlined />
                 新建
               </a-button>

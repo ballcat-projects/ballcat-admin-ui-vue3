@@ -18,7 +18,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button v-has="'system:role:add'" type="primary" @click="handleCreate()">
+      <a-button v-if="hasPermission('system:role:add')" type="primary" @click="handleCreate()">
         <PlusOutlined />新建
       </a-button>
     </template>
@@ -41,8 +41,8 @@
           <template #split>
             <a-divider type="vertical" style="margin: 0" />
           </template>
-          <a v-has="'system:menu:add'" @click="handleCreate(record)">添加</a>
-          <a v-has="'system:menu:edit'" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:menu:add')" @click="handleCreate(record)">添加</a>
+          <a v-if="hasPermission('system:menu:edit')" @click="handleUpdate(record)">修改</a>
           <a-popconfirm
             v-if="hasPermission('system:menu:del')"
             title="确认要删除吗？"

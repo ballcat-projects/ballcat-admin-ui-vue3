@@ -44,8 +44,12 @@
       >
         <a-button type="primary" danger><InteractionOutlined />校正层级深度</a-button>
       </a-popconfirm>
-      <a-button v-has="'system:organization:add'" type="primary" @click="handleCreate">
-        <plus-outlined /> 新建
+      <a-button
+        v-if="hasPermission('system:organization:add')"
+        type="primary"
+        @click="handleCreate"
+      >
+        <PlusOutlined /> 新建
       </a-button>
     </template>
 
@@ -66,7 +70,7 @@
           <template #split>
             <a-divider type="vertical" style="margin: 0" />
           </template>
-          <a v-has="'system:organization:edit'" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:organization:edit')" @click="handleUpdate(record)">修改</a>
           <a-popconfirm
             v-if="hasPermission('system:organization:del')"
             title="确认要删除吗？"

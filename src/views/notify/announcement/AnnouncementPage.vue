@@ -10,7 +10,12 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button key="show" v-has="'notify:announcement:add'" type="primary" @click="handleCreate">
+      <a-button
+        v-if="hasPermission('notify:announcement:add')"
+        key="show"
+        type="primary"
+        @click="handleCreate"
+      >
         <PlusOutlined />
         新建
       </a-button>
@@ -24,7 +29,7 @@
             <a-divider type="vertical" style="margin: 0" />
           </template>
           <a
-            v-has="'notify:announcement:edit'"
+            v-if="hasPermission('notify:announcement:edit')"
             :disabled="record.status !== AnnouncementStatusEnum.UNPUBLISHED || null"
             @click="handleUpdate(record)"
             >修改

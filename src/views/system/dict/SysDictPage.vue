@@ -12,7 +12,12 @@
     :scroll="{ x: 800 }"
   >
     <template #toolBarRender>
-      <a-button key="show" v-has="'system:dict:add'" type="primary" @click="handleCreate">
+      <a-button
+        v-if="hasPermission('system:dict:add')"
+        key="show"
+        type="primary"
+        @click="handleCreate"
+      >
         <PlusOutlined />
         新建
       </a-button>
@@ -24,8 +29,8 @@
           <template #split>
             <a-divider type="vertical" style="margin: 0" />
           </template>
-          <a v-has="'system:dict:edit'" @click="handleUpdate(record)">修改</a>
-          <a v-has="'system:dict:read'" @click="openDictItemModal(record)">字典项</a>
+          <a v-if="hasPermission('system:dict:edit')" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:dict:read')" @click="openDictItemModal(record)">字典项</a>
           <a-popconfirm
             v-if="hasPermission('system:dict:del')"
             title="确认要删除吗？"

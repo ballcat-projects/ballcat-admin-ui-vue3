@@ -10,7 +10,12 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button key="show" v-has="'system:role:add'" type="primary" @click="handleCreate">
+      <a-button
+        v-if="hasPermission('system:role:add')"
+        key="show"
+        type="primary"
+        @click="handleCreate"
+      >
         <PlusOutlined />
         新建
       </a-button>
@@ -22,9 +27,9 @@
           <template #split>
             <a-divider type="vertical" style="margin: 0" />
           </template>
-          <a v-has="'system:role:edit'" @click="handleUpdate(record)">修改</a>
-          <a v-has="'system:role:grant'" @click="handleGrant(record)">授权</a>
-          <a v-has="'system:role:grant'" @click="handleBind(record)">绑定</a>
+          <a v-if="hasPermission('system:role:edit')" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:role:grant')" @click="handleGrant(record)">授权</a>
+          <a v-if="hasPermission('system:role:grant')" @click="handleBind(record)">绑定</a>
           <a-popconfirm
             v-if="hasPermission('system:role:del')"
             title="确认要删除吗？"
@@ -65,7 +70,7 @@ import { doRequest } from '@/utils/axios/request'
 import { DictTag } from '@/components/Dict'
 
 // 鉴权方法
-const { hasPermission } = useAuthorize()
+const { hasPermission, hasAnyPermission } = useAuthorize()
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
