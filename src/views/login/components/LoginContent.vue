@@ -122,11 +122,12 @@ function store(res: LoginResult) {
 
   // 存储用户信息
   const info = res.info
-  const attributes = res.attributes || {}
+  const roleCodes = res.attributes?.roleCodes || []
+  const permissions = res.attributes?.permissions || []
   userStore.userInfo = {
     ...info,
-    roleCodes: attributes.roleCodes,
-    permissions: attributes.permissions
+    roleCodes,
+    permissions
   }
 
   // TODO 自动登录处理
