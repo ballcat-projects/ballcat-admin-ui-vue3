@@ -1,6 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "components.d.ts", "auto-imports.d.ts"],
+  "include": [
+    "shims.d.ts", "env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "components.d.ts", "auto-imports.d.ts"],
   "exclude": ["node_modules/**"],
   "compilerOptions": {
     "lib": ["esnext", "ES2016", "DOM", "DOM.Iterable"],
