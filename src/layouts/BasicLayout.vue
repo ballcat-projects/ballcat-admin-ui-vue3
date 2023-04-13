@@ -86,31 +86,12 @@ import type { Key } from 'ant-design-vue/es/_util/type'
 import RouterLayout from '@/layouts/RouterLayout.vue'
 import { PROJECT_TITLE } from '@/constants'
 import RightContent from '@/layouts/components/RightContent/index.vue'
-import useBallcatWebSocket from '@/hooks/websocket'
 import AnnouncementRibbon from '@/components/Notify/AnnouncementRibbon.vue'
-import { bus } from '@/utils/EventBus'
+import useAdminWebSocket from '@/hooks/websocket'
 
-// 开启 websocket
-const { data } = useBallcatWebSocket()
-watchEffect(() => {
-  console.log(data.value, 'websocket')
-  let event
-  let dataMsg
+// 开启 websocket, 如果不需要 websocket 则注释此行代码
+useAdminWebSocket()
 
-  try {
-    dataMsg = JSON.parse(data.value)
-    event = dataMsg.type
-    // 心跳响应跳过发布
-    if (event === 'pong') {
-      return
-    }
-  } catch (e) {
-    // 纯文本消息
-    event = 'plaintext'
-    dataMsg = data.value
-  }
-  bus.emit(event, dataMsg)
-})
 const collapsed = ref(false)
 const toggleCollapsed = (isCollapsed: boolean) => {
   collapsed.value = isCollapsed

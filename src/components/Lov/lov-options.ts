@@ -1,4 +1,5 @@
 // Lov 搜索条件控件的类型
+// @ts-ignore
 import type { LovLocalProps } from '@/components/Lov/LovLocal'
 
 import { pageUsers as getUserPage } from '@/api/system/user'

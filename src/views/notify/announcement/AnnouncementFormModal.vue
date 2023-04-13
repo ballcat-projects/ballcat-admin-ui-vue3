@@ -118,7 +118,7 @@ import {
   uploadAnnouncementImage
 } from '@/api/notify/announcement'
 import type { AnnouncementDTO } from '@/api/notify/announcement/types'
-import { sysUserLov } from '@/components/Lov/lovOptions'
+import { sysUserLov } from '@/components/Lov/lov-options'
 import { LovLocal } from '@/components/Lov'
 import WangEditor from '@/components/Editor/index.vue'
 import SysOrganizationTreeSelect from '@/views/system/organization/SysOrganizationTreeSelect.vue'

@@ -13,7 +13,7 @@ const dynamicViewModules = import.meta.glob('/src/views/**/*.{vue,tsx}')
 const HOME_ROUTE: RouteRecordRaw = {
   path: '/',
   name: '/',
-  component: () => import('@/layouts/TestLayout.vue'),
+  component: () => import('@/layouts/BasicLayout.vue'),
   meta: {
     keepAlive: false
   },

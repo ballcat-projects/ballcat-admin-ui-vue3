@@ -2,7 +2,7 @@
   <div v-if="announcementNum > 0" class="text-container">
     <transition class="" name="slide" mode="out-in">
       <span v-if="announcement" :key="announcement.id" class="announcement-content">
-        <AntIcon type="sound" />
+        <SoundOutlined />
         <a href="javascript:" class="text" @click="readAnnouncement">{{ announcement.title }}</a>
       </span>
     </transition>
@@ -12,9 +12,7 @@
 
 <script lang="ts" setup>
 import { getUserAnnouncements } from '@/api/notify/announcement'
-
-import AntIcon from '#/layout/components/AntIcon'
-import { bus } from '@/utils/EventBus'
+import { emitter } from '@/hooks/mitt'
 import { AnnouncementModal } from '@/components/Notify/AnnouncementModal'
 import type { Announcement } from '@/api/notify/announcement/types'
 
@@ -66,16 +64,16 @@ onMounted(() => {
     }
   }, playTime.value)
   // 注册监听事件
-  bus.on('announcement-push', onAnnouncementPush)
-  bus.on('announcement-close', onAnnouncementClose)
+  emitter.on('announcement-push', onAnnouncementPush)
+  emitter.on('announcement-close', onAnnouncementClose)
 })
 
 onUnmounted(() => {
   // 清除定时器
   clearInterval(intervalId.value)
   // 删除事件监听
-  bus.off('announcement-push', onAnnouncementPush)
-  bus.off('announcement-close', onAnnouncementClose)
+  emitter.off('announcement-push', onAnnouncementPush)
+  emitter.off('announcement-close', onAnnouncementClose)
 })
 </script>
 <script lang="ts">
