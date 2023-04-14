@@ -134,7 +134,7 @@ const getComponent = function (componentPath: string) {
     viewModule = dynamicViewModules[`/src/views/${componentPath}/index.tsx`]
   }
   if (!viewModule) {
-    console.warn(
+    import.meta.env.DEV && console.warn(
       '在src/views/下找不到`' + componentPath + '.vue` 或 `' + componentPath + '.tsx`, 请自行创建!'
     )
     viewModule = ExceptionComponentImport
