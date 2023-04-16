@@ -1,5 +1,5 @@
 import 'vue-router'
-import { VueNodeOrRender } from '#/layout/renderTypes'
+import type { VueNodeOrRender } from '#/types'
 
 declare module 'vue-router' {
   interface RouteMeta {

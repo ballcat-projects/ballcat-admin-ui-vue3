@@ -23,7 +23,6 @@ export const availableLocales = Object.keys(localesMap)
 const loadedLanguages: string[] = []
 
 function setI18nLanguage(lang: Locale) {
-  useI18nStore().setLanguage(lang)
   dayjs.locale(localMapping[lang])
   i18n.global.locale.value = lang as any
   if (typeof document !== 'undefined') document.querySelector('html')?.setAttribute('lang', lang)
@@ -46,5 +45,6 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
 
 export const install = app => {
   app.use(i18n)
+  useI18nStore().setLanguage(DEFAULT_LANGUAGE)
   loadLanguageAsync(DEFAULT_LANGUAGE)
 }

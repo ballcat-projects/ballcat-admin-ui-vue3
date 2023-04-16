@@ -53,4 +53,13 @@ const constantRoutes: RouteRecordRaw[] = [
   buildNotFoundRoute('GlobalNotFound')
 ]
 
+// 静态路由的名称集合
+export const constantRouteNames: string[] = []
+const fillConstantRouteNames = (array: any[]) =>
+  array.forEach(item => {
+    constantRouteNames.push(item.name)
+    fillConstantRouteNames(item.children || [])
+  })
+fillConstantRouteNames(constantRoutes)
+
 export default constantRoutes

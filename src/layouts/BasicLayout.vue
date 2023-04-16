@@ -44,7 +44,7 @@
             marginRight: 10
           }"
         />
-        <template v-if="!props?.collapsed"> Preview Pro </template>
+        <template v-if="!props?.collapsed"> Preview Pro</template>
       </a>
     </template>
 
@@ -88,6 +88,8 @@ import { PROJECT_TITLE } from '@/constants'
 import RightContent from '@/layouts/components/RightContent/index.vue'
 import AnnouncementRibbon from '@/components/Notify/AnnouncementRibbon.vue'
 import useAdminWebSocket from '@/hooks/websocket'
+import router from '@/router'
+import { emitter } from '@/hooks/mitt'
 
 // 开启 websocket, 如果不需要 websocket 则注释此行代码
 useAdminWebSocket()
@@ -114,7 +116,6 @@ watch(
   { deep: true }
 )
 
-const router = useRouter()
 const route = useRoute()
 
 const menuState = reactive<{
@@ -133,8 +134,13 @@ watchEffect(() => {
   menuState.matchMenuKeys = matchedRoutes.filter(x => x.path !== '/').map(x => x.path)
 })
 
-const routes = computed(() => router.getRoutes())
-console.log(routes.value)
+const routes = ref([])
+function setRoutes() {
+  return (routes.value = router.getRoutes())
+}
+setRoutes()
+emitter.on('switch-language', setRoutes)
+onUnmounted(() => emitter.off('switch-language', setRoutes))
 
 const toHome = () => {
   router.push({ path: '/' })
