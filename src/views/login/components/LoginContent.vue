@@ -50,7 +50,7 @@
         :loading="loginLoading"
         @click="handleLogin"
       >
-        {{ $t('user.login.submit') }}
+        {{ t('user.login.submit') }}
       </a-button>
 
       <!-- 扩展部分 -->
@@ -78,9 +78,13 @@ import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
 import { PROJECT_DESC, PROJECT_TITLE } from '@/constants'
 import { SliderCaptcha as LoginCaptcha } from '@/components/Captcha'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const prefixCls = 'ant'
 const baseClassName = 'pro-login-content'
+
 function getCls(className: string) {
   return `${prefixCls}-${baseClassName}-${className}`
 }

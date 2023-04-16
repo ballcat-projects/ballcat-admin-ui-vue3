@@ -3,40 +3,28 @@
     <TranslationOutlined style="font-size: 18px" />
 
     <template #overlay>
-      <a-menu :selected-keys="[language]">
-        <a-menu-item v-for="local of locals" :key="local" @click="setLanguage(local as Language)">
+      <a-menu :selected-keys="[i18nStore.language]">
+        <a-menu-item
+          v-for="local of availableLocales"
+          :key="local"
+          @click="loadLanguageAsync(local)"
+        >
           <a href="javascript:;">{{ local }}</a>
         </a-menu-item>
       </a-menu>
     </template>
   </a-dropdown>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import { TranslationOutlined } from '@ant-design/icons-vue'
-import { useI18n } from 'vue-i18n'
 import { useI18nStore } from '@/stores/i18n-store'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Language } from '@/locale'
+import { availableLocales, loadLanguageAsync } from '@/locales'
 
-export default defineComponent({
-  name: 'SelectLanguage',
-  components: {
-    TranslationOutlined
-  },
-  setup() {
-    const { setLanguage } = useI18nStore()
-    const { messages } = useI18n()
-    const locals = Object.keys(messages.value)
+const i18nStore = useI18nStore()
+</script>
 
-    return {
-      locals,
-      setLanguage
-    }
-  },
-  computed: {
-    language: () => useI18nStore().language
-  },
-  methods: {}
-})
+<script lang="ts">
+export default {
+  name: 'SelectLanguage'
+}
 </script>

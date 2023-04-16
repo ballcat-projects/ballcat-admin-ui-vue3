@@ -70,7 +70,7 @@ import { doRequest } from '@/utils/axios/request'
 import { DictTag } from '@/components/Dict'
 
 // 鉴权方法
-const { hasPermission, hasAnyPermission } = useAuthorize()
+const { hasPermission } = useAuthorize()
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()

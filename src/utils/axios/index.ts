@@ -9,7 +9,7 @@ import { LOGIN_PATH } from '@/constants'
 import router from '@/router'
 import { HttpClient } from '@/utils/axios/http-client'
 import { useI18nStore } from '@/stores/i18n-store'
-import i18n from '@/utils/i18n-utils'
+import { useI18n } from 'vue-i18n'
 
 const onRequestFulfilled = (requestConfig: InternalAxiosRequestConfig) => {
   const headers = requestConfig.headers || {}
@@ -51,6 +51,8 @@ const onResponseFulfilled = (response: AxiosResponse) => {
 // 响应失败处理函数
 const onResponseRejected = (error: AxiosError) => {
   if (error.response) {
+    const { t } = useI18n()
+
     const data = error.response.data as unknown as ApiResult
     const errorStatus = error.response.status
     const errorStatusText = error.response.statusText
@@ -68,9 +70,9 @@ const onResponseRejected = (error: AxiosError) => {
           // 防止重复弹出 TODO 这里拦截所有其他的 axios 的请求
           Modal.destroyAll()
           Modal.info({
-            title: i18n.text('system.tip.title'),
-            content: i18n.text('user.login.expired'),
-            okText: i18n.text('user.login.submit.retry'),
+            title: t('system.tip.title'),
+            content: t('user.login.expired'),
+            okText: t('user.login.submit.retry'),
             onOk: () => {
               router.push({
                 path: LOGIN_PATH,
@@ -83,27 +85,27 @@ const onResponseRejected = (error: AxiosError) => {
       case 403:
         error.resolved = true
         notification.error({
-          message: i18n.text('user.pemission.reject'),
+          message: t('user.pemission.reject'),
           description: data.message
         })
         break
       default:
         error.resolved = true
         notification.error({
-          message: i18n.text('system.tip.request.error'),
+          message: t('system.tip.request.error'),
           description:
             data?.message ||
             errorStatusText ||
             error.message ||
-            i18n.text('system.tip.request.error.message', { code: errorStatus })
+            t('system.tip.request.error.message', { code: errorStatus })
         })
         break
     }
   } else {
     error.resolved = true
     notification.error({
-      message: i18n.text('system.tip.network.error'),
-      description: error.message || i18n.text('system.tip.network.error.message')
+      message: t('system.tip.network.error'),
+      description: error.message || t('system.tip.network.error.message')
     })
   }
   return Promise.reject(error)

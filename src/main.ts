@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import router from '@/router'
+import { install as installI18n } from '@/locales'
 
 // 全局样式
 import '@/styles/global.less'
@@ -9,25 +10,12 @@ import 'ant-design-vue/es/message/style/index.less'
 import 'ant-design-vue/es/notification/style/index.less'
 import 'ant-design-vue/es/modal/style/index.less'
 
-// i18n
-import { createI18n } from 'vue-i18n'
-import { messages as i18nMessages } from '@/locale'
-import { DEFAULT_LANGUAGE } from '@/constants'
-
 import App from './App.vue'
-
-const i18n = createI18n({
-  local: DEFAULT_LANGUAGE,
-  globalInjection: true,
-  legacy: false,
-  fallbackLocale: DEFAULT_LANGUAGE,
-  messages: i18nMessages
-})
 
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-i18n.install(app)
+installI18n(app)
 
 app.mount('#app')

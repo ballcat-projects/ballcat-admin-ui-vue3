@@ -12,7 +12,7 @@
           :show-arrow="true"
           :mode="multiple ? 'tags' : 'default'"
           :disabled="disabled"
-          :placeholder="enableI18n ? $t(placeholder) : placeholder"
+          :placeholder="enableI18n ? t(placeholder) : placeholder"
           :options="selectOptions"
           :filter-option="false"
           :show-search="false"
@@ -52,9 +52,11 @@ import type { ApiResult } from '@/api/types'
 import { type ProColumns } from '#/table'
 import type { Key } from 'ant-design-vue/es/_util/type'
 import type { Domain } from '@/components/Lov/LovSearch.vue'
+import { useI18n } from 'vue-i18n'
 
 // import { enableI18n } from '@/config/projectConfig'
-const $t = (str?: string) => str
+const { t } = useI18n()
+const enableI18n = ref<boolean>(false)
 
 const props = withDefaults(defineProps<LovLocalProps>(), {
   modelValue: undefined,
@@ -69,7 +71,6 @@ const props = withDefaults(defineProps<LovLocalProps>(), {
   tableSize: 'middle'
 })
 
-const enableI18n = ref<boolean>(false)
 const loading = ref<boolean>(false)
 const selectedRows = ref<Record<string, any>>([])
 const selectedValue = ref<Key[] | string | number>()

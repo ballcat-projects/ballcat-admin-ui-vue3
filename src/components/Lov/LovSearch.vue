@@ -71,8 +71,6 @@ export interface LovSearchProps {
   loading?: boolean
 }
 
-const useForm = Form.useForm
-
 // 表单 label 全局配置
 const labelCol = { md: { span: 6 } }
 
