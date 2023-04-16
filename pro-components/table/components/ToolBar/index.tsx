@@ -20,7 +20,6 @@ import { useContainer } from '#/table/container'
 import { getRender } from '#/layout/utils'
 import type { ToolBarRender } from '#/table/renderTypes'
 import ColumnSetting from '#/table/components/ColumnSetting'
-import { isFunction } from '@vueuse/shared'
 
 export type SettingOptionType = {
   draggable?: boolean
@@ -239,8 +238,7 @@ const ToolBar = defineComponent({
 
     const titleDom = computed(() => {
       const headerRender = getRender<VueNode>(props, slots, 'headerTitle')
-      // @ts-ignore
-      return isFunction(headerRender) ? headerRender() : headerRender
+      return typeof headerRender === 'function' ? headerRender() : headerRender
     })
 
     return () => (
