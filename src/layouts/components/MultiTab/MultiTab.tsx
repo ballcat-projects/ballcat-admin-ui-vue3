@@ -27,6 +27,8 @@ import { hasClass } from '@/utils/dom-utils'
 import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface'
 import type { RouteLocationMatched } from 'vue-router'
 import { ROUTER_LAYOUT_NAME } from '@/constants'
+import { emitter } from '@/hooks/mitt'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 const MultiTab = defineComponent({
   name: 'MultiTab',
@@ -168,6 +170,18 @@ const MultiTab = defineComponent({
       //   path: '/redirect' + path
       // })
     }
+
+    // 国际化切换时，刷新路由信息
+    const refreshRoute = () => {
+      multiTabStore.routeList = multiTabStore.routeList.map(oldRoute => {
+        const newRoute = router
+          .getRoutes()
+          .find(r => r.path === oldRoute.path) as unknown as RouteLocationNormalizedLoaded
+        return newRoute || oldRoute
+      })
+    }
+    emitter.on('switch-language', refreshRoute)
+    onUnmounted(() => emitter.off('switch-language', refreshRoute))
 
     // a-tab 的 ref 引用
     const tabRef = ref()
