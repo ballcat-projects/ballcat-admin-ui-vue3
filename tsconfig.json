@@ -1,14 +1,29 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
-    "shims.d.ts", "env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "components.d.ts", "auto-imports.d.ts"],
-  "exclude": ["node_modules/**"],
+    "types/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+  ],
+  "exclude": [
+    "node_modules/**"
+  ],
   "compilerOptions": {
-    "lib": ["esnext", "ES2016", "DOM", "DOM.Iterable"],
+    "lib": [
+      "esnext",
+      "ES2016",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "#/*": ["./pro-components/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "#/*": [
+        "./pro-components/*"
+      ]
     },
     // TODO 等 vue type 升级后移除
     "ignoreDeprecations": "5.0"

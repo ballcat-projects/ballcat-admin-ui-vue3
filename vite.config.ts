@@ -60,7 +60,7 @@ export default defineConfig({
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
       // Set `false` to disable.
-      dts: './auto-imports.d.ts'
+      dts: './types/auto-imports.d.ts'
     }),
 
     // 按需加载 ant-design-vue 组件
@@ -76,7 +76,8 @@ export default defineConfig({
           resolveIcons: true,
           importStyle: 'less'
         })
-      ]
+      ],
+      dts: './types/components.d.ts'
     }),
 
     createHtmlPlugin({
