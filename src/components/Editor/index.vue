@@ -22,6 +22,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
 import type { InsertFnType, UploadFunction } from '@/components/Editor/types'
+import type { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 
 const props = withDefaults(
   defineProps<{
@@ -46,13 +47,13 @@ const editorStyle = reactive({
 })
 
 // 编辑器实例，必须用 shallowRef
-const editorRef = shallowRef()
+const editorRef = shallowRef<IDomEditor>()
 
 // 内容 HTML
 const valueHtml = ref<string>()
 
-const toolbarConfig = {}
-const editorConfig = { placeholder: '请输入内容...', MENU_CONF: {} }
+const toolbarConfig: Partial<IToolbarConfig> = {}
+const editorConfig: Partial<IEditorConfig> = { placeholder: '请输入内容...', MENU_CONF: {} }
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
@@ -61,7 +62,7 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
-editorConfig.MENU_CONF['uploadImage'] = {
+editorConfig.MENU_CONF!['uploadImage'] = {
   // 自定义上传
   async customUpload(file: File, insertFn: InsertFnType) {
     // TS 语法
@@ -76,14 +77,15 @@ editorConfig.MENU_CONF['uploadImage'] = {
   }
 }
 
-const handleCreated = editor => {
+const handleCreated = (editor: IDomEditor) => {
   editorRef.value = editor // 记录 editor 实例，重要！
   // 初始赋值
   editorRef.value.setHtml(props.modelValue)
 }
 
-const handleUpdate = value => {
-  emits('update:modelValue', value.getHtml())
+const handleUpdate = (editor: IDomEditor) => {
+  // @ts-ignore
+  emits('update:modelValue', editor.getHtml())
 }
 
 watch(
@@ -91,7 +93,7 @@ watch(
   () => {
     valueHtml.value = props.modelValue
     // 需要等待编辑器渲染完成
-    if (valueHtml.value !== editorRef.value.getHtml()) {
+    if (valueHtml.value !== editorRef.value?.getHtml()) {
       editorRef.value?.setHtml(valueHtml.value)
     }
   }

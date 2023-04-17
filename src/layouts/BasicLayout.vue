@@ -90,6 +90,7 @@ import AnnouncementRibbon from '@/components/Notify/AnnouncementRibbon.vue'
 import useAdminWebSocket from '@/hooks/websocket'
 import router from '@/router'
 import { emitter } from '@/hooks/mitt'
+import type { RouteRecordNormalized } from 'vue-router'
 
 // 开启 websocket, 如果不需要 websocket 则注释此行代码
 useAdminWebSocket()
@@ -134,7 +135,7 @@ watchEffect(() => {
   menuState.matchMenuKeys = matchedRoutes.filter(x => x.path !== '/').map(x => x.path)
 })
 
-const routes = ref([])
+const routes = ref<RouteRecordNormalized[]>([])
 function setRoutes() {
   return (routes.value = router.getRoutes())
 }

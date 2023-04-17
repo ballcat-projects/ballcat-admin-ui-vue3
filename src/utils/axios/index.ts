@@ -50,9 +50,9 @@ const onResponseFulfilled = (response: AxiosResponse) => {
 
 // 响应失败处理函数
 const onResponseRejected = (error: AxiosError) => {
-  if (error.response) {
-    const { t } = useI18n()
+  const { t } = useI18n()
 
+  if (error.response) {
     const data = error.response.data as unknown as ApiResult
     const errorStatus = error.response.status
     const errorStatusText = error.response.statusText

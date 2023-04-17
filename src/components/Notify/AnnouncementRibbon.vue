@@ -14,14 +14,18 @@
 import { getUserAnnouncements } from '@/api/notify/announcement'
 import { emitter } from '@/hooks/mitt'
 import { AnnouncementModal } from '@/components/Notify/AnnouncementModal'
-import type { Announcement } from '@/api/notify/announcement/types'
+import type {
+  Announcement,
+  AnnouncementCloseMessage,
+  AnnouncementPushMessage
+} from '@/api/notify/announcement/types'
 
 const announcementModalRef = ref()
 
 const activeIndex = ref(0) // 当前索引
 const intervalId = ref() // 定时器ID
 const playTime = ref(4000) // 定时器执行间隔
-const announcements = ref<Announcement[]>([]) // 公告信息
+const announcements = ref<Pick<Announcement, 'id' | 'title' | 'content'>[]>([]) // 公告信息
 
 const announcementNum = computed(() => {
   return announcements.value.length
@@ -34,7 +38,7 @@ const readAnnouncement = () => {
   // 展示公告
   announcementModalRef.value.show({ ...announcement.value })
 }
-const onAnnouncementPush = data => {
+const onAnnouncementPush = (data: AnnouncementPushMessage) => {
   // 添加公告
   const announcement = {
     id: data.id,
@@ -43,7 +47,7 @@ const onAnnouncementPush = data => {
   }
   announcements.value.push(announcement)
 }
-const onAnnouncementClose = data => {
+const onAnnouncementClose = (data: AnnouncementCloseMessage) => {
   announcements.value.splice(
     announcements.value.findIndex(item => item.id === data.id),
     1

@@ -156,7 +156,7 @@ const formModel = reactive<AnnouncementDTO>({
   //接收人筛选方式
   recipientFilterType: 1,
   //对应接收人筛选方式的条件信息。如角色标识，组织ID，用户类型，用户ID等
-  recipientFilterCondition: [],
+  recipientFilterCondition: undefined,
   //接收方式
   receiveMode: [],
   //状态

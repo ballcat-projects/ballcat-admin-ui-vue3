@@ -55,19 +55,20 @@
 </template>
 
 <script setup lang="ts">
-import { Form } from 'ant-design-vue'
-import { SEARCH_TYPE } from '@/components/Lov/type'
+// @ts-nocheck TODO 优化 Lov 类型
+
+import type { LOV_SEARCH_TYPE_ENUM } from '@/components/Lov/type'
 export interface Domain {
   field: string
   label: string
-  type: SEARCH_TYPE
+  type: LOV_SEARCH_TYPE_ENUM
   placeholder: string
   dictCode?: string
   value?: any
 }
 
 export interface LovSearchProps {
-  domains: Domain[]
+  domains?: Domain[]
   loading?: boolean
 }
 
@@ -80,7 +81,9 @@ const props = withDefaults(defineProps<LovSearchProps>(), {
 
 const formRef = ref()
 
-const formModel = reactive<{ domains: Domain[] }>({})
+const formModel = reactive<{ domains?: Domain[] }>({
+  domains: []
+})
 
 watchEffect(() => {
   formModel.domains = props.domains
@@ -91,7 +94,7 @@ const emits = defineEmits<{
 }>()
 
 const search = () => {
-  const searchParams = formModel.domains
+  const searchParams = (formModel.domains || [])
     .filter(item => item.value)
     .reduce((accumulator, value) => {
       return { ...accumulator, [value.field]: value.value }

@@ -12,7 +12,7 @@
           :show-arrow="true"
           :mode="multiple ? 'tags' : 'default'"
           :disabled="disabled"
-          :placeholder="enableI18n ? t(placeholder) : placeholder"
+          :placeholder="enableI18n ? t(placeholder | '') : placeholder"
           :options="selectOptions"
           :filter-option="false"
           :show-search="false"
@@ -46,10 +46,12 @@ export default {
 }
 </script>
 <script lang="ts" setup>
+// @ts-nocheck TODO 优化 Lov 类型
+
 import { LovModal } from '@/components/Lov'
 import AntIcon from '#/layout/components/AntIcon'
 import type { ApiResult } from '@/api/types'
-import { type ProColumns } from '#/table'
+import type { ProColumns } from '#/table'
 import type { Key } from 'ant-design-vue/es/_util/type'
 import type { Domain } from '@/components/Lov/LovSearch.vue'
 import { useI18n } from 'vue-i18n'
@@ -58,7 +60,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const enableI18n = ref<boolean>(false)
 
-const props = withDefaults(defineProps<LovLocalProps>(), {
+const props = withDefaults(defineProps<LovProps>(), {
   modelValue: undefined,
   isNumberValue: false,
   multiple: false,
@@ -73,7 +75,7 @@ const props = withDefaults(defineProps<LovLocalProps>(), {
 
 const loading = ref<boolean>(false)
 const selectedRows = ref<Record<string, any>>([])
-const selectedValue = ref<Key[] | string | number>()
+const selectedValue = ref<Key[] | Key>()
 
 const lovModalRef = ref()
 
@@ -178,7 +180,7 @@ function handleLovChoose(data) {
   emitValue(data)
 }
 
-export interface LovLocalProps<T = Record<string, any>, R = Record<string, any>> {
+interface LovProps<T = Record<string, any>, R = Record<string, any>> {
   modelValue?: string | number | Key[]
   // 值是否是数字类型
   isNumberValue?: boolean

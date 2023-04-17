@@ -1,5 +1,5 @@
 // @ts-ignore
-export { default as LovLocal } from './LovLocal.vue'
+export { default as LovLocal } from './Lov.vue'
 // @ts-ignore
 export { default as LovModal } from './LovModal.vue'
 // @ts-ignore

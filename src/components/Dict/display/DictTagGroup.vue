@@ -2,7 +2,7 @@
   <a-space :size="5">
     <dict-tag
       v-for="dictValue in props.dictValues"
-      :key="dictValue"
+      :key="dictValue as any"
       :dict-code="props.dictCode"
       :value="dictValue"
     />

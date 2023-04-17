@@ -65,7 +65,7 @@
   <!-- 公告新建修改的表单弹窗 -->
   <announcement-form-modal
     ref="announcementFormModalRef"
-    @submit-success="reloadTable"
+    @submit-success="() => reloadTable()"
     @preview-announcement="previewAnnouncement"
   />
 
@@ -80,7 +80,11 @@ import { mergePageParam } from '@/utils/page-utils'
 import { DictText, DictTagGroup } from '@/components/Dict'
 import { Badge } from 'ant-design-vue'
 import { useAuthorize } from '@/hooks/permission'
-import type { AnnouncementPageVO, AnnouncementQO } from '@/api/notify/announcement/types'
+import type {
+  AnnouncementDTO,
+  AnnouncementPageVO,
+  AnnouncementQO
+} from '@/api/notify/announcement/types'
 import AnnouncementPageSearch from './AnnouncementPageSearch.vue'
 import { AnnouncementModal } from '@/components/Notify/AnnouncementModal'
 import { doRequest } from '@/utils/axios/request'
@@ -157,20 +161,20 @@ function handleClose(record: AnnouncementPageVO) {
 }
 
 /**  预览公告 */
-function previewAnnouncement(record: AnnouncementPageVO) {
+function previewAnnouncement(record: AnnouncementPageVO | AnnouncementDTO) {
   announcementModalRef.value.show(record, true)
 }
 
-const statusBadgePropMap = {
-  0: {
+const statusBadgePropMap: Record<AnnouncementStatusEnum, Record<string, any>> = {
+  [AnnouncementStatusEnum.DISABLED]: {
     status: 'default',
     text: '已关闭'
   },
-  1: {
+  [AnnouncementStatusEnum.ENABLED]: {
     status: 'processing',
     text: '已发布'
   },
-  2: {
+  [AnnouncementStatusEnum.UNPUBLISHED]: {
     status: 'warning',
     text: '待发布'
   }
@@ -210,7 +214,7 @@ const columns: ProColumns[] = [
     title: '状态',
     dataIndex: 'status',
     customRender: function ({ value }) {
-      const badgeProp = statusBadgePropMap[value]
+      const badgeProp = statusBadgePropMap[value as AnnouncementStatusEnum]
       return h(Badge, badgeProp)
     }
   },

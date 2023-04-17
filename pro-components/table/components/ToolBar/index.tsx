@@ -238,7 +238,12 @@ const ToolBar = defineComponent({
 
     const titleDom = computed(() => {
       const headerRender = getRender<VueNode>(props, slots, 'headerTitle')
-      return typeof headerRender === 'function' ? headerRender() : headerRender
+      if (typeof headerRender === 'function') {
+        // @ts-ignore
+        return headerRender()
+      } else {
+        return headerRender
+      }
     })
 
     return () => (

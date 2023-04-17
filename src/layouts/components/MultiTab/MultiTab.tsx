@@ -60,6 +60,7 @@ const MultiTab = defineComponent({
         const routeList = multiTabStore.routeList
         const index = routeList.findIndex(route => route.path === currentRoute.path)
         if (index < 0) {
+          // @ts-ignore
           currentRoute.meta.hideInTab !== true && routeList.push(currentRoute)
         } else {
           const oldPage = routeList[index]

@@ -3,6 +3,7 @@ import { DEFAULT_LANGUAGE } from '@/constants'
 import { useI18nStore } from '@/stores/i18n-store'
 import dayjs from 'dayjs'
 import { localMapping } from '@/locales/dayjs'
+import type { App } from 'vue'
 
 const i18n = createI18n({
   legacy: false,
@@ -43,7 +44,7 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
   return setI18nLanguage(lang)
 }
 
-export const install = app => {
+export const install = (app: App<Element>) => {
   app.use(i18n)
   useI18nStore().setLanguage(DEFAULT_LANGUAGE)
   loadLanguageAsync(DEFAULT_LANGUAGE)

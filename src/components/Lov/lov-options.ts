@@ -1,12 +1,12 @@
 // Lov 搜索条件控件的类型
 // @ts-ignore
-import type { LovLocalProps } from '@/components/Lov/LovLocal'
+import type { LovProps } from '@/components/Lov/Lov.vue'
 
 import { pageUsers as getUserPage } from '@/api/system/user'
-import { SEARCH_TYPE } from '@/components/Lov/type'
+import { LOV_SEARCH_TYPE_ENUM } from '@/components/Lov/type'
 import type { SysUserPageParam, SysUserPageVO } from '@/api/system/user/types'
 
-export const sysUserLov: LovLocalProps<SysUserPageParam, SysUserPageVO> = {
+export const sysUserLov: LovProps<SysUserPageParam, SysUserPageVO> = {
   multiple: true,
   isNumberValue: true,
   modalTitle: '用户',
@@ -21,13 +21,13 @@ export const sysUserLov: LovLocalProps<SysUserPageParam, SysUserPageVO> = {
     {
       label: '用户名',
       field: 'username',
-      type: SEARCH_TYPE.input,
+      type: LOV_SEARCH_TYPE_ENUM.INPUT,
       placeholder: 'message.pleaseEnter'
     },
     {
       label: '昵称',
       field: 'nickname',
-      type: SEARCH_TYPE.input,
+      type: LOV_SEARCH_TYPE_ENUM.INPUT,
       placeholder: 'message.pleaseEnter'
     }
   ],

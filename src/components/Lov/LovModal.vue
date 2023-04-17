@@ -4,7 +4,7 @@
     class="lov-model"
     :confirm-loading="pageLoading"
     :centered="true"
-    :title="enableI18n ? t(modalTitle) : modalTitle"
+    :title="enableI18n ? t(modalTitle | '') : modalTitle"
     :width="modalWidth"
     :visible="visible"
     :body-style="modalStyle"
@@ -75,6 +75,8 @@
   </a-modal>
 </template>
 <script lang="ts" setup>
+// @ts-nocheck TODO 优化 Lov 类型
+
 import { littleCamelToUnderline } from '@/utils/str-utils'
 import ProTable, { type ProColumns, type TableRequest } from '#/table'
 import { useModal } from '@/hooks/modal'
@@ -205,7 +207,7 @@ onMounted(() => {
 // ============ 模态框使用方法 ===========
 
 defineExpose({
-  open(selectValue: string | [], selectRow: []) {
+  open(selectValue: Key | Key[], selectRow: []) {
     selectedRowKeys.value = props.multiple ? selectValue : [selectValue]
     selectedRows.value = selectRow ? selectRow : []
     openModal()
@@ -270,7 +272,7 @@ const onClickRowMulti = (record: Record<string, any>) => {
   }
 }
 
-export interface LovModalProps<T = Record<string, any>, R = Record<string, any>> {
+interface LovModalProps<T = Record<string, any>, R = Record<string, any>> {
   // 是否多选
   multiple?: boolean
 

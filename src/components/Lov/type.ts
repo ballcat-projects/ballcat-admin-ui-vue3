@@ -1,6 +1,6 @@
-export enum SEARCH_TYPE {
-  input = 'input',
-  'number-input' = 'number-input',
-  select = 'select',
-  'dict-select' = 'dict-select'
+export enum LOV_SEARCH_TYPE_ENUM {
+  INPUT = 'input',
+  NUMBER_INPUT = 'number-input',
+  SELECT = 'select',
+  DICT_SELECT = 'dict-select'
 }
