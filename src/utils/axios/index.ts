@@ -9,7 +9,7 @@ import { LOGIN_PATH } from '@/constants'
 import router from '@/router'
 import { HttpClient } from '@/utils/axios/http-client'
 import { useI18nStore } from '@/stores/i18n-store'
-import { useI18n } from 'vue-i18n'
+import { i18n } from '@/locales'
 
 const onRequestFulfilled = (requestConfig: InternalAxiosRequestConfig) => {
   const headers = requestConfig.headers || {}
@@ -50,7 +50,7 @@ const onResponseFulfilled = (response: AxiosResponse) => {
 
 // 响应失败处理函数
 const onResponseRejected = (error: AxiosError) => {
-  const { t } = useI18n()
+  const { t } = i18n.global
 
   if (error.response) {
     const data = error.response.data as unknown as ApiResult

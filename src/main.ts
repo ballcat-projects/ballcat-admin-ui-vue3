@@ -14,8 +14,9 @@ import App from './App.vue'
 
 const app = createApp(App)
 app.use(createPinia())
-app.use(router)
 
-installI18n(app)
-
-app.mount('#app')
+// 加载完 i18n 文件后再注册路由和渲染，防止发起请求时 401，错误弹窗无法国际化
+installI18n(app).then(() => {
+  app.use(router)
+  app.mount('#app')
+})
