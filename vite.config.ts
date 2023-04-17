@@ -12,6 +12,9 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 // 修改 index.html 插件
 import { createHtmlPlugin } from 'vite-plugin-html'
+// vue i18n 处理
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+
 // @ts-ignore
 import { PROJECT_TITLE } from './src/constants'
 import { antdvStyleDeps } from './src/utils/resolvers'
@@ -35,7 +38,9 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+
     vueJsx(),
+
     // 自动导入 vue
     AutoImport({
       // global imports to register
@@ -57,6 +62,7 @@ export default defineConfig({
       // Set `false` to disable.
       dts: './auto-imports.d.ts'
     }),
+
     // 按需加载 ant-design-vue 组件
     Components({
       types: [
@@ -72,6 +78,7 @@ export default defineConfig({
         })
       ]
     }),
+
     createHtmlPlugin({
       minify: false,
       // 注入变量
@@ -80,6 +87,13 @@ export default defineConfig({
           title: PROJECT_TITLE
         }
       }
+    }),
+
+    VueI18n({
+      runtimeOnly: true,
+      compositionOnly: true,
+      fullInstall: true,
+      include: [fileURLToPath(new URL('locales/**', import.meta.url))]
     })
   ],
   resolve: {
