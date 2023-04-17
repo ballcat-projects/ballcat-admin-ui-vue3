@@ -4,8 +4,13 @@
 
     <template #overlay>
       <a-menu :selected-keys="[i18nStore.language]">
-        <a-menu-item v-for="local of availableLocales" :key="local" @click="switchLanguage(local)">
-          <a href="javascript:;">{{ local }}</a>
+        <a-menu-item
+          v-for="language of supportLanguage"
+          :key="language.lang"
+          @click="switchLanguage(language.lang)"
+        >
+          <span role="img" :aria-label="language.title">{{ language.symbol }}</span>
+          {{ language.title }}
         </a-menu-item>
       </a-menu>
     </template>
@@ -14,11 +19,12 @@
 <script setup lang="ts">
 import { TranslationOutlined } from '@ant-design/icons-vue'
 import { useI18nStore } from '@/stores/i18n-store'
-import { availableLocales, loadLanguageAsync } from '@/locales'
+import { loadLanguageAsync } from '@/locales'
 import { useUserStore } from '@/stores/user-store'
 import { generatorDynamicRouter } from '@/router/dynamic-routes'
 import router, { resetRouter } from '@/router'
 import { emitter } from '@/hooks/mitt'
+import { supportLanguage } from '@/config'
 
 const i18nStore = useI18nStore()
 const userStore = useUserStore()

@@ -35,9 +35,9 @@
 import HeaderDropdown from '@/layouts/components/HeaderDropdown'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { Modal } from 'ant-design-vue'
-import { logout } from '@/api/auth/index'
+import { logout } from '@/api/auth'
 import { useUserStore } from '@/stores/user-store'
-import { LOGIN_PATH } from '@/constants'
+import { loginPath } from '@/config'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
 
 // 目前不支持接口导入: https://github.com/vuejs/core/issues/4294
@@ -72,7 +72,7 @@ const loginOut = () => {
       // 没有 accessToken 的话，直接登出
       if (!userStore.accessToken) {
         setTimeout(() => {
-          router.push(LOGIN_PATH)
+          router.push(loginPath)
         }, 200)
         return
       }
@@ -80,7 +80,7 @@ const loginOut = () => {
       logout().then(() => {
         userStore.clean()
         setTimeout(() => {
-          router.push(LOGIN_PATH)
+          router.push(loginPath)
         }, 200)
       })
     }

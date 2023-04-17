@@ -5,7 +5,7 @@ import type { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axio
 import type { ApiResult } from '@/api/types'
 
 import { useUserStore } from '@/stores/user-store'
-import { LOGIN_PATH } from '@/constants'
+import { loginPath } from '@/config'
 import router from '@/router'
 import { HttpClient } from '@/utils/axios/http-client'
 import { useI18nStore } from '@/stores/i18n-store'
@@ -58,7 +58,7 @@ const onResponseRejected = (error: AxiosError) => {
     const errorStatusText = error.response.statusText
     switch (errorStatus) {
       case 400:
-        if (router.currentRoute.value.path !== LOGIN_PATH) {
+        if (router.currentRoute.value.path !== loginPath) {
           error.resolved = true
           message.error(data?.message || error.message)
         }
@@ -66,7 +66,7 @@ const onResponseRejected = (error: AxiosError) => {
       case 401:
         error.resolved = true
         useUserStore().clean()
-        if (router.currentRoute.value.path !== LOGIN_PATH) {
+        if (router.currentRoute.value.path !== loginPath) {
           // 防止重复弹出 TODO 这里拦截所有其他的 axios 的请求
           Modal.destroyAll()
           Modal.info({
@@ -75,7 +75,7 @@ const onResponseRejected = (error: AxiosError) => {
             okText: t('user.login.submit.retry'),
             onOk: () => {
               router.push({
-                path: LOGIN_PATH,
+                path: loginPath,
                 query: { redirect: router.currentRoute.value.fullPath }
               })
             }

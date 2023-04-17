@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AAlert: typeof import('ant-design-vue/es')['Alert']
     AAvatar: typeof import('ant-design-vue/es')['Avatar']
     ABadge: typeof import('ant-design-vue/es')['Badge']
     AButton: typeof import('ant-design-vue/es')['Button']
@@ -30,6 +31,7 @@ declare module '@vue/runtime-core' {
     AInputNumber: typeof import('ant-design-vue/es')['InputNumber']
     AInputPassword: typeof import('ant-design-vue/es')['InputPassword']
     AInputSearch: typeof import('ant-design-vue/es')['InputSearch']
+    AlipayOutlined: typeof import('@ant-design/icons-vue')['AlipayOutlined']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuDivider: typeof import('ant-design-vue/es')['MenuDivider']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
@@ -85,6 +87,8 @@ declare module '@vue/runtime-core' {
     Lov: typeof import('./../src/components/Lov/Lov.vue')['default']
     LovModal: typeof import('./../src/components/Lov/LovModal.vue')['default']
     LovSearch: typeof import('./../src/components/Lov/LovSearch.vue')['default']
+    MailOutlined: typeof import('@ant-design/icons-vue')['MailOutlined']
+    MobileOutlined: typeof import('@ant-design/icons-vue')['MobileOutlined']
     PlusOutlined: typeof import('@ant-design/icons-vue')['PlusOutlined']
     QuestionCircleOutlined: typeof import('@ant-design/icons-vue')['QuestionCircleOutlined']
     RotateCaptcha: typeof import('./../src/components/Captcha/RotateCaptcha.vue')['default']
@@ -99,9 +103,11 @@ declare module '@vue/runtime-core' {
     SoundOutlined: typeof import('@ant-design/icons-vue')['SoundOutlined']
     SwapOutlined: typeof import('@ant-design/icons-vue')['SwapOutlined']
     SyncOutlined: typeof import('@ant-design/icons-vue')['SyncOutlined']
+    TaobaoOutlined: typeof import('@ant-design/icons-vue')['TaobaoOutlined']
     UploadOutlined: typeof import('@ant-design/icons-vue')['UploadOutlined']
     UpOutlined: typeof import('@ant-design/icons-vue')['UpOutlined']
     UserOutlined: typeof import('@ant-design/icons-vue')['UserOutlined']
+    WeiboOutlined: typeof import('@ant-design/icons-vue')['WeiboOutlined']
     WordClickCaptcha: typeof import('./../src/components/Captcha/WordClickCaptcha.vue')['default']
     ZoomInOutlined: typeof import('@ant-design/icons-vue')['ZoomInOutlined']
     ZoomOutOutlined: typeof import('@ant-design/icons-vue')['ZoomOutOutlined']

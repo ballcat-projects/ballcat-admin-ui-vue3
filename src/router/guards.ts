@@ -2,7 +2,7 @@ import NProgress from 'nprogress'
 import '@/styles/nprogress.less'
 
 import type { RouteLocationNormalizedLoaded, Router } from 'vue-router'
-import { LOGIN_PATH, PROJECT_TITLE, REDIRECT_PATH } from '@/constants'
+import { projectTitle, loginPath, redirectPath } from '@/config'
 import { useUserStore } from '@/stores/user-store'
 import { generatorDynamicRouter } from '@/router/dynamic-routes'
 
@@ -15,7 +15,7 @@ const routerGuards = (router: Router) => {
     const userStore = useUserStore()
     if (userStore.accessToken) {
       // 如果已经登录的情况下访问登录页，直接跳转到首页
-      if (to.path === LOGIN_PATH) {
+      if (to.path === loginPath) {
         NProgress.done()
         return { path: '/' }
       }
@@ -32,7 +32,7 @@ const routerGuards = (router: Router) => {
     } else if (!to.meta.allowAnonymous) {
       // 如果没有登录，访问地址又不允许匿名访问，就跳转到登录页
       return {
-        path: LOGIN_PATH,
+        path: loginPath,
         query: {
           redirect: to.fullPath
         }
@@ -50,9 +50,9 @@ const routerGuards = (router: Router) => {
 
 /** 更新标签页标题 */
 const updateDocumentTitle = function (route: RouteLocationNormalizedLoaded) {
-  if (!route?.path?.startsWith(`${REDIRECT_PATH}/`)) {
+  if (!route?.path?.startsWith(`${redirectPath}/`)) {
     const pageTitle = route?.meta?.name
-    document.title = pageTitle ? `${pageTitle} - ${PROJECT_TITLE}` : PROJECT_TITLE
+    document.title = pageTitle ? `${pageTitle} - ${projectTitle}` : projectTitle
   }
 }
 

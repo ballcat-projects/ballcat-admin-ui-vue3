@@ -26,7 +26,7 @@ import type { Key } from 'ant-design-vue/es/_util/type'
 import { hasClass } from '@/utils/dom-utils'
 import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface'
 import type { RouteLocationMatched } from 'vue-router'
-import { ROUTER_LAYOUT_NAME } from '@/constants'
+import { enableI18n, routerLayoutName } from '@/config'
 import { emitter } from '@/hooks/mitt'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
@@ -100,7 +100,7 @@ const MultiTab = defineComponent({
         // 移除缓存
         routeList[index].matched.forEach(route => {
           const componentName = route.components?.default.name
-          if (componentName && componentName !== ROUTER_LAYOUT_NAME) {
+          if (componentName && componentName !== routerLayoutName) {
             multiTabStore.cachedComponentNames.delete(componentName)
           }
         })
@@ -145,7 +145,7 @@ const MultiTab = defineComponent({
       router.currentRoute.value.matched.forEach(route => {
         const componentName = route.components?.default.name
         // 这里不能删除 RouterLayout 的缓存，否则影响嵌套路由的缓存
-        if (componentName && componentName !== ROUTER_LAYOUT_NAME) {
+        if (componentName && componentName !== routerLayoutName) {
           componentNames.push(componentName)
         }
       })
@@ -172,16 +172,18 @@ const MultiTab = defineComponent({
     }
 
     // 国际化切换时，刷新路由信息
-    const refreshRoute = () => {
-      multiTabStore.routeList = multiTabStore.routeList.map(oldRoute => {
-        const newRoute = router
-          .getRoutes()
-          .find(r => r.path === oldRoute.path) as unknown as RouteLocationNormalizedLoaded
-        return newRoute || oldRoute
-      })
+    if (enableI18n) {
+      const refreshRoute = () => {
+        multiTabStore.routeList = multiTabStore.routeList.map(oldRoute => {
+          const newRoute = router
+            .getRoutes()
+            .find(r => r.path === oldRoute.path) as unknown as RouteLocationNormalizedLoaded
+          return newRoute || oldRoute
+        })
+      }
+      emitter.on('switch-language', refreshRoute)
+      onUnmounted(() => emitter.off('switch-language', refreshRoute))
     }
-    emitter.on('switch-language', refreshRoute)
-    onUnmounted(() => emitter.off('switch-language', refreshRoute))
 
     // a-tab 的 ref 引用
     const tabRef = ref()

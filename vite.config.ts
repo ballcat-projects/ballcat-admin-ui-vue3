@@ -16,7 +16,7 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 
 // @ts-ignore
-import { PROJECT_TITLE } from './src/constants'
+import { projectTitle } from './src/config'
 import { antdvStyleDeps } from './src/utils/resolvers'
 
 const serverAddress = 'http://admin.ballcat.cn'
@@ -85,7 +85,7 @@ export default defineConfig({
       // 注入变量
       inject: {
         data: {
-          title: PROJECT_TITLE
+          title: projectTitle
         }
       }
     }),

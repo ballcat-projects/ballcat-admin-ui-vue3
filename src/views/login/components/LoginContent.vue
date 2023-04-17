@@ -7,10 +7,10 @@
           <img alt="logo" src="@/assets/logo.png" />
         </span>
         <!-- 标题 -->
-        <span :class="getCls('title')"> {{ PROJECT_TITLE }} </span>
+        <span :class="getCls('title')"> {{ projectTitle }} </span>
       </div>
       <!-- 描述 -->
-      <div :class="getCls('desc')">{{ PROJECT_DESC }}</div>
+      <div :class="getCls('desc')">{{ projectDesc }}</div>
     </div>
 
     <div :class="getCls('main')" style="width: 368px">
@@ -66,7 +66,7 @@
     </div>
 
     <!-- 登陆验证码 -->
-    <login-captcha ref="loginCaptchaRef" @success="handleSubmit" />
+    <login-captcha v-if="enableLoginCaptcha" ref="loginCaptchaRef" @success="handleSubmit" />
   </div>
 </template>
 
@@ -76,7 +76,7 @@ import MobileLoginForm from '@/views/login/components/MobileLoginForm.vue'
 import type { LoginFormInstance, LoginType } from '@/views/login/components/types'
 import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
-import { PROJECT_DESC, PROJECT_TITLE } from '@/constants'
+import { projectTitle, projectDesc, enableLoginCaptcha } from '@/config'
 import { SliderCaptcha as LoginCaptcha } from '@/components/Captcha'
 import { useI18n } from 'vue-i18n'
 
@@ -141,12 +141,14 @@ function store(res: LoginResult) {
 
 function handleLogin() {
   const loginFormInstance = loginFormRef.value!
-  loginFormInstance.validate().then(() => loginCaptchaRef.value?.show())
+  loginFormInstance.validate().then(() => {
+    enableLoginCaptcha ? loginCaptchaRef.value?.show() : handleSubmit()
+  })
 }
 
 const router = useRouter()
 
-function handleSubmit(captchaId: string) {
+function handleSubmit(captchaId?: string) {
   const loginFormInstance = loginFormRef.value!
   loginLoading.value = true
   return loginFormInstance

@@ -16,7 +16,7 @@ import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import omit from 'ant-design-vue/es/_util/omit'
 import { WithFalseVueNodeOrRenderPropType } from '#/types'
 import type { VueNodeOrRender } from '#/types'
-import { REDIRECT_PATH } from '@/constants'
+import { redirectPath } from '@/config'
 import AntIcon from '#/layout/components/AntIcon/index'
 
 export const baseMenuProps = () => ({
@@ -241,7 +241,7 @@ export default defineComponent({
     const localSelectedKeys = ref<string[]>([])
     watchEffect(() => {
       // 进行 redirect 的时候不处理，如果要把高级组件剥离，这个前缀不能写死需要透传过来
-      if (route.path.startsWith(REDIRECT_PATH)) return
+      if (route.path.startsWith(redirectPath)) return
       localOpenKeys.value = getOpenKeys(props, route)
       localSelectedKeys.value = route.matched.filter(x => x.path !== '/').map(x => x.path)
     })

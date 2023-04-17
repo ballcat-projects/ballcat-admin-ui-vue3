@@ -1,6 +1,6 @@
 <template>
   <pro-layout
-    :title="PROJECT_TITLE"
+    :title="projectTitle"
     style="min-height: 100vh"
     v-bind="settingStore.setting"
     :collapsed="collapsed"
@@ -71,6 +71,7 @@
   </pro-layout>
 
   <setting-drawer
+    v-if="enableLayoutSetting"
     v-model:collapse="settingDrawerCollapse"
     v-model:settings="settingStore.setting"
   />
@@ -84,7 +85,7 @@ import MultiTab from '@/layouts/components/MultiTab'
 import { useSettingStore } from '@/stores/setting-store'
 import type { Key } from 'ant-design-vue/es/_util/type'
 import RouterLayout from '@/layouts/RouterLayout.vue'
-import { PROJECT_TITLE } from '@/constants'
+import { projectTitle, enableLayoutSetting, enableWebsocket } from '@/config'
 import RightContent from '@/layouts/components/RightContent/index.vue'
 import AnnouncementRibbon from '@/components/Notify/AnnouncementRibbon.vue'
 import useAdminWebSocket from '@/hooks/websocket'
@@ -92,8 +93,8 @@ import router from '@/router'
 import { emitter } from '@/hooks/mitt'
 import type { RouteRecordNormalized } from 'vue-router'
 
-// 开启 websocket, 如果不需要 websocket 则注释此行代码
-useAdminWebSocket()
+// 开启 websocket
+enableWebsocket && useAdminWebSocket()
 
 const collapsed = ref(false)
 const toggleCollapsed = (isCollapsed: boolean) => {

@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user-store'
-import { LOGIN_PATH } from '@/constants'
+import { loginPath } from '@/config'
 
 // 校验 token 是否有效，有效则直接 redirect, 如果无效则跳转到 login 页面，return_to 的参数也带过去
 // 登录页登录完成后，如果有 return_to 参数，则进行 redirect
@@ -27,7 +27,7 @@ if (accessToken) {
   }
 } else {
   useRouter().push({
-    path: LOGIN_PATH,
+    path: loginPath,
     query: returnTo ? { return_to: returnTo } : {}
   })
 }

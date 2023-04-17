@@ -1,5 +1,5 @@
-import { STORAGE_KEY_PREFIX } from '@/constants'
+import { storageKeyPrefix } from '@/config'
 
 export const getStorageKey = (key: string) => {
-  return STORAGE_KEY_PREFIX + key
+  return storageKeyPrefix + key
 }
