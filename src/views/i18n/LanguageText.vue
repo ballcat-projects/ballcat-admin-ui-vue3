@@ -26,7 +26,7 @@
       <a-transfer
         :target-keys="targetLangTags"
         :data-source="transferDataSource"
-        :render="item => item.title"
+        :render="(item: TransferItem) => item.title"
         :titles="['Source', 'Target']"
         :lazy="false"
         @change="handleChange"
@@ -52,7 +52,7 @@ const transferItems = supportLanguageTags.map(x => {
   const languageInfo = supportLanguage[x]
   return { key: x, title: `${languageInfo.title} (${languageInfo.lang})` }
 })
-console.log(transferItems)
+
 const transferDataSource = ref<TransferItem[]>(transferItems)
 
 // 选中的目标语言 tags

@@ -1,5 +1,5 @@
-import type { FileObject } from '@/components/CropperModal/types'
 import type { ImportMode } from '@/api/types'
+import type { UploadFile } from 'ant-design-vue/lib/upload/interface'
 
 export interface I18nDataQO {
   // 国际化标识
@@ -44,7 +44,7 @@ export interface I18nDataPageVO extends I18nBaseData, LanguageText {
 
 export interface I18nImportData {
   // 文件内容
-  file: FileObject
+  file?: UploadFile
   // 导入模式
   importMode: ImportMode
 }
