@@ -26,6 +26,7 @@
     "collapse": "收起",
     "more": "更多",
     "create": "新建",
+    "update": "修改",
     "delete": "删除",
     "edit": "编辑",
     "export": "导出",
@@ -61,6 +62,7 @@
   "i18n": {
     "i18nData": {
       "text": "国际化信息",
+      "languageTexts": "语言文本",
       "languageTag": {
         "text": "语言标签",
         "tips": "语言标签，eg. zh-CN en-Us",

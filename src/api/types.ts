@@ -51,3 +51,13 @@ export interface SelectData<T = unknown> {
   // 扩展对象
   extendObj?: T
 }
+
+/**
+ * 导入模式
+ */
+export enum ImportMode {
+  // 跳过已有数据
+  SKIP_EXISTING = 'SKIP_EXISTING',
+  // 覆盖已有数据
+  OVERWRITE_EXISTING = 'OVERWRITE_EXISTING'
+}

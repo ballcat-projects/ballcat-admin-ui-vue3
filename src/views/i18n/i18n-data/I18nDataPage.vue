@@ -11,15 +11,15 @@
     <template #toolBarRender>
       <a-button @click="handleExport">
         <DownloadOutlined />
-        导出
+        {{ t('action.export') }}
       </a-button>
       <a-button @click="handleImport">
         <UploadOutlined />
-        导入
+        {{ t('action.import') }}
       </a-button>
       <a-button type="primary" @click="handleCreate">
         <PlusOutlined />
-        新建
+        {{ t('action.create') }}
       </a-button>
     </template>
     <template #bodyCell="{ column, record }">
@@ -28,7 +28,9 @@
           <template #split>
             <a-divider type="vertical" style="margin: 0" />
           </template>
-          <a v-if="hasPermission('i18n:i18n-data:edit')" @click="handleUpdate(record)">编辑</a>
+          <a v-if="hasPermission('i18n:i18n-data:edit')" @click="handleUpdate(record)">
+            {{ t('action.update') }}
+          </a>
           <a-popconfirm
             v-if="hasPermission('i18n:i18n-data:del')"
             title="确认要删除吗？"
@@ -41,22 +43,25 @@
     </template>
   </pro-table>
 
-  <i18n-data-form-modal ref="i18nDataFormModalRef" @submit-success="reloadTable" />
-  <i18n-data-update-modal ref="i18nDataEditFormModalRef" @submit-success="reloadTable" />
+  <i18n-data-create-modal ref="i18nDataCreateModalRef" @submit-success="reloadTable" />
+  <i18n-data-update-modal ref="i18nDataUpdateModalRef" @submit-success="reloadTable" />
+  <i18n-data-import-modal ref="i18nDataImportModalRef" @submit-success="reloadTable" />
 </template>
 
 <script setup lang="ts">
 import ProTable from '#/table'
 import type { ProTableInstanceExpose, ProColumns, TableRequest } from '#/table'
-import { pageI18nData, removeI18nData, exportExcel } from '@/api/i18n/i18n-data'
+import { pageI18nData, removeI18nData, exportI18nDataExcel } from '@/api/i18n/i18n-data'
 import type { I18nDataPageVO, I18nDataQO } from '@/api/i18n/types'
 import I18nDataPageSearch from './I18nDataPageSearch.vue'
-import I18nDataFormModal from './I18nDataFormModal.vue'
+import I18nDataCreateModal from './I18nDataCreateModal.vue'
+import I18nDataUpdateModal from './I18nDataUpdateModal.vue'
+import I18nDataImportModal from './I18nDataImportModal.vue'
 import { mergePageParam } from '@/utils/page-utils'
 import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
-import I18nDataUpdateModal from './I18nDataUpdateModal.vue'
 import { useI18n } from 'vue-i18n'
+import { remoteFileDownload } from '@/utils/file-utils'
 
 const { t } = useI18n()
 
@@ -65,8 +70,9 @@ const { hasPermission } = useAuthorize()
 
 const tableRef = ref<ProTableInstanceExpose>()
 
-const i18nDataFormModalRef = ref()
-const i18nDataEditFormModalRef = ref()
+const i18nDataCreateModalRef = ref()
+const i18nDataUpdateModalRef = ref()
+const i18nDataImportModalRef = ref()
 
 // 远程搜索参数
 let searchParams: I18nDataQO = {}
@@ -89,12 +95,12 @@ const searchTable = (params: I18nDataQO) => {
 
 /** 创建数据 */
 const handleCreate = () => {
-  i18nDataFormModalRef.value.open()
+  i18nDataCreateModalRef.value.open()
 }
 
 /**修改数据 */
 const handleUpdate = (record: I18nDataPageVO) => {
-  i18nDataEditFormModalRef.value.open(record)
+  i18nDataUpdateModalRef.value.open(record)
 }
 
 /* 删除数据 */
@@ -107,13 +113,15 @@ const handleRemove = (record: I18nDataPageVO) => {
 
 /** 导出数据 */
 const handleExport = (params: I18nDataQO) => {
-  doRequest(exportExcel(params), {
-    successMessage: '导出成功'
+  exportI18nDataExcel(params).then(response => {
+    remoteFileDownload(response)
   })
 }
 
 /** 导入数据 */
-const handleImport = () => {}
+const handleImport = () => {
+  i18nDataImportModalRef.value.open()
+}
 
 const columns = computed<ProColumns[]>(
   () =>

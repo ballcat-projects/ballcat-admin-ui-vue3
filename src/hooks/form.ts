@@ -18,7 +18,8 @@ export interface DebounceSettings {
 export const enum FormAction {
   OTHER = 'other',
   CREATE = 'create',
-  UPDATE = 'update'
+  UPDATE = 'update',
+  IMPORT = 'import'
 }
 
 export interface FormRequestMapping<T, R = unknown> {

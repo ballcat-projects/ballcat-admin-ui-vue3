@@ -1,6 +1,6 @@
 <template>
-  <a-space direction="vertical">
-    <div v-for="language in languageList" :key="language.languageTag">
+  <div v-for="language in languageList" :key="language.languageTag" style="margin-bottom: 8px">
+    <template v-if="targetLangTags.includes(language.languageTag)">
       <a-input
         v-model:value="language.languageTag"
         placeholder="语言标签"
@@ -12,81 +12,76 @@
         placeholder="文本值"
         style="width: 60%; margin-right: 8px"
       />
-      <minus-circle-outlined
-        v-if="languageList.length > 1"
+      <span
+        v-if="targetLangTags.length > 1"
         class="dynamic-delete-button"
-        :disabled="languageList.length === 1"
         @click="() => remove(language)"
+      >
+        <MinusCircleOutlined />
+      </span>
+    </template>
+  </div>
+  <a-popover trigger="click" style="width: 100%">
+    <template #content>
+      <a-transfer
+        :target-keys="targetLangTags"
+        :data-source="transferDataSource"
+        :render="item => item.title"
+        :titles="['Source', 'Target']"
+        :lazy="false"
+        @change="handleChange"
       />
-    </div>
-    <a-popover trigger="click">
-      <template #content>
-        <a-transfer
-          :row-key="transferKey"
-          :data-source="allLanguageList"
-          :render="transferKey"
-          :titles="['Source', 'Target']"
-          :target-keys="langTags"
-          :lazy="false"
-          @change="langTagChange"
-        />
-      </template>
-      <a-button type="dashed" style="width: 60%">
-        <PlusOutlined />
-        Add field
-      </a-button>
-    </a-popover>
-  </a-space>
+    </template>
+    <a-button type="dashed" style="width: 100%">
+      <PlusOutlined />
+      Add field
+    </a-button>
+  </a-popover>
 </template>
 
 <script setup lang="ts">
 import type { LanguageText } from '@/api/i18n/types'
 import { supportLanguage } from '@/config'
+import type { TransferItem } from 'ant-design-vue/es/transfer'
 
+// 支持的语言 tags
 const supportLanguageTags = Object.keys(supportLanguage)
 
-const langTags = ref<string[]>([])
-const allLanguageList = ref<LanguageText[]>([])
+// 语言选择的传输框数据
+const transferItems = supportLanguageTags.map(x => {
+  const languageInfo = supportLanguage[x]
+  return { key: x, title: `${languageInfo.title} (${languageInfo.lang})` }
+})
+console.log(transferItems)
+const transferDataSource = ref<TransferItem[]>(transferItems)
+
+// 选中的目标语言 tags
+const targetLangTags = ref<string[]>([])
+// 语言文本列表
 const languageList = ref<LanguageText[]>([])
 
-watch(langTags.value, () => {
-  languageList.value = allLanguageList.value.filter(
-    x => langTags.value.findIndex(key => key === x.languageTag) !== -1
-  )
-})
+function remove(language: LanguageText) {
+  const index = targetLangTags.value.findIndex(key => key === language.languageTag)
+  targetLangTags.value.splice(index, 1)
+}
 
-onMounted(() => {
-  allLanguageList.value = supportLanguageTags.map(languageTag => {
-    return {
-      languageTag,
-      message: ''
-    }
+function handleChange(nextTargetKeys: string[]) {
+  targetLangTags.value = nextTargetKeys
+}
+
+function initData() {
+  targetLangTags.value = [...supportLanguageTags]
+  languageList.value = supportLanguageTags.map(x => {
+    return { languageTag: x, message: '' }
   })
-  langTags.value = [...supportLanguageTags]
-})
-
-const langTagChange = (nextTargetKeys: string[]) => {
-  langTags.value = nextTargetKeys
 }
 
-const transferKey = (item: LanguageText) => item.languageTag
-
-const remove = (language: LanguageText) => {
-  const index = langTags.value.findIndex(key => key === language.languageTag)
-  langTags.value.splice(index, 1)
-}
+// 初始化数据
+initData()
 
 defineExpose({
-  data: languageList,
-  resetData() {
-    allLanguageList.value = supportLanguageTags.map(languageTag => {
-      return {
-        languageTag,
-        message: ''
-      }
-    })
-    langTags.value = [...supportLanguageTags]
-  }
+  data: () => languageList.value.filter(x => targetLangTags.value.includes(x.languageTag)),
+  reset: () => initData()
 })
 </script>
 
@@ -102,10 +97,5 @@ defineExpose({
 
 .dynamic-delete-button:hover {
   color: #777;
-}
-
-.dynamic-delete-button[disabled] {
-  cursor: not-allowed;
-  opacity: 0.5;
 }
 </style>

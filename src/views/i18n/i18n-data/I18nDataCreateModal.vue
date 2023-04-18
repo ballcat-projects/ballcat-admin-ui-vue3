@@ -14,7 +14,7 @@
         <a-input v-model:value="formModel.code" :placeholder="t('i18n.i18nData.code.tips')" />
       </a-form-item>
 
-      <a-form-item label="语言文本">
+      <a-form-item :label="t('i18n.i18nData.languageTexts')">
         <language-text ref="languageTextRef" />
       </a-form-item>
 
@@ -40,7 +40,7 @@ const emits = defineEmits<{
   (e: 'submit-success'): void
 }>()
 
-const { title, visible, openModal, closeModal } = useModal()
+const { title, visible, openModal, closeModal } = useModal('新建国际化信息')
 
 const { formAction } = useFormAction(FormAction.CREATE)
 
@@ -73,7 +73,7 @@ const { submitLoading, validateAndSubmit, resetFields, validateInfos } = useAdmi
 /* 表单提交处理 */
 const handleSubmit = () => {
   const data = toRaw(formModel)
-  data.languageTexts = unref(languageTextRef.value).data
+  data.languageTexts = languageTextRef.value?.data()
   validateAndSubmit(data, {
     onSuccess: () => {
       closeModal()
@@ -92,7 +92,6 @@ defineExpose({
   open() {
     openModal()
     resetFields()
-    title.value = '新建:国际化信息'
   }
 })
 </script>

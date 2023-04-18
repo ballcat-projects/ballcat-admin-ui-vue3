@@ -47,7 +47,7 @@ const emits = defineEmits<{
   (e: 'submit-success'): void
 }>()
 
-const { title, visible, openModal, closeModal } = useModal()
+const { title, visible, openModal, closeModal } = useModal('修改国际化信息')
 
 const { formAction } = useFormAction(FormAction.UPDATE)
 
@@ -100,7 +100,6 @@ defineExpose({
   open(record: I18nDataPageVO) {
     openModal()
     resetFields()
-    title.value = '修改:国际化信息'
     overrideProperties(formModel, record)
   }
 })

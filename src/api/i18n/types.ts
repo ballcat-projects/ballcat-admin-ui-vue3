@@ -1,3 +1,6 @@
+import type { FileObject } from '@/components/CropperModal/types'
+import type { ImportMode } from '@/api/types'
+
 export interface I18nDataQO {
   // 国际化标识
   code?: string
@@ -37,4 +40,11 @@ export interface I18nDataPageVO extends I18nBaseData, LanguageText {
   id: number
   // 创建时间
   createTime?: string
+}
+
+export interface I18nImportData {
+  // 文件内容
+  file: FileObject
+  // 导入模式
+  importMode: ImportMode
 }

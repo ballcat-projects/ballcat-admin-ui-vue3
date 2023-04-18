@@ -1,5 +1,5 @@
-export const useModal = () => {
-  const title = ref('')
+export const useModal = (defaultTitle = '') => {
+  const title = ref(defaultTitle)
 
   const visible = ref(false)
 
