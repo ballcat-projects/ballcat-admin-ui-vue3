@@ -11,12 +11,18 @@ import 'ant-design-vue/es/notification/style/index.less'
 import 'ant-design-vue/es/modal/style/index.less'
 
 import App from './App.vue'
+import { enableI18n } from '@/config'
 
 const app = createApp(App)
 app.use(createPinia())
 
-// 加载完 i18n 文件后再注册路由和渲染，防止发起请求时 401，错误弹窗无法国际化
-installI18n(app).then(() => {
+if (enableI18n) {
+  // 加载完 i18n 文件后再注册路由和渲染，防止发起请求时 401，错误弹窗无法国际化
+  installI18n(app).then(() => {
+    app.use(router)
+    app.mount('#app')
+  })
+} else {
   app.use(router)
   app.mount('#app')
-})
+}
