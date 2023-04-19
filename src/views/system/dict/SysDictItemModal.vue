@@ -32,19 +32,13 @@
           />
         </template>
         <template v-else-if="column.key === 'operate'">
-          <a-space>
-            <template #split>
-              <a-divider type="vertical" style="margin: 0" />
-            </template>
+          <operation-group>
             <a v-if="hasPermission('system:dict:edit')" @click="handleUpdate(record)">修改</a>
-            <a-popconfirm
+            <remove-text-button
               v-if="hasPermission('system:dict:del')"
-              title="确认要删除吗？"
               @confirm="handleRemove(record)"
-            >
-              <a href="javascript:" class="ballcat-text-danger">删除</a>
-            </a-popconfirm>
-          </a-space>
+            />
+          </operation-group>
         </template>
       </template>
     </pro-table>
@@ -71,7 +65,8 @@ import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
 import SysDictItemForm from '@/views/system/dict/SysDictItemForm.vue'
 import { useToggle } from '@vueuse/core'
-import { CreateButton } from '@/components/Button/IconButton'
+import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { OperationGroup } from '@/components/Operation'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

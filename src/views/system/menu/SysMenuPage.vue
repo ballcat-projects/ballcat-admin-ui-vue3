@@ -35,20 +35,14 @@
       </template>
       <!-- 操作栏 -->
       <template v-else-if="column.key === 'operate'">
-        <a-space>
-          <template #split>
-            <a-divider type="vertical" style="margin: 0" />
-          </template>
+        <operation-group>
           <a v-if="hasPermission('system:menu:add')" @click="handleCreate(record)">添加</a>
           <a v-if="hasPermission('system:menu:edit')" @click="handleUpdate(record)">修改</a>
-          <a-popconfirm
+          <remove-text-button
             v-if="hasPermission('system:menu:del')"
-            title="确认要删除吗？"
-            @confirm="() => handleRemove(record)"
-          >
-            <a href="javascript:" class="ballcat-text-danger">删除</a>
-          </a-popconfirm>
-        </a-space>
+            @confirm="handleRemove(record)"
+          />
+        </operation-group>
       </template>
     </template>
   </pro-table>
@@ -77,7 +71,8 @@ import SysMenuFormModal from '@/views/system/menu/SysMenuFormModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import { DictText } from '@/components/Dict'
-import { CreateButton } from '@/components/Button/IconButton'
+import { CreateButton, RemoveTextButton } from '@/components/Button'
+import OperationGroup from '@/components/Operation/OperationGroup.vue'
 
 const enableI18n = false
 

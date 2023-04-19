@@ -73,9 +73,7 @@
                         <a @click="changePass(record)">改密</a>
                       </a-menu-item>
                       <a-menu-item v-if="hasPermission('system:user:del')">
-                        <a-popconfirm title="确认要删除吗？" @confirm="handleRemove(record)">
-                          <a href="javascript:">删除</a>
-                        </a-popconfirm>
+                        <remove-text-button @confirm="handleRemove(record)" />
                       </a-menu-item>
                     </a-menu>
                   </template>
@@ -128,7 +126,7 @@ import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { DictBadge, DictText } from '@/components/Dict'
-import { CreateButton } from '@/components/Button/IconButton'
+import { CreateButton, RemoveTextButton } from '@/components/Button'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

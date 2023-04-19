@@ -15,21 +15,15 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
-        <a-space>
-          <template #split>
-            <a-divider type="vertical" style="margin: 0" />
-          </template>
+        <operation-group>
           <a v-if="hasPermission('system:role:edit')" @click="handleUpdate(record)">修改</a>
           <a v-if="hasPermission('system:role:grant')" @click="handleGrant(record)">授权</a>
           <a v-if="hasPermission('system:role:grant')" @click="handleBind(record)">绑定</a>
-          <a-popconfirm
+          <remove-text-button
             v-if="hasPermission('system:role:del')"
-            title="确认要删除吗？"
             @confirm="handleRemove(record)"
-          >
-            <a href="javascript:" class="ballcat-text-danger">删除</a>
-          </a-popconfirm>
-        </a-space>
+          />
+        </operation-group>
       </template>
     </template>
   </pro-table>
@@ -60,7 +54,8 @@ import SysRoleUserModal from '@/views/system/role/SysRoleUserModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import { DictTag } from '@/components/Dict'
-import { CreateButton } from '@/components/Button/IconButton'
+import { OperationGroup } from '@/components/Operation'
+import { CreateButton, RemoveTextButton } from '@/components/Button'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

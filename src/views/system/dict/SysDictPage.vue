@@ -17,20 +17,14 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
-        <a-space>
-          <template #split>
-            <a-divider type="vertical" style="margin: 0" />
-          </template>
+        <operation-group>
           <a v-if="hasPermission('system:dict:edit')" @click="handleUpdate(record)">修改</a>
           <a v-if="hasPermission('system:dict:read')" @click="openDictItemModal(record)">字典项</a>
-          <a-popconfirm
+          <remove-text-button
             v-if="hasPermission('system:dict:del')"
-            title="确认要删除吗？"
             @confirm="handleRemove(record)"
-          >
-            <a href="javascript:" class="ballcat-text-danger">删除</a>
-          </a-popconfirm>
-        </a-space>
+          />
+        </operation-group>
       </template>
     </template>
   </pro-table>
@@ -57,7 +51,8 @@ import SysDictPageSearch from '@/views/system/dict/SysDictPageSearch.vue'
 import SysDictFormModal from '@/views/system/dict/SysDictFormModal.vue'
 import SysDictItemModal from '@/views/system/dict/SysDictItemModal.vue'
 import { DictTag } from '@/components/Dict'
-import { CreateButton } from '@/components/Button/IconButton'
+import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { OperationGroup } from '@/components/Operation'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

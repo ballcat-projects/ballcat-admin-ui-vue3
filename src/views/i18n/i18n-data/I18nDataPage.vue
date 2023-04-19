@@ -15,21 +15,15 @@
     </template>
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
-        <a-space>
-          <template #split>
-            <a-divider type="vertical" style="margin: 0" />
-          </template>
+        <operation-group>
           <a v-if="hasPermission('i18n:i18n-data:edit')" @click="handleUpdate(record)">
             {{ t('action.update') }}
           </a>
-          <a-popconfirm
+          <remove-text-button
             v-if="hasPermission('i18n:i18n-data:del')"
-            title="确认要删除吗？"
             @confirm="handleRemove(record)"
-          >
-            <a class="ballcat-text-danger">删除</a>
-          </a-popconfirm>
-        </a-space>
+          />
+        </operation-group>
       </template>
     </template>
   </pro-table>
@@ -53,7 +47,8 @@ import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
 import { useI18n } from 'vue-i18n'
 import { remoteFileDownload } from '@/utils/file-utils'
-import { CreateButton, ExportButton, ImportButton } from '@/components/Button/IconButton'
+import { CreateButton, ExportButton, ImportButton, RemoveTextButton } from '@/components/Button'
+import { OperationGroup } from '@/components/Operation'
 
 const { t } = useI18n()
 
