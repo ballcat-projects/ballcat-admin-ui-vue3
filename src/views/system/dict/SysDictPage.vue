@@ -12,15 +12,7 @@
     :scroll="{ x: 800 }"
   >
     <template #toolBarRender>
-      <a-button
-        v-if="hasPermission('system:dict:add')"
-        key="show"
-        type="primary"
-        @click="handleCreate"
-      >
-        <PlusOutlined />
-        新建
-      </a-button>
+      <create-button v-if="hasPermission('system:dict:add')" @click="handleCreate" />
     </template>
 
     <template #bodyCell="{ column, record }">
@@ -65,6 +57,7 @@ import SysDictPageSearch from '@/views/system/dict/SysDictPageSearch.vue'
 import SysDictFormModal from '@/views/system/dict/SysDictFormModal.vue'
 import SysDictItemModal from '@/views/system/dict/SysDictItemModal.vue'
 import { DictTag } from '@/components/Dict'
+import { CreateButton } from '@/components/Button/IconButton'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

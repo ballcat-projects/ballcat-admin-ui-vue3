@@ -44,15 +44,7 @@
             </template>
 
             <template #toolBarRender>
-              <a-button
-                v-if="hasPermission('system:user:add')"
-                key="show"
-                type="primary"
-                @click="handleCreate"
-              >
-                <PlusOutlined />
-                新建
-              </a-button>
+              <create-button v-if="hasPermission('system:user:add')" @click="handleCreate" />
             </template>
 
             <template #bodyCell="{ column, record }">
@@ -136,6 +128,7 @@ import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { DictBadge, DictText } from '@/components/Dict'
+import { CreateButton } from '@/components/Button/IconButton'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

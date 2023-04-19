@@ -10,15 +10,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button
-        v-if="hasPermission('notify:announcement:add')"
-        key="show"
-        type="primary"
-        @click="handleCreate"
-      >
-        <PlusOutlined />
-        新建
-      </a-button>
+      <create-button v-if="hasPermission('notify:announcement:add')" @click="handleCreate" />
     </template>
 
     <!--数据表格区域-->
@@ -97,6 +89,7 @@ import {
 import { AnnouncementStatusEnum } from '@/api/notify/announcement/types'
 import AnnouncementFormModal from '@/views/notify/announcement/AnnouncementFormModal.vue'
 import { FormAction } from '@/hooks/form'
+import { CreateButton } from '@/components/Button/IconButton'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

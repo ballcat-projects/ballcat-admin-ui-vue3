@@ -18,9 +18,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button v-if="hasPermission('system:role:add')" type="primary" @click="handleCreate()">
-        <PlusOutlined />新建
-      </a-button>
+      <create-button v-if="hasPermission('system:role:add')" @click="handleCreate()" />
     </template>
 
     <!-- 数据表格区域 -->
@@ -79,6 +77,7 @@ import SysMenuFormModal from '@/views/system/menu/SysMenuFormModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import { DictText } from '@/components/Dict'
+import { CreateButton } from '@/components/Button/IconButton'
 
 const enableI18n = false
 

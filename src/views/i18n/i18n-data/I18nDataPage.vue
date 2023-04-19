@@ -9,18 +9,9 @@
     :scroll="{ x: 1100 }"
   >
     <template #toolBarRender>
-      <a-button @click="handleExport">
-        <DownloadOutlined />
-        {{ t('action.export') }}
-      </a-button>
-      <a-button @click="handleImport">
-        <UploadOutlined />
-        {{ t('action.import') }}
-      </a-button>
-      <a-button type="primary" @click="handleCreate">
-        <PlusOutlined />
-        {{ t('action.create') }}
-      </a-button>
+      <export-button @click="handleExport" />
+      <import-button @click="handleImport" />
+      <create-button @click="handleCreate" />
     </template>
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
@@ -62,6 +53,7 @@ import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
 import { useI18n } from 'vue-i18n'
 import { remoteFileDownload } from '@/utils/file-utils'
+import { CreateButton, ExportButton, ImportButton } from '@/components/Button/IconButton'
 
 const { t } = useI18n()
 

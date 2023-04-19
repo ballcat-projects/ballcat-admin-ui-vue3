@@ -44,13 +44,7 @@
       >
         <a-button type="primary" danger><InteractionOutlined />校正层级深度</a-button>
       </a-popconfirm>
-      <a-button
-        v-if="hasPermission('system:organization:add')"
-        type="primary"
-        @click="handleCreate"
-      >
-        <PlusOutlined /> 新建
-      </a-button>
+      <create-button v-if="hasPermission('system:organization:add')" @click="handleCreate" />
     </template>
 
     <!--数据表格区域-->
@@ -106,6 +100,7 @@ import type { Key } from '@/utils/tree-utils'
 import type { SysOrganizationTree, SysOrganizationVO } from '@/api/system/organization/types'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
+import { CreateButton } from '@/components/Button/IconButton'
 
 const { hasPermission } = useAuthorize()
 

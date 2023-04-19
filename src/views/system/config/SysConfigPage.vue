@@ -12,15 +12,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button
-        v-if="hasPermission('system:config:add')"
-        key="show"
-        type="primary"
-        @click="handleCreate"
-      >
-        <PlusOutlined />
-        新建
-      </a-button>
+      <create-button v-if="hasPermission('system:config:add')" @click="handleCreate" />
     </template>
 
     <!-- 数据表格区域 -->
@@ -59,6 +51,7 @@ import { pageConfigs, removeConfig } from '@/api/system/config'
 import type { SysConfigPageVO, SysConfigQO } from '@/api/system/config/types'
 import SysConfigFormModal from '@/views/system/config/SysConfigFormModal.vue'
 import { FormAction } from '@/hooks/form'
+import { CreateButton } from '@/components/Button/IconButton'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

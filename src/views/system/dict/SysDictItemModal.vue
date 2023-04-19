@@ -20,15 +20,7 @@
       :card-props="{ bodyStyle: { padding: 0 } }"
     >
       <template #headerTitle>
-        <a-button
-          v-if="hasPermission('system:dict:add')"
-          key="show"
-          type="primary"
-          @click="handleCreate"
-        >
-          <PlusOutlined />
-          新建
-        </a-button>
+        <create-button v-if="hasPermission('system:dict:add')" @click="handleCreate" />
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'status'">
@@ -79,6 +71,7 @@ import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
 import SysDictItemForm from '@/views/system/dict/SysDictItemForm.vue'
 import { useToggle } from '@vueuse/core'
+import { CreateButton } from '@/components/Button/IconButton'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()

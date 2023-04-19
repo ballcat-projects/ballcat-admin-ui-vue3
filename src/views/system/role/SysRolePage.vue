@@ -10,15 +10,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <a-button
-        v-if="hasPermission('system:role:add')"
-        key="show"
-        type="primary"
-        @click="handleCreate"
-      >
-        <PlusOutlined />
-        新建
-      </a-button>
+      <create-button v-if="hasPermission('system:role:add')" @click="handleCreate" />
     </template>
 
     <template #bodyCell="{ column, record }">
@@ -68,6 +60,7 @@ import SysRoleUserModal from '@/views/system/role/SysRoleUserModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import { DictTag } from '@/components/Dict'
+import { CreateButton } from '@/components/Button/IconButton'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
