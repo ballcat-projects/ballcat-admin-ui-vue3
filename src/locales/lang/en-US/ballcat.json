@@ -72,7 +72,8 @@
       "message": {
         "text": "Message",
         "tips": "The text of the i18n data",
-        "required": "Please enter i18n data message！！"
+        "required": "Please enter i18n data message！",
+        "removeSuccess": "Remove Success!"
       }
     }
   }

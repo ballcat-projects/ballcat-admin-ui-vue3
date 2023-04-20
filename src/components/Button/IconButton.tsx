@@ -2,9 +2,8 @@ import { buttonProps } from 'ant-design-vue/es/button/button'
 import { initDefaultProps } from 'ant-design-vue/es/_util/props-util'
 
 import { Button as AButton } from 'ant-design-vue'
-import { enableI18n } from '@/config'
-import { useI18n } from 'vue-i18n'
 import { DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons-vue'
+import { useAdminI18n } from '@/hooks/i18n'
 
 const iconButtonProps = () => ({
   ...buttonProps(),
@@ -24,13 +23,8 @@ const IconButton = defineComponent({
   slots: ['icon'],
   props: iconButtonProps(),
   setup(props, { slots, attrs }) {
-    const text = computed(() => {
-      if (enableI18n) {
-        return useI18n().t(props.i18nKey!)
-      } else {
-        return props.defaultText
-      }
-    })
+    const { i18nText } = useAdminI18n()
+    const text = i18nText(props.i18nKey!, props.defaultText)
 
     return () => (
       <AButton {...props} {...attrs}>

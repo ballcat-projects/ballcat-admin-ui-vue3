@@ -8,14 +8,16 @@
 import { useI18nStore } from '@/stores/i18n-store'
 import { useI18n } from 'vue-i18n'
 import { enableI18n } from '@/config'
+import type { Locale } from 'ant-design-vue/es/locale-provider'
+import type { Ref } from 'vue'
 
-let antdLocal
+let antdLocal: Ref<Locale>
 
 if (enableI18n) {
   const i18n = useI18n()
   const i18nStore = useI18nStore()
-  antdLocal = computed(() => {
-    return i18n.getLocaleMessage(i18nStore.language)?.antdLocale ?? {}
+  antdLocal = computed<Locale>(() => {
+    return i18n.getLocaleMessage(i18nStore.language)?.antdLocale
   })
 }
 </script>

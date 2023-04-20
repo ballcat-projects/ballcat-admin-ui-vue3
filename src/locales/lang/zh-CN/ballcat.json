@@ -47,7 +47,8 @@
   "message": {
     "confirmDelete": "确认要删除吗？",
     "pleaseEnter": "请输入",
-    "pleaseSelectFile": "请选择一个文件"
+    "pleaseSelectFile": "请选择一个文件",
+    "removeSuccess": "删除成功！"
   },
 
   "import": {

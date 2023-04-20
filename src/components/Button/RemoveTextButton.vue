@@ -9,14 +9,16 @@
 
 <script setup lang="ts">
 import { ConfirmTextButton } from '@/components/Button'
-import type { Ref } from 'vue'
+import { useAdminI18n } from '@/hooks/i18n'
+
+const { i18nText } = useAdminI18n()
 
 const props = defineProps<{
   onConfirm?: (e: MouseEvent) => void
 }>()
 
-const title: Ref<string> = ref('确认要删除吗')
-const text: Ref<string> = ref('删除')
+const title = i18nText('message.confirmDelete', '确认要删除吗？')
+const text = i18nText('action.update', '删除')
 </script>
 
 <script lang="ts">

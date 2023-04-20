@@ -3,13 +3,13 @@
   <pro-table
     ref="tableRef"
     row-key="id"
-    header-title="国际化信息"
+    :header-title="t('i18n.i18nData.text')"
     :request="tableRequest"
     :columns="columns"
     :scroll="{ x: 1100 }"
   >
     <template #toolBarRender>
-      <export-button @click="handleExport" />
+      <export-button @click="handleExport(searchParams)" />
       <import-button @click="handleImport" />
       <create-button @click="handleCreate" />
     </template>
@@ -45,12 +45,12 @@ import I18nDataImportModal from './I18nDataImportModal.vue'
 import { mergePageParam } from '@/utils/page-utils'
 import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
-import { useI18n } from 'vue-i18n'
 import { remoteFileDownload } from '@/utils/file-utils'
 import { CreateButton, ExportButton, ImportButton, RemoveTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
+import { useAdminI18n } from '@/hooks/i18n'
 
-const { t } = useI18n()
+const { t } = useAdminI18n()
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -93,7 +93,7 @@ const handleUpdate = (record: I18nDataPageVO) => {
 /* 删除数据 */
 const handleRemove = (record: I18nDataPageVO) => {
   doRequest(removeI18nData(record.code, record.languageTag), {
-    successMessage: '删除成功！',
+    successMessage: t('message.removeSuccess'),
     onSuccess: () => reloadTable()
   })
 }
