@@ -155,9 +155,9 @@ defineExpose({
     openModal()
     resetFields()
     if (newFormAction === FormAction.CREATE) {
-      title.value = '角色新建'
+      title.value = '新建角色'
     } else {
-      title.value = '角色修改'
+      title.value = '编辑角色'
       overrideProperties(formModel, record)
       formModel.scopeResourceList = record?.scopeResources?.split(',').map(Number)
     }

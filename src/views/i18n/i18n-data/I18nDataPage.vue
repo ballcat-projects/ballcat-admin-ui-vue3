@@ -11,17 +11,17 @@
     <template #toolBarRender>
       <export-button @click="handleExport(searchParams)" />
       <import-button @click="handleImport" />
-      <create-button @click="handleCreate" />
+      <new-button @click="handleNew" />
     </template>
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
         <operation-group>
-          <a v-if="hasPermission('i18n:i18n-data:edit')" @click="handleUpdate(record)">
-            {{ t('action.update') }}
+          <a v-if="hasPermission('i18n:i18n-data:edit')" @click="handleEdit(record)">
+            {{ t('action.edit') }}
           </a>
-          <remove-text-button
+          <delete-text-button
             v-if="hasPermission('i18n:i18n-data:del')"
-            @confirm="handleRemove(record)"
+            @confirm="handleDelete(record)"
           />
         </operation-group>
       </template>
@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import ProTable from '#/table'
 import type { ProTableInstanceExpose, ProColumns, TableRequest } from '#/table'
-import { pageI18nData, removeI18nData, exportI18nDataExcel } from '@/api/i18n/i18n-data'
+import { pageI18nData, deleteI18nData, exportI18nDataExcel } from '@/api/i18n/i18n-data'
 import type { I18nDataPageVO, I18nDataQO } from '@/api/i18n/types'
 import I18nDataPageSearch from './I18nDataPageSearch.vue'
 import I18nDataCreateModal from './I18nDataCreateModal.vue'
@@ -46,7 +46,7 @@ import { mergePageParam } from '@/utils/page-utils'
 import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
 import { remoteFileDownload } from '@/utils/file-utils'
-import { CreateButton, ExportButton, ImportButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, ExportButton, ImportButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 import { useAdminI18n } from '@/hooks/i18n'
 
@@ -80,19 +80,19 @@ const searchTable = (params: I18nDataQO) => {
   reloadTable(true)
 }
 
-/** 创建数据 */
-const handleCreate = () => {
+/* 新建数据 */
+const handleNew = () => {
   i18nDataCreateModalRef.value.open()
 }
 
-/**修改数据 */
-const handleUpdate = (record: I18nDataPageVO) => {
+/* 编辑数据 */
+const handleEdit = (record: I18nDataPageVO) => {
   i18nDataUpdateModalRef.value.open(record)
 }
 
 /* 删除数据 */
-const handleRemove = (record: I18nDataPageVO) => {
-  doRequest(removeI18nData(record.code, record.languageTag), {
+const handleDelete = (record: I18nDataPageVO) => {
+  doRequest(deleteI18nData(record.code, record.languageTag), {
     successMessage: t('message.removeSuccess'),
     onSuccess: () => reloadTable()
   })

@@ -49,6 +49,6 @@ export function updateMenu(menuDto: SysMenuDTO) {
  * 删除菜单
  * @param menuId 菜单id
  */
-export function removeMenu(menuId: number) {
+export function deleteMenu(menuId: number) {
   return httpClient.delete<ApiResult<void>>(`/system/menu/${menuId}`)
 }

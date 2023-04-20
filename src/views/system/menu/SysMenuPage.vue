@@ -18,7 +18,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <create-button v-if="hasPermission('system:role:add')" @click="handleCreate()" />
+      <new-button v-if="hasPermission('system:role:add')" @click="handleNew()" />
     </template>
 
     <!-- 数据表格区域 -->
@@ -36,18 +36,18 @@
       <!-- 操作栏 -->
       <template v-else-if="column.key === 'operate'">
         <operation-group>
-          <a v-if="hasPermission('system:menu:add')" @click="handleCreate(record)">添加</a>
-          <a v-if="hasPermission('system:menu:edit')" @click="handleUpdate(record)">修改</a>
-          <remove-text-button
+          <a v-if="hasPermission('system:menu:add')" @click="handleNew(record)">添加</a>
+          <a v-if="hasPermission('system:menu:edit')" @click="handleEdit(record)">编辑</a>
+          <delete-text-button
             v-if="hasPermission('system:menu:del')"
-            @confirm="handleRemove(record)"
+            @confirm="handleDelete(record)"
           />
         </operation-group>
       </template>
     </template>
   </pro-table>
 
-  <!-- 菜单新建/修改弹窗 -->
+  <!-- 菜单新建/编辑弹窗 -->
   <sys-menu-form-modal
     ref="sysMenuFormModalRef"
     :menu-list="menuList"
@@ -61,7 +61,7 @@ import type { ProTableInstanceExpose } from '#/table'
 import type { TableRequest } from '#/table'
 import type { ProColumns } from '#/table'
 import { useAuthorize } from '@/hooks/permission'
-import { listMenus, removeMenu } from '@/api/system/menu'
+import { listMenus, deleteMenu } from '@/api/system/menu'
 import type { SysMenuVOTree, SysMenuVO, SysMenuQO } from '@/api/system/menu/types'
 import { listToTree, matchedParentKeys, pruneTree } from '@/utils/tree-utils'
 import type { Key } from '@/utils/tree-utils'
@@ -71,7 +71,7 @@ import SysMenuFormModal from '@/views/system/menu/SysMenuFormModal.vue'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import { DictText } from '@/components/Dict'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 import OperationGroup from '@/components/Operation/OperationGroup.vue'
 
 const enableI18n = false
@@ -134,18 +134,18 @@ const searchTable = (params: SysMenuQO) => {
 }
 
 /* 新建菜单 */
-const handleCreate = (record?: SysMenuVO) => {
+const handleNew = (record?: SysMenuVO) => {
   sysMenuFormModalRef.value.open(FormAction.CREATE, record)
 }
 
-/* 修改菜单 */
-const handleUpdate = (record: SysMenuVO) => {
+/* 编辑菜单 */
+const handleEdit = (record: SysMenuVO) => {
   sysMenuFormModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /* 删除菜单 */
-const handleRemove = (record: SysMenuVO) => {
-  doRequest(removeMenu(record.id), {
+const handleDelete = (record: SysMenuVO) => {
+  doRequest(deleteMenu(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

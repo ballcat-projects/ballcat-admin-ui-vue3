@@ -114,7 +114,7 @@ defineExpose({
     if (newFormAction === FormAction.CREATE) {
       title.value = '新建系统配置'
     } else {
-      title.value = '修改系统配置'
+      title.value = '编辑系统配置'
       overrideProperties(formModel, record)
     }
     formAction.value = newFormAction

@@ -20,7 +20,7 @@
       :card-props="{ bodyStyle: { padding: 0 } }"
     >
       <template #headerTitle>
-        <create-button v-if="hasPermission('system:dict:add')" @click="handleCreate" />
+        <new-button v-if="hasPermission('system:dict:add')" @click="handleNew" />
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'status'">
@@ -33,10 +33,10 @@
         </template>
         <template v-else-if="column.key === 'operate'">
           <operation-group>
-            <a v-if="hasPermission('system:dict:edit')" @click="handleUpdate(record)">修改</a>
-            <remove-text-button
+            <a v-if="hasPermission('system:dict:edit')" @click="handleEdit(record)">编辑</a>
+            <delete-text-button
               v-if="hasPermission('system:dict:del')"
-              @confirm="handleRemove(record)"
+              @confirm="handleDelete(record)"
             />
           </operation-group>
         </template>
@@ -65,7 +65,7 @@ import { useAuthorize } from '@/hooks/permission'
 import { doRequest } from '@/utils/axios/request'
 import SysDictItemForm from '@/views/system/dict/SysDictItemForm.vue'
 import { useToggle } from '@vueuse/core'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
 // 鉴权方法
@@ -94,20 +94,20 @@ const reloadTable = (resetPageIndex?: boolean) => {
   tableRef.value?.actionRef?.reload(resetPageIndex)
 }
 
-/* 创建字典项 */
-const handleCreate = () => {
+/* 新建字典项 */
+const handleNew = () => {
   setTableShow(false)
   sysDictItemFormRef.value.create(dictCode)
 }
 
-/* 修改字典项 */
-const handleUpdate = (record: SysDictItemPageVO) => {
+/* 编辑字典项 */
+const handleEdit = (record: SysDictItemPageVO) => {
   setTableShow(false)
   sysDictItemFormRef.value.update(record)
 }
 
 /* 删除字典项 */
-const handleRemove = (record: SysDictItemPageVO) => {
+const handleDelete = (record: SysDictItemPageVO) => {
   doRequest(removeDictItem(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()

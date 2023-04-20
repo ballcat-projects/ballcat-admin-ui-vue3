@@ -38,7 +38,7 @@ export function updateAnnouncement(announcementDTO: AnnouncementDTO) {
  * 删除公告信息
  * @param id 公告id
  */
-export function removeAnnouncement(id: number) {
+export function deleteAnnouncement(id: number) {
   return httpClient.delete<ApiResult<void>>('/notify/announcement/' + id)
 }
 

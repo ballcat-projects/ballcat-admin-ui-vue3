@@ -12,17 +12,17 @@
     :scroll="{ x: 800 }"
   >
     <template #toolBarRender>
-      <create-button v-if="hasPermission('system:dict:add')" @click="handleCreate" />
+      <new-button v-if="hasPermission('system:dict:add')" @click="handleNew" />
     </template>
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
         <operation-group>
-          <a v-if="hasPermission('system:dict:edit')" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:dict:edit')" @click="handleEdit(record)">编辑</a>
           <a v-if="hasPermission('system:dict:read')" @click="openDictItemModal(record)">字典项</a>
-          <remove-text-button
+          <delete-text-button
             v-if="hasPermission('system:dict:del')"
-            @confirm="handleRemove(record)"
+            @confirm="handleDelete(record)"
           />
         </operation-group>
       </template>
@@ -44,14 +44,14 @@ import type { TableRequest } from '#/table/typing'
 import { mergePageParam } from '@/utils/page-utils'
 import { useAuthorize } from '@/hooks/permission'
 import type { SysDictPageVO, SysDictQO } from '@/api/system/dict/types'
-import { pageDicts, removeDict } from '@/api/system/dict'
+import { pageDicts, deleteDict } from '@/api/system/dict'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import SysDictPageSearch from '@/views/system/dict/SysDictPageSearch.vue'
 import SysDictFormModal from '@/views/system/dict/SysDictFormModal.vue'
 import SysDictItemModal from '@/views/system/dict/SysDictItemModal.vue'
 import { DictTag } from '@/components/Dict'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
 // 鉴权方法
@@ -82,19 +82,19 @@ const searchTable = (params: SysDictQO) => {
   reloadTable(true) // 会调用 tableRequest
 }
 
-/* 创建角色 */
-const handleCreate = () => {
+/* 新建角色 */
+const handleNew = () => {
   sysDictFormModalRef.value.open(FormAction.CREATE)
 }
 
-/* 修改角色 */
-const handleUpdate = (record: SysDictPageVO) => {
+/* 编辑角色 */
+const handleEdit = (record: SysDictPageVO) => {
   sysDictFormModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /* 删除角色 */
-const handleRemove = (record: SysDictPageVO) => {
-  doRequest(removeDict(record.id), {
+const handleDelete = (record: SysDictPageVO) => {
+  doRequest(deleteDict(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

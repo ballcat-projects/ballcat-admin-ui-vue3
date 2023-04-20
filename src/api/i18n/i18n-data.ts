@@ -13,7 +13,7 @@ export function createI18nData(data: I18nDataDTO) {
   return httpClient.post('/i18n/i18n-data', data)
 }
 
-export function removeI18nData(code: string, languageTag: string) {
+export function deleteI18nData(code: string, languageTag: string) {
   return httpClient.delete('/i18n/i18n-data', {
     params: {
       code: code,

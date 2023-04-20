@@ -44,7 +44,7 @@
             </template>
 
             <template #toolBarRender>
-              <create-button v-if="hasPermission('system:user:add')" @click="handleCreate" />
+              <new-button v-if="hasPermission('system:user:add')" @click="handleNew" />
             </template>
 
             <template #bodyCell="{ column, record }">
@@ -64,7 +64,7 @@
                   <template #overlay>
                     <a-menu>
                       <a-menu-item v-if="hasPermission('system:user:edit')">
-                        <a @click="handleUpdate(record)">修改</a>
+                        <a @click="handleEdit(record)">编辑</a>
                       </a-menu-item>
                       <a-menu-item v-if="hasPermission('system:user:grant')">
                         <a @click="handleGrant(record)">授权</a>
@@ -73,7 +73,7 @@
                         <a @click="changePass(record)">改密</a>
                       </a-menu-item>
                       <a-menu-item v-if="hasPermission('system:user:del')">
-                        <remove-text-button @confirm="handleRemove(record)" />
+                        <delete-text-button @confirm="handleDelete(record)" />
                       </a-menu-item>
                     </a-menu>
                   </template>
@@ -86,7 +86,7 @@
     </a-col>
   </a-row>
 
-  <!-- 新建修改表单弹窗 -->
+  <!-- 新建编辑表单弹窗 -->
   <sys-user-form-modal ref="sysUserFormModalRef" @submit-success="reloadTable" />
 
   <!-- 头像弹窗 -->
@@ -104,7 +104,7 @@ import ProTable from '#/table'
 import type { ProColumns } from '#/table'
 import ResizeObserver from 'ant-design-vue/es/vc-resize-observer'
 import type { ProTableInstanceExpose } from '#/table/Table'
-import { pageUsers, removeUser, updateUserAvatar, updateUserStatus } from '@/api/system/user'
+import { pageUsers, deleteUser, updateUserAvatar, updateUserStatus } from '@/api/system/user'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
 import CropperModal from '@/components/CropperModal/index.vue'
 import { useUserStore } from '@/stores/user-store'
@@ -126,7 +126,7 @@ import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { DictBadge, DictText } from '@/components/Dict'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -186,18 +186,18 @@ const onOrganizationSelect = (s: Key[]) => {
 }
 
 /* 新建用户 */
-const handleCreate = () => {
+const handleNew = () => {
   sysUserFormModalRef.value.open(FormAction.CREATE)
 }
 
-/* 修改用户 */
-const handleUpdate = (record: SysUserPageVO) => {
+/* 编辑用户 */
+const handleEdit = (record: SysUserPageVO) => {
   sysUserFormModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /* 删除用户 */
-const handleRemove = (record: SysUserPageVO) => {
-  doRequest(removeUser(record.userId), {
+const handleDelete = (record: SysUserPageVO) => {
+  doRequest(deleteUser(record.userId), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

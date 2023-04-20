@@ -10,25 +10,25 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <create-button v-if="hasPermission('system:role:add')" @click="handleCreate" />
+      <new-button v-if="hasPermission('system:role:add')" @click="handleNew" />
     </template>
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
         <operation-group>
-          <a v-if="hasPermission('system:role:edit')" @click="handleUpdate(record)">修改</a>
+          <a v-if="hasPermission('system:role:edit')" @click="handleEdit(record)">编辑</a>
           <a v-if="hasPermission('system:role:grant')" @click="handleGrant(record)">授权</a>
           <a v-if="hasPermission('system:role:grant')" @click="handleBind(record)">绑定</a>
-          <remove-text-button
+          <delete-text-button
             v-if="hasPermission('system:role:del')"
-            @confirm="handleRemove(record)"
+            @confirm="handleDelete(record)"
           />
         </operation-group>
       </template>
     </template>
   </pro-table>
 
-  <!-- 角色新建修改的表单弹窗 -->
+  <!-- 角色新建编辑的表单弹窗 -->
   <sys-role-form-modal ref="sysRoleFormModalRef" @submit-success="reloadTable" />
 
   <!-- 角色授权弹窗 -->
@@ -44,7 +44,7 @@ import type { ProColumns } from '#/table'
 import type { ProTableInstanceExpose } from '#/table/Table'
 import type { TableRequest } from '#/table/typing'
 import { mergePageParam } from '@/utils/page-utils'
-import { pageRoles, removeRole } from '@/api/system/role'
+import { pageRoles, deleteRole } from '@/api/system/role'
 import type { SysRolePageVO, SysRoleQO } from '@/api/system/role/types'
 import { useAuthorize } from '@/hooks/permission'
 import SysRolePageSearch from '@/views/system/role/SysRolePageSearch.vue'
@@ -55,7 +55,7 @@ import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import { DictTag } from '@/components/Dict'
 import { OperationGroup } from '@/components/Operation'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -86,19 +86,19 @@ const searchTable = (params: SysRoleQO) => {
   reloadTable(true) // 会调用 tableRequest
 }
 
-/* 创建角色 */
-const handleCreate = () => {
+/* 新建角色 */
+const handleNew = () => {
   sysRoleFormModalRef.value.open(FormAction.CREATE)
 }
 
-/* 修改角色 */
-const handleUpdate = (record: SysRolePageVO) => {
+/* 编辑角色 */
+const handleEdit = (record: SysRolePageVO) => {
   sysRoleFormModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /* 删除角色 */
-const handleRemove = (record: SysRolePageVO) => {
-  doRequest(removeRole(record.id), {
+const handleDelete = (record: SysRolePageVO) => {
+  doRequest(deleteRole(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

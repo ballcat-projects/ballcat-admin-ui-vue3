@@ -47,7 +47,7 @@ const emits = defineEmits<{
   (e: 'submit-success'): void
 }>()
 
-const { title, visible, openModal, closeModal } = useModal('修改国际化信息')
+const { title, visible, openModal, closeModal } = useModal('编辑国际化信息')
 
 const { formAction } = useFormAction(FormAction.UPDATE)
 

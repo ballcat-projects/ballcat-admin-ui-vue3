@@ -12,17 +12,17 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <create-button v-if="hasPermission('system:config:add')" @click="handleCreate" />
+      <new-button v-if="hasPermission('system:config:add')" @click="handleNew" />
     </template>
 
     <!-- 数据表格区域 -->
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
         <operation-group>
-          <a v-if="hasPermission('system:config:edit')" @click="handleUpdate(record)">修改</a>
-          <remove-text-button
+          <a v-if="hasPermission('system:config:edit')" @click="handleEdit(record)">编辑</a>
+          <delete-text-button
             v-if="hasPermission('system:config:del')"
-            @confirm="() => handleRemove(record)"
+            @confirm="() => handleDelete(record)"
           />
         </operation-group>
       </template>
@@ -41,11 +41,11 @@ import { useAuthorize } from '@/hooks/permission'
 import type { ProTableInstanceExpose, TableRequest } from '#/table'
 import { doRequest } from '@/utils/axios/request'
 import { mergePageParam } from '@/utils/page-utils'
-import { pageConfigs, removeConfig } from '@/api/system/config'
+import { pageConfigs, deleteConfig } from '@/api/system/config'
 import type { SysConfigPageVO, SysConfigQO } from '@/api/system/config/types'
 import SysConfigFormModal from '@/views/system/config/SysConfigFormModal.vue'
 import { FormAction } from '@/hooks/form'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
 // 鉴权方法
@@ -75,19 +75,19 @@ const searchTable = (params: SysConfigQO) => {
   reloadTable(true) // 会调用 tableRequest
 }
 
-/* 创建配置 */
-const handleCreate = () => {
+/* 新建配置 */
+const handleNew = () => {
   formModalRef.value.open(FormAction.CREATE)
 }
 
-/* 修改配置 */
-const handleUpdate = (record: SysConfigPageVO) => {
+/* 编辑配置 */
+const handleEdit = (record: SysConfigPageVO) => {
   formModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /* 删除配置 */
-const handleRemove = (record: SysConfigPageVO) => {
-  doRequest(removeConfig(record.confKey), {
+const handleDelete = (record: SysConfigPageVO) => {
+  doRequest(deleteConfig(record.confKey), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

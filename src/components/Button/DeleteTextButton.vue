@@ -18,12 +18,12 @@ const props = defineProps<{
 }>()
 
 const title = i18nText('message.confirmDelete', '确认要删除吗？')
-const text = i18nText('action.update', '删除')
+const text = i18nText('action.delete', '删除')
 </script>
 
 <script lang="ts">
 export default {
-  name: 'RemoveTextButton'
+  name: 'DeleteTextButton'
 }
 </script>
 

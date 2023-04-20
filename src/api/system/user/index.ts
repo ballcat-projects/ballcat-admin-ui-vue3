@@ -41,7 +41,7 @@ export function updateUser(userUpdateDto: SysUserDTO) {
  * 删除用户
  * @param userId 用户id
  */
-export function removeUser(userId: number) {
+export function deleteUser(userId: number) {
   return httpClient.delete<ApiResult<void>>(`/system/user/${userId}`)
 }
 

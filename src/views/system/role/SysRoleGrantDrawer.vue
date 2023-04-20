@@ -65,7 +65,7 @@ const grantTreeState = reactive({
   }
 })
 
-/* 创建时加载授权菜单列表 */
+/* 新建时加载授权菜单列表 */
 submitLoading.value = true
 getMenuGrantList()
   .then(res => {

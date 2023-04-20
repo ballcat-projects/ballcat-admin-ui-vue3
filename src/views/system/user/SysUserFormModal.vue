@@ -147,9 +147,9 @@ defineExpose({
     openModal()
     resetFields()
     if (newFormAction === FormAction.CREATE) {
-      title.value = '用户新建'
+      title.value = '新建用户'
     } else {
-      title.value = '用户修改'
+      title.value = '编辑用户'
       overrideProperties(formModel, record)
     }
     formAction.value = newFormAction

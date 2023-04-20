@@ -38,7 +38,7 @@ export function updateRole(roleUpdateDto: SysRoleDTO) {
  * 删除角色
  * @param id 角色id
  */
-export function removeRole(id: number) {
+export function deleteRole(id: number) {
   return httpClient.delete<ApiResult<void>>(`/system/role/${id}`)
 }
 

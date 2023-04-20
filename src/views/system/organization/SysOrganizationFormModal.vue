@@ -136,7 +136,7 @@ defineExpose({
     if (newFormAction === FormAction.CREATE) {
       title.value = '新建组织'
     } else {
-      title.value = '修改组织'
+      title.value = '编辑组织'
       overrideProperties(formModel, record)
     }
   }

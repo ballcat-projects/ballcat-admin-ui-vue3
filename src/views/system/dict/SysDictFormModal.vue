@@ -114,9 +114,9 @@ defineExpose({
     openModal()
     resetFields()
     if (newFormAction === FormAction.CREATE) {
-      title.value = '字典新建'
+      title.value = '新建字典'
     } else {
-      title.value = '字典修改'
+      title.value = '编辑字典'
       overrideProperties(formModel, record)
     }
     formAction.value = newFormAction

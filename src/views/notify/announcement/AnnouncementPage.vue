@@ -10,7 +10,7 @@
   >
     <!-- 操作按钮区域 -->
     <template #toolBarRender>
-      <create-button v-if="hasPermission('notify:announcement:add')" @click="handleCreate" />
+      <new-button v-if="hasPermission('notify:announcement:add')" @click="handleNew" />
     </template>
 
     <!--数据表格区域-->
@@ -20,8 +20,8 @@
           <a
             v-if="hasPermission('notify:announcement:edit')"
             :disabled="record.status !== AnnouncementStatusEnum.UNPUBLISHED || null"
-            @click="handleUpdate(record)"
-            >修改
+            @click="handleEdit(record)"
+            >编辑
           </a>
           <a-popconfirm
             v-if="hasPermission('notify:announcement:edit')"
@@ -39,16 +39,16 @@
           >
             <a :disabled="record.status === AnnouncementStatusEnum.DISABLED || null">关闭</a>
           </a-popconfirm>
-          <remove-text-button
+          <delete-text-button
             v-if="hasPermission('notify:announcement:del')"
-            @confirm="() => handleRemove(record)"
+            @confirm="() => handleDelete(record)"
           />
         </operation-group>
       </template>
     </template>
   </pro-table>
 
-  <!-- 公告新建修改的表单弹窗 -->
+  <!-- 公告新建编辑的表单弹窗 -->
   <announcement-form-modal
     ref="announcementFormModalRef"
     @submit-success="() => reloadTable()"
@@ -76,14 +76,14 @@ import { AnnouncementModal } from '@/components/Notify/AnnouncementModal'
 import { doRequest } from '@/utils/axios/request'
 import {
   pageAnnouncements,
-  removeAnnouncement,
+  deleteAnnouncement,
   publishAnnouncement,
   closeAnnouncement
 } from '@/api/notify/announcement'
 import { AnnouncementStatusEnum } from '@/api/notify/announcement/types'
 import AnnouncementFormModal from '@/views/notify/announcement/AnnouncementFormModal.vue'
 import { FormAction } from '@/hooks/form'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
 // 鉴权方法
@@ -114,19 +114,19 @@ const searchTable = (params: AnnouncementQO) => {
   reloadTable(true) // 会调用 tableRequest
 }
 
-/** 创建公告 */
-function handleCreate() {
+/* 新建公告 */
+function handleNew() {
   announcementFormModalRef.value.open(FormAction.CREATE)
 }
 
-/** 修改公告 */
-function handleUpdate(record: AnnouncementPageVO) {
+/* 编辑公告 */
+function handleEdit(record: AnnouncementPageVO) {
   announcementFormModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /** 删除公告 */
-function handleRemove(record: AnnouncementPageVO) {
-  doRequest(removeAnnouncement(record.id), {
+function handleDelete(record: AnnouncementPageVO) {
+  doRequest(deleteAnnouncement(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

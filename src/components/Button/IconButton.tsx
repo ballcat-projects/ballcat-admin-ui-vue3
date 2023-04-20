@@ -38,14 +38,14 @@ const IconButton = defineComponent({
 })
 
 // eslint-disable-next-line vue/one-component-per-file
-export const CreateButton = defineComponent({
-  name: 'CreateButton',
+export const NewButton = defineComponent({
+  name: 'NewButton',
   props: initDefaultProps(buttonProps(), {
     type: 'primary'
   }),
   setup(props, { attrs }) {
     return () => (
-      <IconButton {...props} {...attrs} i18nKey={'action.create'} defaultText={'新建'}>
+      <IconButton {...props} {...attrs} i18nKey={'action.new'} defaultText={'新建'}>
         {{ icon: () => <PlusOutlined /> }}
       </IconButton>
     )

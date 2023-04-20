@@ -29,7 +29,7 @@ export function updateOrganization(data: SysOrganizationDTO) {
  * 删除组织
  * @param id 组织id
  */
-export function removeOrganization(id: number) {
+export function deleteOrganization(id: number) {
   return httpClient.delete<ApiResult<void>>(`/system/organization/${id}`)
 }
 

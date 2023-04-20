@@ -245,7 +245,7 @@ defineExpose({
     if (newFormAction === FormAction.CREATE) {
       title.value = '新建公告'
     } else {
-      title.value = '修改公告'
+      title.value = '编辑公告'
       overrideProperties(formModel, record)
     }
     formAction.value = newFormAction

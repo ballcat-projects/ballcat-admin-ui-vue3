@@ -58,7 +58,7 @@ export function updateDict(dictUpdateDto: SysDictDTO) {
  * 删除字典
  * @param id 字典id
  */
-export function removeDict(id: number) {
+export function deleteDict(id: number) {
   return httpClient.delete<ApiResult<void>>(`/system/dict/${id}`)
 }
 

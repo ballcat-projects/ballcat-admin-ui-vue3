@@ -44,7 +44,7 @@
       >
         <a-button type="primary" danger><InteractionOutlined />校正层级深度</a-button>
       </a-popconfirm>
-      <create-button v-if="hasPermission('system:organization:add')" @click="handleCreate" />
+      <new-button v-if="hasPermission('system:organization:add')" @click="handleNew" />
     </template>
 
     <!--数据表格区域-->
@@ -61,17 +61,17 @@
       <!-- 操作栏 -->
       <template v-else-if="column.key === 'operate'">
         <operation-group>
-          <a v-if="hasPermission('system:organization:edit')" @click="handleUpdate(record)">修改</a>
-          <remove-text-button
+          <a v-if="hasPermission('system:organization:edit')" @click="handleEdit(record)">编辑</a>
+          <delete-text-button
             v-if="hasPermission('system:organization:del')"
-            @confirm="handleRemove(record)"
+            @confirm="handleDelete(record)"
           />
         </operation-group>
       </template>
     </template>
   </pro-table>
 
-  <!-- 系统组织新建修改的表单弹窗 -->
+  <!-- 系统组织新建编辑的表单弹窗 -->
   <sys-organization-form-modal
     ref="fromModalRef"
     :organization-tree="organizationTree"
@@ -86,7 +86,7 @@ import type { ProColumns, ProTableInstanceExpose, TableRequest } from '#/table'
 import { useAuthorize } from '@/hooks/permission'
 import {
   listOrganizations,
-  removeOrganization,
+  deleteOrganization,
   revisedOrganization
 } from '@/api/system/organization'
 import { listToTree, matchedParentKeys, pruneTree } from '@/utils/tree-utils'
@@ -94,7 +94,7 @@ import type { Key } from '@/utils/tree-utils'
 import type { SysOrganizationTree, SysOrganizationVO } from '@/api/system/organization/types'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
-import { CreateButton, RemoveTextButton } from '@/components/Button'
+import { NewButton, DeleteTextButton } from '@/components/Button'
 import OperationGroup from '@/components/Operation/OperationGroup.vue'
 
 const { hasPermission } = useAuthorize()
@@ -152,18 +152,18 @@ const searchTable = () => {
 }
 
 /* 新建组织 */
-const handleCreate = () => {
+const handleNew = () => {
   fromModalRef.value.open(FormAction.CREATE)
 }
 
-/* 修改组织 */
-const handleUpdate = (record: SysOrganizationVO) => {
+/* 编辑组织 */
+const handleEdit = (record: SysOrganizationVO) => {
   fromModalRef.value.open(FormAction.UPDATE, record)
 }
 
 /* 删除组织 */
-const handleRemove = (record: SysOrganizationVO) => {
-  doRequest(removeOrganization(record.id), {
+const handleDelete = (record: SysOrganizationVO) => {
+  doRequest(deleteOrganization(record.id), {
     successMessage: '删除成功！',
     onSuccess: () => reloadTable()
   })

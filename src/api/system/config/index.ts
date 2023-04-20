@@ -32,6 +32,6 @@ export function updateConfig(dto: SysConfigDTO) {
  * 删除系统配置
  * @param confKey 配置 key
  */
-export function removeConfig(confKey: string) {
+export function deleteConfig(confKey: string) {
   return httpClient.delete<ApiResult<void>>(`/system/config?confKey=${confKey}`)
 }

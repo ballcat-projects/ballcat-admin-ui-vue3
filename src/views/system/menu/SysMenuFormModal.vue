@@ -318,10 +318,10 @@ defineExpose({
     openModal()
     resetFields()
     if (newFormAction === FormAction.CREATE) {
-      title.value = '菜单新建'
+      title.value = '新建菜单'
       formModel.parentId = record?.id || 0
     } else {
-      title.value = '菜单修改'
+      title.value = '编辑菜单'
       overrideProperties(formModel, record)
       formModel.originalId = record?.id
     }
