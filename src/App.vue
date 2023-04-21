@@ -17,7 +17,7 @@ if (enableI18n) {
   const i18n = useI18n()
   const i18nStore = useI18nStore()
   antdLocal = computed<Locale>(() => {
-    return i18n.getLocaleMessage(i18nStore.language)?.antdLocale
+    return i18n.getLocaleMessage(i18nStore.language)?.antdLocale as Locale
   })
 }
 </script>

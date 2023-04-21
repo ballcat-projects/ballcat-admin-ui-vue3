@@ -18,6 +18,6 @@ export const useAdminI18n = () => {
       i18nText,
       rawI18nText
     },
-    enableI18n ? useI18n() : {}
+    enableI18n ? useI18n() : ({} as ReturnType<typeof useI18n>)
   )
 }
