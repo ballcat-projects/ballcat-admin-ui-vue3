@@ -23,6 +23,8 @@ import { pageLoginLogs } from '@/api/log/login-log'
 import LoginLogPageSearch from './LoginLogPageSearch.vue'
 import { DictText, DictTag } from '@/components/Dict'
 
+defineOptions({ name: 'LoginLogPage' })
+
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
 // 查询参数
@@ -105,11 +107,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'LoginLogPage'
-}
-</script>
-
-<style scoped></style>

@@ -6,6 +6,9 @@
 import { useUserStore } from '@/stores/user-store'
 import { loginPath } from '@/config'
 
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'Oauth2Authorize' })
+
 // 校验 token 是否有效，有效则直接 redirect, 如果无效则跳转到 login 页面，return_to 的参数也带过去
 // 登录页登录完成后，如果有 return_to 参数，则进行 redirect
 
@@ -34,11 +37,3 @@ if (accessToken) {
 
 // authorize(params)
 </script>
-
-<script lang="ts">
-export default {
-  name: 'Oauth2Authorize'
-}
-</script>
-
-<style scoped></style>

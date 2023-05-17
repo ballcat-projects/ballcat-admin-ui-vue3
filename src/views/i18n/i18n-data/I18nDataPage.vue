@@ -50,6 +50,9 @@ import { NewButton, ExportButton, ImportButton, DeleteTextButton } from '@/compo
 import { OperationGroup } from '@/components/Operation'
 import { useAdminI18n } from '@/hooks/i18n'
 
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'I18nDataPage' })
+
 const { t } = useAdminI18n()
 
 // 鉴权方法
@@ -147,10 +150,4 @@ const columns = computed<ProColumns[]>(
       }
     ] as ProColumns[]
 )
-</script>
-
-<script lang="ts">
-export default {
-  name: 'I18nDataPage'
-}
 </script>

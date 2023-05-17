@@ -198,11 +198,3 @@ const clearTextColor = () => {
   emits('update:value', attributes.value)
 }
 </script>
-
-<script lang="ts">
-export default {
-  name: 'DicItemAttributesEditor'
-}
-</script>
-
-<style scoped></style>

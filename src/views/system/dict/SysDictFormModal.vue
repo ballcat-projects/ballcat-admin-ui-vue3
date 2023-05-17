@@ -123,9 +123,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysDictFormModal'
-}
-</script>

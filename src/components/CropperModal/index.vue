@@ -130,6 +130,8 @@ import type { FileObject } from '@/components/CropperModal/types'
 import { message } from 'ant-design-vue'
 import { useModal } from '@/hooks/modal'
 
+defineOptions({ name: 'CropperModal' })
+
 const props = defineProps<{
   uploadProcessor: (file: FileObject, params: any) => Promise<ApiResult>
 }>()
@@ -205,12 +207,6 @@ defineExpose({
     openModal()
   }
 })
-</script>
-
-<script lang="ts">
-export default {
-  name: 'CropperModal'
-}
 </script>
 
 <style scoped lang="less">

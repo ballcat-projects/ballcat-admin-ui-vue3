@@ -54,6 +54,8 @@ import { DictTag } from '@/components/Dict'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
+defineOptions({ name: 'SysDictPage' })
+
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
@@ -145,11 +147,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysDictPage'
-}
-</script>
-
-<style scoped></style>

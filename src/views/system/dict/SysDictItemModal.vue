@@ -187,12 +187,6 @@ defineExpose({
 })
 </script>
 
-<script lang="ts">
-export default {
-  name: 'SysDictItemModal'
-}
-</script>
-
 <style scoped>
 /** 保证切换时的高度不要相差太多 */
 :deep(.ant-table-content) {

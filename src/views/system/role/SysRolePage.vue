@@ -57,6 +57,9 @@ import { DictTag } from '@/components/Dict'
 import { OperationGroup } from '@/components/Operation'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'SysRolePage' })
+
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
@@ -165,11 +168,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysRolePage'
-}
-</script>
-
-<style scoped></style>

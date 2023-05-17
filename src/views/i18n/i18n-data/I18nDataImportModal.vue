@@ -87,7 +87,7 @@ const handleSubmit = () => {
   formRef.value.validateFields().then(() => {
     submitLoading.value = true
     doRequest(importI18nDataExcel(toRaw(formModel)), {
-      onSuccess: res => {
+      onSuccess: () => {
         closeModal()
         emits('submit-success')
       },
@@ -112,11 +112,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'I18nDataImportModal'
-}
-</script>
-
-<style scoped></style>

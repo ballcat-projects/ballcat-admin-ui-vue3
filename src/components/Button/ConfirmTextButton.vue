@@ -5,6 +5,8 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'ConfirmTextButton' })
+
 const props = defineProps<{
   title: string
   text: string
@@ -12,11 +14,3 @@ const props = defineProps<{
   textClass?: string | string[]
 }>()
 </script>
-
-<script lang="ts">
-export default {
-  name: 'ConfirmTextButton'
-}
-</script>
-
-<style scoped></style>

@@ -86,6 +86,9 @@ import { FormAction } from '@/hooks/form'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'AnnouncementPage' })
+
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
@@ -230,10 +233,4 @@ const columns: ProColumns[] = [
     width: 185
   }
 ]
-</script>
-
-<script lang="ts">
-export default {
-  name: 'AnnouncementPage'
-}
 </script>

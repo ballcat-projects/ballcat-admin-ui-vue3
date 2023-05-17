@@ -19,12 +19,9 @@
 import LoginContent from './components/LoginContent.vue'
 import LoginFooter from './components/LoginFooter.vue'
 import SelectLanguage from '@/components/SelectLanguage/index.vue'
-</script>
+import { defineOptions } from 'vue'
 
-<script lang="ts">
-export default {
-  name: 'LoginPage'
-}
+defineOptions({ name: 'LoginPage' })
 </script>
 
 <style lang="less" scoped>

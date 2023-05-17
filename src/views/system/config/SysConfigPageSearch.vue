@@ -61,11 +61,3 @@ const reset = () => {
   search()
 }
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysConfigSearch'
-}
-</script>
-
-<style scoped></style>

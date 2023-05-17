@@ -121,11 +121,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysConfigFormModal'
-}
-</script>
-
-<style scoped></style>

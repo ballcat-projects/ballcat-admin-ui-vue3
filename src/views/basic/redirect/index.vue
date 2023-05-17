@@ -3,6 +3,11 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
+
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'RedirectView' })
+
 const { currentRoute, replace } = useRouter()
 const { params, query } = unref(currentRoute)
 
@@ -15,11 +20,5 @@ replace({
   path: redirectPath.startsWith('/') ? redirectPath : '/' + redirectPath,
   query,
   params
-})
-</script>
-
-<script lang="ts">
-export default {
-  name: 'RedirectView'
-}
+} as RouteLocationRaw)
 </script>

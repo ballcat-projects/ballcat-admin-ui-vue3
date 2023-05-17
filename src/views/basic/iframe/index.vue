@@ -10,6 +10,9 @@
 </template>
 
 <script setup lang="ts">
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'IframeView' })
+
 const iframeRef = ref<HTMLIFrameElement>()
 
 const route = useRoute()
@@ -32,12 +35,6 @@ onUnmounted(() => window.removeEventListener('resize', iframeResize))
 const hideLoading = () => {
   iframeLoading.value = false
   iframeResize()
-}
-</script>
-
-<script lang="ts">
-export default {
-  name: 'IframeView'
 }
 </script>
 

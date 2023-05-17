@@ -68,6 +68,9 @@
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user-store'
 
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'OAuth2Consent' })
+
 const userStore = useUserStore()
 const userInfo = userStore.userInfo
 const accessToken = userStore.accessToken
@@ -79,11 +82,3 @@ const state = query.state
 const scope = query.scope as string
 const scopeList = ref(scope ? scope.split(' ') : [])
 </script>
-
-<script lang="ts">
-export default {
-  name: 'OAuth2Consent'
-}
-</script>
-
-<style scoped></style>

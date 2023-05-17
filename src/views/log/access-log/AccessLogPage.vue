@@ -36,6 +36,8 @@ import type { AccessLogPageParam } from '@/api/log/access-log/types'
 import { pageAccessLogs } from '@/api/log/access-log'
 import AccessLogPageSearch from '@/views/log/access-log/AccessLogPageSearch.vue'
 
+defineOptions({ name: 'AccessLogPage' })
+
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
 // 查询参数
@@ -107,11 +109,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'AccessLogPage'
-}
-</script>
-
-<style scoped></style>

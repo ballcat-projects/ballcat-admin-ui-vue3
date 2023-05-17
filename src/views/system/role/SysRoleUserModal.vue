@@ -128,11 +128,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysRoleUserModal'
-}
-</script>
-
-<style scoped></style>

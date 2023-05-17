@@ -329,11 +329,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysMenuFormModal'
-}
-</script>
-
-<style scoped></style>

@@ -11,6 +11,8 @@
 import { ConfirmTextButton } from '@/components/Button'
 import { useAdminI18n } from '@/hooks/i18n'
 
+defineOptions({ name: 'DeleteTextButton' })
+
 const { i18nText } = useAdminI18n()
 
 const props = defineProps<{
@@ -20,11 +22,3 @@ const props = defineProps<{
 const title = i18nText('message.confirmDelete', '确认要删除吗？')
 const text = i18nText('action.delete', '删除')
 </script>
-
-<script lang="ts">
-export default {
-  name: 'DeleteTextButton'
-}
-</script>
-
-<style scoped></style>

@@ -134,11 +134,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'ChangePasswordModal'
-}
-</script>
-
-<style scoped></style>

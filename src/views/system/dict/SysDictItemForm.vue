@@ -140,11 +140,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysDictItemForm'
-}
-</script>
-
-<style lang="less" scoped></style>

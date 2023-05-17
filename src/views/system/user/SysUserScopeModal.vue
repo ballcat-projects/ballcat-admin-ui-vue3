@@ -107,11 +107,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysUserScopeModal'
-}
-</script>
-
-<style scoped></style>

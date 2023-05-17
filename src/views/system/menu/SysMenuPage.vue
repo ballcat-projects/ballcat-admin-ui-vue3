@@ -74,6 +74,8 @@ import { DictText } from '@/components/Dict'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 import OperationGroup from '@/components/Operation/OperationGroup.vue'
 
+defineOptions({ name: 'SysMenuPage' })
+
 const enableI18n = false
 
 const { hasPermission } = useAuthorize()
@@ -208,11 +210,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysMenuPage'
-}
-</script>
-
-<style scoped></style>

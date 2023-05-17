@@ -67,11 +67,3 @@ const reset = () => {
   search()
 }
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysMenuPageSearch'
-}
-</script>
-
-<style scoped></style>

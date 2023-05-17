@@ -128,6 +128,8 @@ import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { DictBadge, DictText } from '@/components/Dict'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 
+defineOptions({ name: 'SysUserPage' })
+
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
@@ -293,11 +295,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysUserPage'
-}
-</script>
-
-<style scoped></style>

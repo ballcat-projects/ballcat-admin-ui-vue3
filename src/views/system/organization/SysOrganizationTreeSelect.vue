@@ -68,11 +68,3 @@ watchEffect(() => {
   })
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysOrganizationTreeSelect'
-}
-</script>
-
-<style scoped></style>

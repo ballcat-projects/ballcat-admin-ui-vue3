@@ -67,11 +67,3 @@ const reset = () => {
   search()
 }
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysRoleUserSearch'
-}
-</script>
-
-<style scoped></style>

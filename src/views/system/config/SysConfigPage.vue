@@ -48,6 +48,8 @@ import { FormAction } from '@/hooks/form'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 import { OperationGroup } from '@/components/Operation'
 
+defineOptions({ name: 'SysConfigPage' })
+
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
@@ -143,11 +145,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysConfigPage'
-}
-</script>
-
-<style scoped></style>

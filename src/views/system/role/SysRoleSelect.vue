@@ -17,6 +17,8 @@ import { listRoleSelectData } from '@/api/system/role'
 import type { SelectData } from '@/api/types'
 import type { SelectValue } from 'ant-design-vue/es/select'
 
+i18nDataUpdateModalRef({ name: 'SysRoleSelect' })
+
 type SelectRoleValue = string | string[] | undefined
 
 interface RoleSelectProps extends Omit<SelectProps, 'value'> {
@@ -46,11 +48,3 @@ listRoleSelectData().then(res => {
   selectDataList.value = res.data
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysRoleSelect'
-}
-</script>
-
-<style scoped></style>

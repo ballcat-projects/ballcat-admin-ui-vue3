@@ -9,6 +9,9 @@
 <script setup lang="ts">
 import type { ResultStatusType } from 'ant-design-vue/es/result'
 
+// 如果需要被多页签缓存，必须要设置组件名称
+defineOptions({ name: 'ExceptionPage' })
+
 const exceptionInfos: Record<string, any> = {
   403: {
     title: '403',
@@ -41,11 +44,5 @@ const type = computed(() => {
 
 const handleToHome = () => {
   router.push({ name: '/' })
-}
-</script>
-
-<script lang="ts">
-export default {
-  name: 'ExceptionPage'
 }
 </script>

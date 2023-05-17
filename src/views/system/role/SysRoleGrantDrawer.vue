@@ -133,11 +133,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysRoleGrantDrawer'
-}
-</script>
-
-<style scoped></style>

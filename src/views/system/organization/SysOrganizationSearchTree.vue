@@ -61,12 +61,6 @@ watch(searchValue, () => {
 })
 </script>
 
-<script lang="ts">
-export default {
-  name: 'SysOrganizationSearchTree'
-}
-</script>
-
 <style scoped lang="less">
 .organization-tree-wrapper {
   overflow: auto;

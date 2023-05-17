@@ -35,6 +35,8 @@ import { DictText, DictTag } from '@/components/Dict'
 import { pageOperationLogs } from '@/api/log/operation-log'
 import type { OperationLogPageParam } from '@/api/log/operation-log/type'
 
+defineOptions({ name: 'OperationLogPage' })
+
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
 // 查询参数
@@ -120,11 +122,3 @@ const columns: ProColumns[] = [
   }
 ]
 </script>
-
-<script lang="ts">
-export default {
-  name: 'OperationLogPage'
-}
-</script>
-
-<style scoped></style>

@@ -57,9 +57,3 @@ const reset = () => {
   search()
 }
 </script>
-
-<script lang="ts">
-export default {
-  name: 'SysRolePageSearch'
-}
-</script>

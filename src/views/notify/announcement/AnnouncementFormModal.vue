@@ -252,9 +252,3 @@ defineExpose({
   }
 })
 </script>
-
-<script lang="ts">
-export default {
-  name: 'AnnouncementFormModal'
-}
-</script>

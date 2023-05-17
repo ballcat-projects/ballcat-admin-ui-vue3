@@ -97,6 +97,8 @@ import { doRequest } from '@/utils/axios/request'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 import OperationGroup from '@/components/Operation/OperationGroup.vue'
 
+defineOptions({ name: 'SysOrganizationPage' })
+
 const { hasPermission } = useAuthorize()
 
 const tableRef = ref<ProTableInstanceExpose>()
@@ -206,12 +208,6 @@ const columns: ProColumns[] = [
     width: 120
   }
 ]
-</script>
-
-<script lang="ts">
-export default {
-  name: 'SysOrganizationPage'
-}
 </script>
 
 <style scoped lang="less">

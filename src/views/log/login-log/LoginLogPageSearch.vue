@@ -112,11 +112,3 @@ const reset = () => {
   search()
 }
 </script>
-
-<script lang="ts">
-export default {
-  name: 'LoginLogPageSearch'
-}
-</script>
-
-<style scoped></style>
