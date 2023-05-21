@@ -1,5 +1,5 @@
 <template>
-  <a-select v-bind="props" :filter-option="filterOption" @update:value="onChange">
+  <a-select v-bind="props" :filter-option="filterOption" @change="onChange">
     <a-select-option
       v-for="selectData in selectDataList"
       :key="selectData.value"
@@ -12,24 +12,22 @@
 </template>
 
 <script setup lang="ts">
-import type { SelectProps } from 'ant-design-vue'
+import { selectProps } from 'ant-design-vue/es/select'
+import { initDefaultProps } from 'ant-design-vue/es/_util/props-util'
 import { listRoleSelectData } from '@/api/system/role'
 import type { SelectData } from '@/api/types'
 import type { SelectValue } from 'ant-design-vue/es/select'
 
-i18nDataUpdateModalRef({ name: 'SysRoleSelect' })
+defineOptions({ name: 'SysRoleSelect' })
 
 type SelectRoleValue = string | string[] | undefined
 
-interface RoleSelectProps extends Omit<SelectProps, 'value'> {
-  value?: SelectRoleValue
-}
-
-const props = withDefaults(defineProps<RoleSelectProps>(), {
-  value: undefined,
-  placeholder: '请选择角色',
-  showSearch: true
-})
+const props = defineProps(
+  initDefaultProps(selectProps(), {
+    placeholder: '请选择角色',
+    showSearch: true
+  })
+)
 
 const emits = defineEmits<{
   (e: 'update:value', selectedValue: SelectRoleValue): void
