@@ -55,7 +55,7 @@ const { hasPermission } = useAuthorize()
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
-const formModalRef = ref()
+const formModalRef = ref<InstanceType<typeof SysConfigFormModal>>()
 
 /* 刷新表格 */
 const reloadTable = (resetPageIndex?: boolean) => {
@@ -79,12 +79,12 @@ const searchTable = (params: SysConfigQO) => {
 
 /* 新建配置 */
 const handleNew = () => {
-  formModalRef.value.open(FormAction.CREATE)
+  formModalRef.value?.open(FormAction.CREATE)
 }
 
 /* 编辑配置 */
 const handleEdit = (record: SysConfigPageVO) => {
-  formModalRef.value.open(FormAction.UPDATE, record)
+  formModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /* 删除配置 */

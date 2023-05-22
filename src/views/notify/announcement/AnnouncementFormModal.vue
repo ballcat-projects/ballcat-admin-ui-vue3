@@ -117,14 +117,13 @@ import {
   updateAnnouncement,
   uploadAnnouncementImage
 } from '@/api/notify/announcement'
-import type { AnnouncementDTO } from '@/api/notify/announcement/types'
+import type { AnnouncementDTO, AnnouncementPageVO } from '@/api/notify/announcement/types'
 import { sysUserLov } from '@/components/Lov/lov-options'
 import { LovLocal } from '@/components/Lov'
 import WangEditor from '@/components/Editor/index.vue'
 import SysOrganizationTreeSelect from '@/views/system/organization/SysOrganizationTreeSelect.vue'
 import type { SelectData } from '@/api/types'
 import { listRoleSelectData } from '@/api/system/role'
-import type { SysRolePageVO } from '@/api/system/role/types'
 import { overrideProperties } from '@/utils/bean-utils'
 import type { ColProps } from 'ant-design-vue'
 import { AnnouncementStatusEnum } from '@/api/notify/announcement/types'
@@ -239,7 +238,7 @@ function onRecipientFilterTypeChange() {
 }
 
 defineExpose({
-  open(newFormAction: FormAction, record?: SysRolePageVO) {
+  open(newFormAction: FormAction, record?: AnnouncementPageVO) {
     openModal()
     resetFields()
     if (newFormAction === FormAction.CREATE) {

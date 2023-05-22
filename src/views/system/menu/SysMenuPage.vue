@@ -82,7 +82,7 @@ const { hasPermission } = useAuthorize()
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
-const sysMenuFormModalRef = ref()
+const sysMenuFormModalRef = ref<InstanceType<typeof SysMenuFormModal>>()
 
 // 当前展开的节点 key
 const expandedRowKeys = ref<Key[]>()
@@ -137,12 +137,12 @@ const searchTable = (params: SysMenuQO) => {
 
 /* 新建菜单 */
 const handleNew = (record?: SysMenuVO) => {
-  sysMenuFormModalRef.value.open(FormAction.CREATE, record)
+  sysMenuFormModalRef.value?.open(FormAction.CREATE, record)
 }
 
 /* 编辑菜单 */
 const handleEdit = (record: SysMenuVO) => {
-  sysMenuFormModalRef.value.open(FormAction.UPDATE, record)
+  sysMenuFormModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /* 删除菜单 */

@@ -201,9 +201,9 @@ const upload = () => {
 }
 
 defineExpose({
-  open: (img: string, info?: any) => {
+  open: (img = '', info?: any) => {
     extra = info
-    imageSrc.value = img || ''
+    imageSrc.value = img
     openModal()
   }
 })

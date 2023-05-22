@@ -60,9 +60,9 @@ const { hasPermission } = useAuthorize()
 
 const tableRef = ref<ProTableInstanceExpose>()
 
-const i18nDataCreateModalRef = ref()
-const i18nDataUpdateModalRef = ref()
-const i18nDataImportModalRef = ref()
+const i18nDataCreateModalRef = ref<InstanceType<typeof I18nDataCreateModal>>()
+const i18nDataUpdateModalRef = ref<InstanceType<typeof I18nDataUpdateModal>>()
+const i18nDataImportModalRef = ref<InstanceType<typeof I18nDataImportModal>>()
 
 // 远程搜索参数
 let searchParams: I18nDataQO = {}
@@ -85,12 +85,12 @@ const searchTable = (params: I18nDataQO) => {
 
 /* 新建数据 */
 const handleNew = () => {
-  i18nDataCreateModalRef.value.open()
+  i18nDataCreateModalRef.value?.open()
 }
 
 /* 编辑数据 */
 const handleEdit = (record: I18nDataPageVO) => {
-  i18nDataUpdateModalRef.value.open(record)
+  i18nDataUpdateModalRef.value?.open(record)
 }
 
 /* 删除数据 */
@@ -110,7 +110,7 @@ const handleExport = (params: I18nDataQO) => {
 
 /** 导入数据 */
 const handleImport = () => {
-  i18nDataImportModalRef.value.open()
+  i18nDataImportModalRef.value?.open()
 }
 
 const columns = computed<ProColumns[]>(

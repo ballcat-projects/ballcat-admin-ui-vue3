@@ -136,13 +136,13 @@ const { hasPermission } = useAuthorize()
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
 // 用户表单弹窗引用
-const sysUserFormModalRef = ref()
+const sysUserFormModalRef = ref<InstanceType<typeof SysUserFormModal>>()
 // 头像弹窗引用
-const cropperModalRef = ref()
+const cropperModalRef = ref<InstanceType<typeof CropperModal>>()
 // 用户授权弹窗引用
-const sysUserScopeModalRef = ref()
+const sysUserScopeModalRef = ref<InstanceType<typeof SysUserScopeModal>>()
 // 修改密码弹窗引用
-const changePasswordModalRef = ref()
+const changePasswordModalRef = ref<InstanceType<typeof ChangePasswordModal>>()
 
 // 选中的组织机构ids
 const organizationIds = ref<number[]>()
@@ -189,12 +189,12 @@ const onOrganizationSelect = (s: Key[]) => {
 
 /* 新建用户 */
 const handleNew = () => {
-  sysUserFormModalRef.value.open(FormAction.CREATE)
+  sysUserFormModalRef.value?.open(FormAction.CREATE)
 }
 
 /* 编辑用户 */
 const handleEdit = (record: SysUserPageVO) => {
-  sysUserFormModalRef.value.open(FormAction.UPDATE, record)
+  sysUserFormModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /* 删除用户 */
@@ -216,17 +216,17 @@ const handleUpdateStatus = (userIds: number[], info: MenuInfo) => {
 
 /* 修改权限 */
 const handleGrant = (record: SysUserPageVO) => {
-  sysUserScopeModalRef.value.open(record)
+  sysUserScopeModalRef.value?.open(record)
 }
 
 /* 修改密码 */
 const changePass = (record: SysUserPageVO) => {
-  changePasswordModalRef.value.open(record)
+  changePasswordModalRef.value?.open(record)
 }
 
 /* 打开头像模态框 */
 const openAvatarModal = (record: SysUserPageVO) => {
-  cropperModalRef.value.open(fileAbsoluteUrl(record.avatar), record)
+  cropperModalRef.value?.open(fileAbsoluteUrl(record.avatar), record)
 }
 
 /* 修改头像 */

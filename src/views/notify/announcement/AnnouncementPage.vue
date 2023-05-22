@@ -94,7 +94,7 @@ const { hasPermission } = useAuthorize()
 
 // 组件引用
 const tableRef = ref<ProTableInstanceExpose>()
-const announcementFormModalRef = ref()
+const announcementFormModalRef = ref<InstanceType<typeof AnnouncementFormModal>>()
 const announcementModalRef = ref()
 
 // 查询参数
@@ -119,12 +119,12 @@ const searchTable = (params: AnnouncementQO) => {
 
 /* 新建公告 */
 function handleNew() {
-  announcementFormModalRef.value.open(FormAction.CREATE)
+  announcementFormModalRef.value?.open(FormAction.CREATE)
 }
 
 /* 编辑公告 */
 function handleEdit(record: AnnouncementPageVO) {
-  announcementFormModalRef.value.open(FormAction.UPDATE, record)
+  announcementFormModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /** 删除公告 */
@@ -153,7 +153,7 @@ function handleClose(record: AnnouncementPageVO) {
 
 /**  预览公告 */
 function previewAnnouncement(record: AnnouncementPageVO | AnnouncementDTO) {
-  announcementModalRef.value.show(record, true)
+  announcementModalRef.value?.show(record, true)
 }
 
 const statusBadgePropMap: Record<AnnouncementStatusEnum, Record<string, any>> = {

@@ -65,9 +65,9 @@ const { hasPermission } = useAuthorize()
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
-const sysRoleFormModalRef = ref()
-const sysRoleGrantDrawerRef = ref()
-const sysRoleUserModalRef = ref()
+const sysRoleFormModalRef = ref<InstanceType<typeof SysRoleFormModal>>()
+const sysRoleGrantDrawerRef = ref<InstanceType<typeof SysRoleGrantDrawer>>()
+const sysRoleUserModalRef = ref<InstanceType<typeof SysRoleUserModal>>()
 
 // 查询参数
 let searchParams: SysRoleQO = {}
@@ -91,12 +91,12 @@ const searchTable = (params: SysRoleQO) => {
 
 /* 新建角色 */
 const handleNew = () => {
-  sysRoleFormModalRef.value.open(FormAction.CREATE)
+  sysRoleFormModalRef.value?.open(FormAction.CREATE)
 }
 
 /* 编辑角色 */
 const handleEdit = (record: SysRolePageVO) => {
-  sysRoleFormModalRef.value.open(FormAction.UPDATE, record)
+  sysRoleFormModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /* 删除角色 */
@@ -109,12 +109,12 @@ const handleDelete = (record: SysRolePageVO) => {
 
 /* 角色授权权限 */
 const handleGrant = (record: SysRolePageVO) => {
-  sysRoleGrantDrawerRef.value.open(record)
+  sysRoleGrantDrawerRef.value?.open(record)
 }
 
 /* 管理角色绑定的用户 */
 const handleBind = (record: SysRolePageVO) => {
-  sysRoleUserModalRef.value.open(record)
+  sysRoleUserModalRef.value?.open(record)
 }
 
 const columns: ProColumns[] = [

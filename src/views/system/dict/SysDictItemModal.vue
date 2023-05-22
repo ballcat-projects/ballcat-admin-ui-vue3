@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import ProTable from '#/table'
-import type { ProColumns } from '#/table'
+import type { ProColumns, ProTableInstanceExpose } from '#/table'
 import { useModal } from '@/hooks/modal'
 import { DictItemStatus } from '@/api/system/dict/types'
 import type { SysDictItemPageVO, SysDictPageVO } from '@/api/system/dict/types'
@@ -71,8 +71,8 @@ import { OperationGroup } from '@/components/Operation'
 // 鉴权方法
 const { hasPermission } = useAuthorize()
 
-const tableRef = ref()
-const sysDictItemFormRef = ref()
+const tableRef = ref<ProTableInstanceExpose>()
+const sysDictItemFormRef = ref<InstanceType<typeof SysDictItemForm>>()
 
 // 显示表格
 const [tableShow, setTableShow] = useToggle(true)
@@ -97,13 +97,13 @@ const reloadTable = (resetPageIndex?: boolean) => {
 /* 新建字典项 */
 const handleNew = () => {
   setTableShow(false)
-  sysDictItemFormRef.value.create(dictCode)
+  sysDictItemFormRef.value?.create(dictCode)
 }
 
 /* 编辑字典项 */
 const handleEdit = (record: SysDictItemPageVO) => {
   setTableShow(false)
-  sysDictItemFormRef.value.update(record)
+  sysDictItemFormRef.value?.update(record)
 }
 
 /* 删除字典项 */

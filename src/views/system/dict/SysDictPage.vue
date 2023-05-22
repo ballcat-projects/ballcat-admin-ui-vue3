@@ -61,8 +61,8 @@ const { hasPermission } = useAuthorize()
 
 // 表格组件引用
 const tableRef = ref<ProTableInstanceExpose>()
-const sysDictFormModalRef = ref()
-const sysDictItemModalRef = ref()
+const sysDictFormModalRef = ref<InstanceType<typeof SysDictFormModal>>()
+const sysDictItemModalRef = ref<InstanceType<typeof SysDictItemModal>>()
 
 // 查询参数
 let searchParams: SysDictQO = {}
@@ -86,12 +86,12 @@ const searchTable = (params: SysDictQO) => {
 
 /* 新建角色 */
 const handleNew = () => {
-  sysDictFormModalRef.value.open(FormAction.CREATE)
+  sysDictFormModalRef.value?.open(FormAction.CREATE)
 }
 
 /* 编辑角色 */
 const handleEdit = (record: SysDictPageVO) => {
-  sysDictFormModalRef.value.open(FormAction.UPDATE, record)
+  sysDictFormModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /* 删除角色 */
@@ -103,7 +103,7 @@ const handleDelete = (record: SysDictPageVO) => {
 }
 
 const openDictItemModal = (record: SysDictPageVO) => {
-  sysDictItemModalRef.value.open(record)
+  sysDictItemModalRef.value?.open(record)
 }
 
 const columns: ProColumns[] = [

@@ -102,7 +102,7 @@ defineOptions({ name: 'SysOrganizationPage' })
 const { hasPermission } = useAuthorize()
 
 const tableRef = ref<ProTableInstanceExpose>()
-const fromModalRef = ref()
+const fromModalRef = ref<InstanceType<typeof SysOrganizationFormModal>>()
 
 const organizationTree = ref<SysOrganizationTree[]>([])
 
@@ -155,12 +155,12 @@ const searchTable = () => {
 
 /* 新建组织 */
 const handleNew = () => {
-  fromModalRef.value.open(FormAction.CREATE)
+  fromModalRef.value?.open(FormAction.CREATE)
 }
 
 /* 编辑组织 */
 const handleEdit = (record: SysOrganizationVO) => {
-  fromModalRef.value.open(FormAction.UPDATE, record)
+  fromModalRef.value?.open(FormAction.UPDATE, record)
 }
 
 /* 删除组织 */
