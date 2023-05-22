@@ -10,19 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import type { DictValue } from '@/api/system/dict/types'
 import DictTag from '@/components/Dict/display/DictTag.vue'
+import type { DictTagGroupProps } from '@/components/Dict/types'
 
-const props = defineProps<{
-  dictCode: string
-  dictValues: DictValue[]
-}>()
+const props = defineProps<DictTagGroupProps>()
 </script>
-
-<script lang="ts">
-export default {
-  name: 'DictTagGroup'
-}
-</script>
-
-<style scoped></style>

@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import type { DictValue } from '@/api/system/dict/types'
-import { useDict } from '@/components/Dict/useDict'
+import { useDict } from '@/components/Dict/use-dict'
 import type { SelectValue } from 'ant-design-vue/es/select'
 import { type DictComponentProps, dictSelectProps } from '@/components/Dict/types'
 
