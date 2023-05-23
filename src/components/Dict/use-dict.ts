@@ -19,9 +19,9 @@ export const useDict = (props: DictComponentProps) => {
 
   return computed(() => {
     const dictData = dictDataCache[props.dictCode]
-    if (!dictData) return []
+    if (!dictData) return [] as DictItem[]
 
-    const result = []
+    const result: DictItem[] = []
 
     const dictItemVOs = dictData.dictItems
     for (const item of dictItemVOs) {
