@@ -260,7 +260,7 @@ const columns: ProColumns[] = [
   },
   {
     title: '性别',
-    dataIndex: 'sex',
+    dataIndex: 'gender',
     customRender: function ({ value }) {
       return h(DictText, { dictCode: 'gender', value: value })
     }
@@ -271,7 +271,7 @@ const columns: ProColumns[] = [
   },
   {
     title: '电话',
-    dataIndex: 'phone'
+    dataIndex: 'phoneNumber'
   },
   {
     title: '状态',

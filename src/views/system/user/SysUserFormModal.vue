@@ -42,11 +42,11 @@
 
         <a-col :xs="24" :sm="24" :md="12">
           <a-form-item label="性别">
-            <dict-select v-model:value="formModel.sex" dict-code="gender" />
+            <dict-select v-model:value="formModel.gender" dict-code="gender" />
           </a-form-item>
 
           <a-form-item label="电话">
-            <a-input v-model:value="formModel.phone" placeholder="请输入" />
+            <a-input v-model:value="formModel.phoneNumber" placeholder="请输入" />
           </a-form-item>
 
           <a-form-item label="邮箱">
@@ -94,8 +94,8 @@ const formModel = reactive<SysUserDTO>({
   nickname: '',
   organizationId: 0,
   status: 1,
-  sex: 1,
-  phone: '',
+  gender: 1,
+  phoneNumber: '',
   email: '',
   roleCodes: []
 })
