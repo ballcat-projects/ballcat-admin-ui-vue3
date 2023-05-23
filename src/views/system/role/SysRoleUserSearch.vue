@@ -39,7 +39,7 @@ import { Form } from 'ant-design-vue'
 
 const props = withDefaults(
   defineProps<{
-    loading: boolean
+    loading?: boolean
     roleCode: string
   }>(),
   { loading: false }

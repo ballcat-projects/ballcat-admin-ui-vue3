@@ -63,7 +63,7 @@ const labelCol = { md: { span: 6 } }
 
 const props = withDefaults(
   defineProps<{
-    loading: boolean
+    loading?: boolean
   }>(),
   { loading: false }
 )

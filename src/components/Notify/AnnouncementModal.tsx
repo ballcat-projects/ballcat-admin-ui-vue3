@@ -24,8 +24,6 @@ export const AnnouncementModal = defineComponent({
         }
       })
     }
-
     expose({ show })
-    return () => {}
   }
 })

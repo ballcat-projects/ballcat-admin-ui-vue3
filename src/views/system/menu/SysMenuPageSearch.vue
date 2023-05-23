@@ -36,7 +36,7 @@ const labelCol = { md: { span: 6 } }
 
 const props = withDefaults(
   defineProps<{
-    loading: boolean
+    loading?: boolean
     searchTitle?: string
   }>(),
   { loading: false, searchTitle: '' }
