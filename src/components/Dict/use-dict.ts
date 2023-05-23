@@ -25,7 +25,7 @@ export const useDict = (props: DictComponentProps) => {
 
     const dictItemVOs = dictData.dictItems
     for (const item of dictItemVOs) {
-      const dictItem = item as unknown as DictItem
+      const dictItem = Object.assign({}, item) as DictItem
 
       // 转换字典项的值为其真实类型
       dictItem.value = convertValueType(item.value, dictData.valueType)
