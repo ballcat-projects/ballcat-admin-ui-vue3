@@ -178,7 +178,13 @@ const MultiTab = defineComponent({
           const newRoute = router
             .getRoutes()
             .find(r => r.path === oldRoute.path) as unknown as RouteLocationNormalizedLoaded
-          return newRoute || oldRoute
+          // 需要保留 matched 防止删除时 NPE
+          if (newRoute) {
+            newRoute.matched = oldRoute.matched
+            return newRoute
+          } else {
+            return oldRoute
+          }
         })
       }
       emitter.on('switch-language', refreshRoute)
