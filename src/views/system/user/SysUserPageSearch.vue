@@ -31,7 +31,7 @@
           <a-col :md="8" :sm="24">
             <a-form-item label="电话">
               <a-input-number
-                v-model:value="formModel.phone"
+                v-model:value="formModel.phoneNumber"
                 placeholder="请输入"
                 style="width: 100%"
               />
@@ -79,7 +79,7 @@ const formModel = reactive<SysUserQO>({
   nickname: '',
   status: undefined,
   email: '',
-  phone: ''
+  phoneNumber: ''
 })
 
 const { resetFields } = useForm(formModel)
