@@ -19,11 +19,11 @@ export type SysUserQO = {
   // 昵称
   nickname?: string
   // 性别(0-默认未知,1-男,2-女)
-  sex?: 0 | 1 | 2
+  gender?: 0 | 1 | 2
   // 电子邮件
   email?: string
   // 电话
-  phone?: string
+  phoneNumber?: string
   // 状态(1-正常,0-冻结)
   status?: SysUserStatus
   // organizationId
@@ -54,11 +54,11 @@ export type SysUserPageVO = {
   // 头像
   avatar: string
   // 性别(0-默认未知,1-男,2-女)
-  sex: 0 | 1 | 2
+  gender: 0 | 1 | 2
   // 电子邮件
   email: string
   // 电话
-  phone: string
+  phoneNumber: string
   // 状态(1-正常, 0-冻结)
   status: SysUserStatus
   // 用户类型：1-系统用户，2-客户用户
@@ -88,11 +88,11 @@ export type SysUserDTO = {
   // 头像
   avatar?: string
   // 性别(0-默认未知,1-男,2-女)
-  sex: number
+  gender: number
   // 电子邮件
   email: string
   // 电话
-  phone: string
+  phoneNumber: string
   // 状态(1-正常,0-冻结)
   status: SysUserStatus
   // 组织机构ID
