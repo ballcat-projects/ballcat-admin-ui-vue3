@@ -346,7 +346,7 @@ const ProTable = defineComponent({
       }
     }
 
-    const formSearch = {}
+    const formSearch = props.manualRequest ? undefined : {}
     // const [formSearch, setFormSearch] = useMountMergeState<Record<string, any> | undefined>(() => {
     //   // 如果手动模式，或者 search 不存在的时候设置为 undefined
     //   // undefined 就不会触发首次加载
