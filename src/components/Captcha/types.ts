@@ -21,3 +21,7 @@ export interface Track {
   type: string
   t: number
 }
+
+export interface CaptchaProps {
+  onSuccess?: (id: string) => void
+}

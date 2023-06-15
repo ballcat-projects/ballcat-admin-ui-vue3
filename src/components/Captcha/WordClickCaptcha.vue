@@ -30,14 +30,9 @@
 
 <script setup lang="ts">
 import { captchaGen, captchaCheck, type CaptchaData } from '@/api/auth/captcha'
-import type { CaptchaConfig, Track } from '@/components/Captcha/types'
+import type { CaptchaConfig, CaptchaProps, Track } from '@/components/Captcha/types'
 
-const props = defineProps({
-  onSuccess: {
-    type: Function,
-    default() {}
-  }
-})
+const props = defineProps<CaptchaProps>()
 
 // 是否显示验证码
 const visible = ref(false)
@@ -148,7 +143,7 @@ function valid(config: CaptchaConfig) {
   const { id } = captchaData.value!
   captchaCheck(id, data).then(res => {
     if (res) {
-      props.onSuccess(id)
+      props.onSuccess?.(id)
       closeCaptcha()
     } else {
       refreshCaptcha()
