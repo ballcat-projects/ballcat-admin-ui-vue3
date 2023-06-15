@@ -5,12 +5,14 @@ export interface CaptchaData {
   id: string
   captcha: {
     backgroundImage: string
-    sliderImage: string
+    templateImage: string
     backgroundImageWidth: number
     backgroundImageHeight: number
     sliderImageWidth: number
     sliderImageHeight: number
-    data: null
+    data: {
+      randomY?: string
+    }
   }
 }
 

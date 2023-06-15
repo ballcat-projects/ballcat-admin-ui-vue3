@@ -9,7 +9,7 @@
           <img
             ref="rotateImgRef"
             :style="rotateImgStyle"
-            :src="captchaData?.captcha.sliderImage"
+            :src="captchaData?.captcha.templateImage"
             alt=""
           />
         </div>
@@ -105,8 +105,8 @@ function valid(config: CaptchaConfig) {
   const data = {
     bgImageWidth: config.bgImageWidth,
     bgImageHeight: config.bgImageHeight,
-    sliderImageWidth: config.sliderImageWidth,
-    sliderImageHeight: config.sliderImageHeight,
+    templateImageWidth: config.templateImageWidth,
+    templateImageHeight: config.templateImageHeight,
     startSlidingTime: config.startTime,
     entSlidingTime: config.stopTime,
     trackList: config.trackArr

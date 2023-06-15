@@ -130,8 +130,8 @@ function refreshCaptcha() {
   captchaGen('WORD_IMAGE_CLICK').then(res => {
     captchaData.value = res
     backgroundImageUrl.value = res.captcha.backgroundImage
-    sliderImageUrl.value = res.captcha.sliderImage
-    tpImageUrl.value = res.captcha.sliderImage
+    sliderImageUrl.value = res.captcha.templateImage
+    tpImageUrl.value = res.captcha.templateImage
   })
 }
 
@@ -139,8 +139,8 @@ function valid(config: CaptchaConfig) {
   const data = {
     bgImageWidth: config.bgImageWidth,
     bgImageHeight: config.bgImageHeight,
-    sliderImageWidth: config.sliderImageWidth,
-    sliderImageHeight: config.sliderImageHeight,
+    templateImageWidth: config.templateImageWidth,
+    templateImageHeight: config.templateImageHeight,
     startSlidingTime: config.startTime,
     entSlidingTime: config.stopTime,
     trackList: config.trackArr

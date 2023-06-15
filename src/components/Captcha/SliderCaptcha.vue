@@ -9,7 +9,7 @@
           <img
             ref="sliderImgRef"
             :style="sliderImgStyle"
-            :src="captchaData?.captcha.sliderImage"
+            :src="captchaData?.captcha.templateImage"
             alt=""
           />
         </div>
@@ -105,8 +105,8 @@ function valid(config: CaptchaConfig) {
   const {
     bgImageWidth,
     bgImageHeight,
-    sliderImageWidth,
-    sliderImageHeight,
+    templateImageWidth,
+    templateImageHeight,
     startTime: startSlidingTime,
     stopTime: endSlidingTime,
     trackArr: trackList
@@ -114,8 +114,8 @@ function valid(config: CaptchaConfig) {
   const captchaCheckConfig = {
     bgImageWidth,
     bgImageHeight,
-    sliderImageWidth,
-    sliderImageHeight,
+    templateImageWidth,
+    templateImageHeight,
     startSlidingTime,
     endSlidingTime,
     trackList

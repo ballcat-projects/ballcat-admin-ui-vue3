@@ -80,7 +80,8 @@ function refreshCaptcha() {
     concatImgDivStyle.value.backgroundImage = `url(${res.captcha.backgroundImage})`
     concatImgDivStyle.value.backgroundPosition = '0px 0px'
     const backgroundImageHeight = res.captcha.backgroundImageHeight
-    const height = ((backgroundImageHeight - res.captcha.data!) / backgroundImageHeight) * 159
+    const height =
+      ((backgroundImageHeight - res.captcha.data.randomY!) / backgroundImageHeight) * 159
     concatImgDivStyle.value.height = `${height}px`
 
     nextTick(() => {
@@ -108,8 +109,8 @@ function valid(config: CaptchaConfig) {
   const data = {
     bgImageWidth: config.bgImageWidth,
     bgImageHeight: config.bgImageHeight,
-    sliderImageWidth: config.sliderImageWidth,
-    sliderImageHeight: config.sliderImageHeight,
+    templateImageWidth: config.templateImageWidth,
+    templateImageHeight: config.templateImageHeight,
     startSlidingTime: config.startTime,
     entSlidingTime: config.stopTime,
     trackList: config.trackArr

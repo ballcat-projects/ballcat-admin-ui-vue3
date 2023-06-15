@@ -8,8 +8,8 @@ export interface CaptchaConfig {
   end?: number
   bgImageWidth?: number
   bgImageHeight?: number
-  sliderImageWidth?: number
-  sliderImageHeight?: number
+  templateImageWidth?: number
+  templateImageHeight?: number
   movePercent?: number
   moveX?: number
   t?: number
