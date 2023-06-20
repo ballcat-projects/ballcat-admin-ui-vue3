@@ -29,8 +29,8 @@ const IconButton = defineComponent({
     return () => (
       <AButton {...props} {...attrs}>
         {{
-          ...slots,
-          default: () => text.value
+          default: () => text.value,
+          ...slots
         }}
       </AButton>
     )
@@ -43,10 +43,10 @@ export const NewButton = defineComponent({
   props: initDefaultProps(buttonProps(), {
     type: 'primary'
   }),
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     return () => (
       <IconButton {...props} {...attrs} i18nKey={'action.new'} defaultText={'新建'}>
-        {{ icon: () => <PlusOutlined /> }}
+        {{ icon: () => <PlusOutlined />, ...slots }}
       </IconButton>
     )
   }
@@ -56,10 +56,10 @@ export const NewButton = defineComponent({
 export const ImportButton = defineComponent({
   name: 'ImportButton',
   props: buttonProps(),
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     return () => (
       <IconButton {...props} {...attrs} i18nKey={'action.import'} defaultText={'导入'}>
-        {{ icon: () => <UploadOutlined /> }}
+        {{ icon: () => <UploadOutlined />, ...slots }}
       </IconButton>
     )
   }
@@ -69,10 +69,10 @@ export const ImportButton = defineComponent({
 export const ExportButton = defineComponent({
   name: 'ExportButton',
   props: buttonProps(),
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     return () => (
       <IconButton {...props} {...attrs} i18nKey={'action.export'} defaultText={'导出'}>
-        {{ icon: () => <DownloadOutlined /> }}
+        {{ icon: () => <DownloadOutlined />, ...slots }}
       </IconButton>
     )
   }
