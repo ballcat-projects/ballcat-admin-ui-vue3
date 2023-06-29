@@ -72,19 +72,34 @@ export const useDictDisplay = (props: DictDisplayComponentProps) => {
  * @returns {number | boolean | string}
  */
 function convertValueType(value: string, valueType: DictValueTypeEnum): DictValue {
-  let res = value as DictValue
   // 如果没有type， 按number 处理
   valueType = valueType || DictValueTypeEnum.NUMBER
+  // 数字
   if (valueType === DictValueTypeEnum.NUMBER) {
-    res = Number(value) // 数字
-  } else if (valueType === DictValueTypeEnum.STRING) {
-    res = String(value) // 字符串
-  } else if (valueType === DictValueTypeEnum.BOOLEAN) {
-    // 布尔
-    // 字符串 ”false“ 也会被转换为 true，所以要额外判断下
-    // 参看 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean
-    const b = Boolean(value)
-    res = b && value.toLowerCase() === 'false' ? false : b
+    return Number(value)
   }
-  return res
+  // 字符串
+  else if (valueType === DictValueTypeEnum.STRING) {
+    return String(value)
+  }
+  // 布尔
+  else if (valueType === DictValueTypeEnum.BOOLEAN) {
+    if (!value) {
+      return false
+    }
+    value = value.toLowerCase()
+    if (['0', 'false', 'n', 'no'].includes(value)) {
+      return false
+    } else if (['1', 'true', 'y', 'yes', 'ok'].includes(value)) {
+      return true
+    } else {
+      const number = Number(value)
+      if (!Number.isNaN(number)) {
+        // 大于0 为 true
+        return number > 0
+      }
+
+      return Boolean(value)
+    }
+  }
 }
