@@ -9,19 +9,19 @@
         </a-col>
         <a-col :xl="8" :md="12" :sm="24">
           <a-form-item label="请求IP">
-            <a-input v-model:value="formModel.ip" placeholder="请输入" />
+            <a-input v-model:value="formModel.clientIp" placeholder="请输入" />
           </a-form-item>
         </a-col>
         <template v-if="!searchCollapsed">
           <a-col :xl="8" :md="12" :sm="24">
             <a-form-item label="请求URI">
-              <a-input v-model:value="formModel.uri" placeholder="请输入" />
+              <a-input v-model:value="formModel.requestUri" placeholder="请输入" />
             </a-form-item>
           </a-col>
           <a-col :xl="8" :md="12" :sm="24">
             <a-form-item label="状态码">
               <a-input-number
-                v-model:value="formModel.httpStatus"
+                v-model:value="formModel.responseStatus"
                 type="number"
                 style="width: 100%"
                 placeholder="请输入"
@@ -85,10 +85,10 @@ const searchTimeValue = ref<[Dayjs, Dayjs]>()
 const formModel = reactive<AccessLogQO>({
   traceId: '',
   userId: undefined,
-  ip: '',
-  uri: '',
+  clientIp: '',
+  requestUri: '',
   matchingPattern: '',
-  httpStatus: undefined
+  responseStatus: undefined
 })
 
 const { resetFields } = useForm(formModel)
