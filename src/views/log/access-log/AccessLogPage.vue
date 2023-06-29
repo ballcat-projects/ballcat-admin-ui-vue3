@@ -18,9 +18,9 @@
         :column="1"
         :label-style="{ fontWeight: 500, fontSize: '16px' }"
       >
-        <a-descriptions-item label="Request Params">{{ record.reqParams }}</a-descriptions-item>
-        <a-descriptions-item label="Request Body">{{ record.reqBody }}</a-descriptions-item>
-        <a-descriptions-item label="Result">{{ record.result }}</a-descriptions-item>
+        <a-descriptions-item label="Query String">{{ record.queryString }}</a-descriptions-item>
+        <a-descriptions-item label="Request Body">{{ record.requestBody }}</a-descriptions-item>
+        <a-descriptions-item label="Response Body">{{ record.responseBody }}</a-descriptions-item>
         <a-descriptions-item label="UserAgent">{{ record.userAgent }}</a-descriptions-item>
       </a-descriptions>
     </template>
@@ -72,33 +72,33 @@ const columns: ProColumns[] = [
   },
   {
     title: '请求IP',
-    dataIndex: 'ip',
+    dataIndex: 'clientIp',
     width: '120px'
   },
   {
     title: '请求URI',
-    dataIndex: 'uri',
+    dataIndex: 'requestUri',
     width: 200,
     ellipsis: true
   },
   {
     title: '方法',
-    dataIndex: 'method'
+    dataIndex: 'requestMethod'
   },
   {
     title: '耗时',
-    dataIndex: 'time',
+    dataIndex: 'executionTime',
     customRender: function ({ text }) {
       return text + ' ms'
     }
   },
   {
     title: '状态码',
-    dataIndex: 'httpStatus'
+    dataIndex: 'responseStatus'
   },
   {
     title: '错误消息',
-    dataIndex: 'errorMsg',
+    dataIndex: 'errorMessage',
     ellipsis: true
   },
   {

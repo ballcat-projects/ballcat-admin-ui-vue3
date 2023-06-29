@@ -8,14 +8,14 @@ export interface AccessLogQO {
   traceId?: string
   // 用户ID
   userId?: number
-  // 访问IP地址
-  ip?: string
+  // 客户端IP地址
+  clientIp?: string
   // 请求Uri
-  uri?: string
+  requestUri?: string
   // 请求映射地址
   matchingPattern?: string
   // 响应状态码
-  httpStatus?: number
+  responseStatus?: number
   // 访问时间区间的开始值
   startTime?: string
   // 访问时间区间的结束值
