@@ -19,7 +19,6 @@
 import LoginContent from './components/LoginContent.vue'
 import LoginFooter from './components/LoginFooter.vue'
 import SelectLanguage from '@/components/SelectLanguage/index.vue'
-import { defineOptions } from 'vue'
 
 defineOptions({ name: 'LoginPage' })
 </script>

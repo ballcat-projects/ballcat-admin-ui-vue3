@@ -49,3 +49,19 @@ export interface LoginResult {
   scope: string
   token_type: string
 }
+
+/**
+ * 认证管理器
+ */
+export interface AuthenticationManager {
+  login: (parameter: any) => Promise<any>
+  logout: () => Promise<any>
+}
+
+/**
+ * 登录状态管理器
+ */
+export interface LoginStateManager {
+  // 已经登出时返回 true
+  isLoggedOut: () => boolean
+}

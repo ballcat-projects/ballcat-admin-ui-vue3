@@ -30,12 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import { accountLogin } from '@/api/auth'
+import { authenticationManagers } from '@/api/auth'
 import { Form } from 'ant-design-vue'
 
 import type { AccountLoginParam } from '@/api/auth/types'
 import type { LoginFormInstance } from './types'
 import { passEncrypt } from '@/utils/password-utils'
+
+import { authenticationType } from '@/config'
 
 // 登录表单参数
 const useForm = Form.useForm
@@ -63,7 +65,8 @@ function trySubmit() {
 defineExpose<LoginFormInstance>({
   validate,
   doLogin(captchaId) {
-    return accountLogin({
+    const authenticationManager = authenticationManagers[authenticationType]
+    return authenticationManager.login({
       username: modelRef.username,
       password: passEncrypt(modelRef.password), // 密码加密
       captchaId // 验证码id

@@ -35,9 +35,9 @@
 import HeaderDropdown from '@/layouts/components/HeaderDropdown'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { Modal } from 'ant-design-vue'
-import { logout } from '@/api/auth'
+import { authenticationManagers, loginStateManagers } from '@/api/auth'
 import { useUserStore } from '@/stores/user-store'
-import { loginPath } from '@/config'
+import { authenticationType, authenticationMethod, loginPath } from '@/config'
 import { fileAbsoluteUrl } from '@/utils/file-utils'
 
 // 目前不支持接口导入: https://github.com/vuejs/core/issues/4294
@@ -69,15 +69,17 @@ const loginOut = () => {
     okText: '确认',
     cancelText: '取消',
     onOk: () => {
-      // 没有 accessToken 的话，直接登出
-      if (!userStore.accessToken) {
+      // 如果判断已经登出了，直接跳转登录页
+      const loginStateManager = loginStateManagers[authenticationMethod]
+      if (loginStateManager?.isLoggedOut()) {
         setTimeout(() => {
           router.push(loginPath)
         }, 200)
         return
       }
-      // 有 accessToken 的话，就先执行登出操作
-      logout().then(() => {
+      // 否则的话，去服务端进行一次登出处理
+      const authenticationManager = authenticationManagers[authenticationType]
+      authenticationManager.logout().then(() => {
         userStore.clean()
         setTimeout(() => {
           router.push(loginPath)
