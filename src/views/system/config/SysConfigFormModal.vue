@@ -1,14 +1,6 @@
 <template>
-  <a-modal
-    :title="title"
-    :visible="visible"
-    :mask-closable="false"
-    :body-style="{ paddingBottom: '8px' }"
-    :confirm-loading="submitLoading"
-    :width="450"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
+  <a-modal :title="title" :visible="visible" :mask-closable="false" :body-style="{ paddingBottom: '8px' }"
+    :confirm-loading="submitLoading" :width="450" @ok="handleSubmit" @cancel="handleClose">
     <a-form :model="formModel" :label-col="labelCol" :wrapper-col="wrapperCol">
       <a-form-item label="名称" v-bind="validateInfos.name">
         <a-input v-model:value="formModel.name" placeholder="请输入" />
@@ -22,7 +14,7 @@
         <a-input v-model:value="formModel.confValue" placeholder="请输入" />
       </a-form-item>
 
-      <a-form-item label="分类">
+      <a-form-item label="分类" v-bind="validateInfos.category">
         <a-input v-model:value="formModel.category" placeholder="请输入" />
       </a-form-item>
 
@@ -34,11 +26,11 @@
 </template>
 
 <script setup lang="ts">
-import { useModal } from '@/hooks/modal'
-import { FormAction, useAdminForm, useFormAction } from '@/hooks/form'
-import type { FormRequestMapping } from '@/hooks/form'
-import type { SysConfigDTO, SysConfigPageVO } from '@/api/system/config/types'
 import { createConfig, updateConfig } from '@/api/system/config'
+import type { SysConfigDTO, SysConfigPageVO } from '@/api/system/config/types'
+import type { FormRequestMapping } from '@/hooks/form'
+import { FormAction, useAdminForm, useFormAction } from '@/hooks/form'
+import { useModal } from '@/hooks/modal'
 import { overrideProperties } from '@/utils/bean-utils'
 import type { ColProps } from 'ant-design-vue'
 
@@ -74,7 +66,8 @@ const formModel = reactive<SysConfigDTO>({
 const formRule = reactive({
   name: [{ required: true, message: '请输入配置名称!' }],
   confKey: [{ required: true, message: '请输入 Key!' }],
-  confValue: [{ required: true, message: '请输入 Value!' }]
+  confValue: [{ required: true, message: '请输入 Value!' }],
+  category: [{ required: true, message: '请输入 分类!' }]
 })
 
 // 表单的提交请求
