@@ -188,7 +188,7 @@ const upload = () => {
           confirmLoading.value = false
           message.success('上传图片成功')
           emits('ok', data)
-          close()
+          closeModal()
         })
       })
     } catch (e) {
