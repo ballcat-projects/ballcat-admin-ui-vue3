@@ -13,12 +13,12 @@ import { useAdminI18n } from '@/hooks/i18n'
 
 defineOptions({ name: 'DeleteTextButton' })
 
-const { i18nText } = useAdminI18n()
+const { rawI18nText } = useAdminI18n()
 
 const props = defineProps<{
   onConfirm?: (e: MouseEvent) => void
 }>()
 
-const title = i18nText('message.confirmDelete', '确认要删除吗？')
-const text = i18nText('action.delete', '删除')
+const title = rawI18nText('message.confirmDelete', '确认要删除吗？')
+const text = rawI18nText('action.delete', '删除')
 </script>

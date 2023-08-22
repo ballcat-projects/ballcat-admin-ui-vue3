@@ -10,16 +10,22 @@
     @cancel="handleClose"
   >
     <a-form :model="formModel" :label-col="labelCol" :wrapper-col="wrapperCol">
-      <a-form-item :label="t('i18n.i18nData.code.text')" v-bind="validateInfos.code">
-        <a-input v-model:value="formModel.code" :placeholder="t('i18n.i18nData.code.tips')" />
+      <a-form-item :label="rawI18nText('i18n.i18nData.code.text')" v-bind="validateInfos.code">
+        <a-input
+          v-model:value="formModel.code"
+          :placeholder="rawI18nText('i18n.i18nData.code.tips')"
+        />
       </a-form-item>
 
-      <a-form-item :label="t('i18n.i18nData.languageTexts')">
+      <a-form-item :label="rawI18nText('i18n.i18nData.languageTexts')">
         <language-text ref="languageTextRef" />
       </a-form-item>
 
-      <a-form-item :label="t('common.remarks')">
-        <a-textarea v-model:value="formModel.remarks" :placeholder="t('message.pleaseEnter')" />
+      <a-form-item :label="rawI18nText('common.remarks')">
+        <a-textarea
+          v-model:value="formModel.remarks"
+          :placeholder="rawI18nText('message.pleaseEnter')"
+        />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -32,9 +38,9 @@ import { useModal } from '@/hooks/modal'
 import type { I18nDataDTO } from '@/api/i18n/types'
 import { createI18nData } from '@/api/i18n/i18n-data'
 import LanguageText from '../LanguageText.vue'
-import { useI18n } from 'vue-i18n'
+import { useAdminI18n } from '@/hooks/i18n'
 
-const { t } = useI18n()
+const { rawI18nText } = useAdminI18n()
 
 const emits = defineEmits<{
   (e: 'submit-success'): void
@@ -54,8 +60,8 @@ const formModel = reactive<I18nDataDTO>({
 
 // 表单的校验
 const formRule = reactive({
-  languageTag: [{ required: true, message: t('i18n.i18nData.languageTag.tips') }],
-  code: [{ required: true, message: t('i18n.i18nData.code.tips') }]
+  languageTag: [{ required: true, message: rawI18nText('i18n.i18nData.languageTag.tips') }],
+  code: [{ required: true, message: rawI18nText('i18n.i18nData.code.tips') }]
 })
 
 // 表单的提交请求

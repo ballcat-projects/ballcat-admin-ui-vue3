@@ -3,7 +3,7 @@
   <pro-table
     ref="tableRef"
     row-key="id"
-    :header-title="t('i18n.i18nData.text')"
+    :header-title="rawI18nText('i18n.i18nData.text')"
     :request="tableRequest"
     :columns="columns"
     :scroll="{ x: 1100 }"
@@ -17,7 +17,7 @@
       <template v-if="column.key === 'operate'">
         <operation-group>
           <a v-if="hasPermission('i18n:i18n-data:edit')" @click="handleEdit(record)">
-            {{ t('action.edit') }}
+            {{ rawI18nText('action.edit') }}
           </a>
           <delete-text-button
             v-if="hasPermission('i18n:i18n-data:del')"
@@ -53,7 +53,7 @@ import { useAdminI18n } from '@/hooks/i18n'
 // 如果需要被多页签缓存，必须要设置组件名称
 defineOptions({ name: 'I18nDataPage' })
 
-const { t } = useAdminI18n()
+const { rawI18nText } = useAdminI18n()
 
 // 鉴权方法
 const { hasPermission } = useAuthorize()
@@ -96,7 +96,7 @@ const handleEdit = (record: I18nDataPageVO) => {
 /* 删除数据 */
 const handleDelete = (record: I18nDataPageVO) => {
   doRequest(deleteI18nData(record.code, record.languageTag), {
-    successMessage: t('message.removeSuccess'),
+    successMessage: rawI18nText('message.removeSuccess'),
     onSuccess: () => reloadTable()
   })
 }
@@ -121,30 +121,30 @@ const columns = computed<ProColumns[]>(
         dataIndex: 'id'
       },
       {
-        title: t('i18n.i18nData.languageTag.text'),
+        title: rawI18nText('i18n.i18nData.languageTag.text'),
         dataIndex: 'languageTag'
       },
       {
-        title: t('i18n.i18nData.code.text'),
+        title: rawI18nText('i18n.i18nData.code.text'),
         dataIndex: 'code'
       },
       {
-        title: t('i18n.i18nData.message.text'),
+        title: rawI18nText('i18n.i18nData.message.text'),
         dataIndex: 'message'
       },
       {
-        title: t('common.remarks'),
+        title: rawI18nText('common.remarks'),
         dataIndex: 'remarks'
       },
       {
-        title: t('common.createTime'),
+        title: rawI18nText('common.createTime'),
         dataIndex: 'createTime',
         width: '150px',
         sorter: true
       },
       {
         key: 'operate',
-        title: t('common.operation'),
+        title: rawI18nText('common.operation'),
         align: 'center',
         width: '150px'
       }

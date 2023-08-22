@@ -50,7 +50,7 @@
         :loading="loginLoading"
         @click="handleLogin"
       >
-        {{ t('user.login.submit') }}
+        {{ rawI18nText('user.login.submit', '登录') }}
       </a-button>
 
       <!-- 扩展部分 -->
@@ -78,9 +78,9 @@ import type { LoginResult } from '@/api/auth/types'
 import { useUserStore } from '@/stores/user-store'
 import { projectTitle, projectDesc, enableLoginCaptcha } from '@/config'
 import { SliderCaptcha as LoginCaptcha } from '@/components/Captcha'
-import { useI18n } from 'vue-i18n'
+import { useAdminI18n } from '@/hooks/i18n'
 
-const { t } = useI18n()
+const { rawI18nText } = useAdminI18n()
 
 const prefixCls = 'ant'
 const baseClassName = 'pro-login-content'

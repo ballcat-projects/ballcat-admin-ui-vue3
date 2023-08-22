@@ -12,26 +12,26 @@
     <a-form ref="formRef" :model="formModel" :label-col="labelCol" :wrapper-col="wrapperCol">
       <a-form-item
         name="file"
-        :rules="[{ required: true, message: t('message.pleaseSelectFile') }]"
+        :rules="[{ required: true, message: rawI18nText('message.pleaseSelectFile') }]"
       >
         <a-upload v-model:file-list="fileList" accept=".xls,.xlsx" :before-upload="beforeUpload">
           <a-button>
             <UploadOutlined />
-            {{ t('action.selectFile') }}
+            {{ rawI18nText('action.selectFile') }}
           </a-button>
           <a href="javascript:" style="margin-left: 12px" @click.stop="downloadTemplate">
-            {{ t('import.downloadTemplate') }}
+            {{ rawI18nText('import.downloadTemplate') }}
           </a>
         </a-upload>
       </a-form-item>
 
-      <a-form-item name="importMode" :label="t('import.whenDataExisting')">
+      <a-form-item name="importMode" :label="rawI18nText('import.whenDataExisting')">
         <a-radio-group v-model:value="formModel.importMode">
           <a-radio :value="ImportMode.SKIP_EXISTING">
-            {{ t('import.skipExisting') }}
+            {{ rawI18nText('import.skipExisting') }}
           </a-radio>
           <a-radio :value="ImportMode.OVERWRITE_EXISTING">
-            {{ t('import.overwriteExisting') }}
+            {{ rawI18nText('import.overwriteExisting') }}
           </a-radio>
         </a-radio-group>
       </a-form-item>
@@ -43,14 +43,14 @@
 import { useModal } from '@/hooks/modal'
 import { labelCol, wrapperCol } from '@/hooks/form'
 import { downloadI18nDataExcelTemplate, importI18nDataExcel } from '@/api/i18n/i18n-data'
-import { useI18n } from 'vue-i18n'
 import { remoteFileDownload } from '@/utils/file-utils'
 import { ImportMode } from '@/api/types'
 import type { UploadFile } from 'ant-design-vue/lib/upload/interface'
 import { doRequest } from '@/utils/axios/request'
 import type { I18nImportData } from '@/api/i18n/types'
+import { useAdminI18n } from '@/hooks/i18n'
 
-const { t } = useI18n()
+const { rawI18nText } = useAdminI18n()
 
 const emits = defineEmits<{
   (e: 'submit-success'): void

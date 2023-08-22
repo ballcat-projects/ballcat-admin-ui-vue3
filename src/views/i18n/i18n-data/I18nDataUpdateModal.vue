@@ -10,25 +10,34 @@
     @cancel="handleClose"
   >
     <a-form :model="formModel" :label-col="labelCol" :wrapper-col="wrapperCol">
-      <a-form-item :label="t('i18n.i18nData.code.text')">
+      <a-form-item :label="rawI18nText('i18n.i18nData.code.text')">
         <a-input
           v-model:value="formModel.code"
-          :placeholder="t('i18n.i18nData.code.tips')"
+          :placeholder="rawI18nText('i18n.i18nData.code.tips')"
           disabled
         />
       </a-form-item>
-      <a-form-item :label="t('i18n.i18nData.languageTag.text')">
+      <a-form-item :label="rawI18nText('i18n.i18nData.languageTag.text')">
         <a-input
           v-model:value="formModel.languageTag"
-          :placeholder="t('i18n.i18nData.languageTag.tips')"
+          :placeholder="rawI18nText('i18n.i18nData.languageTag.tips')"
           disabled
         />
       </a-form-item>
-      <a-form-item :label="t('i18n.i18nData.message.text')" v-bind="validateInfos.message">
-        <a-input v-model:value="formModel.message" :placeholder="t('i18n.i18nData.message.tips')" />
+      <a-form-item
+        :label="rawI18nText('i18n.i18nData.message.text')"
+        v-bind="validateInfos.message"
+      >
+        <a-input
+          v-model:value="formModel.message"
+          :placeholder="rawI18nText('i18n.i18nData.message.tips')"
+        />
       </a-form-item>
-      <a-form-item :label="t('common.remarks')">
-        <a-textarea v-model:value="formModel.remarks" :placeholder="t('message.pleaseEnter')" />
+      <a-form-item :label="rawI18nText('common.remarks')">
+        <a-textarea
+          v-model:value="formModel.remarks"
+          :placeholder="rawI18nText('message.pleaseEnter')"
+        />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -41,7 +50,7 @@ import { useModal } from '@/hooks/modal'
 import type { I18nData, I18nDataPageVO } from '@/api/i18n/types'
 import { updateI18nData } from '@/api/i18n/i18n-data'
 import { overrideProperties } from '@/utils/bean-utils'
-import { useI18n } from 'vue-i18n'
+import { useAdminI18n } from '@/hooks/i18n'
 
 const emits = defineEmits<{
   (e: 'submit-success'): void
@@ -51,7 +60,7 @@ const { title, visible, openModal, closeModal } = useModal('编辑国际化信�
 
 const { formAction } = useFormAction(FormAction.UPDATE)
 
-const { t } = useI18n()
+const { rawI18nText } = useAdminI18n()
 
 const formModel = reactive<I18nData>({
   code: '',
@@ -62,9 +71,9 @@ const formModel = reactive<I18nData>({
 
 // 表单的校验
 const formRule = reactive({
-  languageTag: [{ required: true, message: t('i18n.i18nData.languageTag.tips') }],
-  code: [{ required: true, message: t('i18n.i18nData.code.tips') }],
-  message: [{ required: true, message: t('i18n.i18nData.message.tips') }]
+  languageTag: [{ required: true, message: rawI18nText('i18n.i18nData.languageTag.tips') }],
+  code: [{ required: true, message: rawI18nText('i18n.i18nData.code.tips') }],
+  message: [{ required: true, message: rawI18nText('i18n.i18nData.message.tips') }]
 })
 
 // 表单的提交请求
