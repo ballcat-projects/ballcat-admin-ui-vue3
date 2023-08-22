@@ -12,7 +12,7 @@
           :show-arrow="true"
           :mode="multiple ? 'tags' : 'default'"
           :disabled="disabled"
-          :placeholder="enableI18n ? t(placeholder | '') : placeholder"
+          :placeholder="enableI18n ? i18nText(placeholder | '') : placeholder"
           :options="selectOptions"
           :filter-option="false"
           :show-search="false"
@@ -54,10 +54,10 @@ import type { ApiResult } from '@/api/types'
 import type { ProColumns } from '#/table'
 import type { Key } from 'ant-design-vue/es/_util/type'
 import type { Domain } from '@/components/Lov/LovSearch.vue'
-import { useI18n } from 'vue-i18n'
+import { useAdminI18n } from '@/hooks/i18n'
 
 // import { enableI18n } from '@/config/projectConfig'
-const { t } = useI18n()
+const { i18nText } = useAdminI18n()
 const enableI18n = ref<boolean>(false)
 
 const props = withDefaults(defineProps<LovProps>(), {
@@ -108,8 +108,16 @@ onMounted(() => {
   // 禁止 select 框输入
   const element = document.querySelector('.lov-select .ant-select-selection-search-input')
   element && (element['readOnly'] = true)
-  selectedValue.value = convertValue(props.modelValue)
 })
+
+// 监听以便同步修改选中值
+watch(
+  () => props.modelValue,
+  () => {
+    selectedValue.value = convertValue(props.modelValue)
+  },
+  { immediate: true }
+)
 
 function convertSelectedValue(selectedValue) {
   let value = selectedValue
