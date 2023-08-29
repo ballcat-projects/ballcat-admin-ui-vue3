@@ -5,6 +5,9 @@ import type { LovProps } from '@/components/Lov/Lov.vue'
 import { pageUsers as getUserPage } from '@/api/system/user'
 import { LOV_SEARCH_TYPE_ENUM } from '@/components/Lov/type'
 import type { SysUserPageParam, SysUserPageVO } from '@/api/system/user/types'
+import { useAdminI18n } from '@/hooks/i18n'
+
+const { rawI18nText } = useAdminI18n()
 
 export const sysUserLov: LovProps<SysUserPageParam, SysUserPageVO> = {
   multiple: true,
@@ -22,13 +25,13 @@ export const sysUserLov: LovProps<SysUserPageParam, SysUserPageVO> = {
       label: '用户名',
       field: 'username',
       type: LOV_SEARCH_TYPE_ENUM.INPUT,
-      placeholder: 'message.pleaseEnter'
+      placeholder: rawI18nText('message.pleaseEnter', '请输入')
     },
     {
       label: '昵称',
       field: 'nickname',
       type: LOV_SEARCH_TYPE_ENUM.INPUT,
-      placeholder: 'message.pleaseEnter'
+      placeholder: rawI18nText('message.pleaseEnter', '请输入')
     }
   ],
   // 表格列

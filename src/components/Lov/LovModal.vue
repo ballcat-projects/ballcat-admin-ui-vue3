@@ -4,7 +4,7 @@
     class="lov-model"
     :confirm-loading="pageLoading"
     :centered="true"
-    :title="enableI18n ? t(modalTitle | '') : modalTitle"
+    :title="enableI18n ? rawI18nText(modalTitle | '') : modalTitle"
     :width="modalWidth"
     :visible="visible"
     :body-style="modalStyle"
@@ -28,7 +28,7 @@
         :open="false"
         :mode="multiple ? 'tags' : 'default'"
         :options="selectOptions"
-        :placeholder="enableI18n ? t('lov.selectedData') : '已选数据'"
+        :placeholder="enableI18n ? rawI18nText('lov.selectedData') : '已选数据'"
         :show-search="false"
         allow-clear
         @change="handleDeselect"
@@ -66,10 +66,10 @@
       </div>
 
       <a-button @click="closeModal">
-        {{ enableI18n ? t('action.cancel') : '取消' }}
+        {{ enableI18n ? rawI18nText('action.cancel') : '取消' }}
       </a-button>
       <a-button type="primary" :loading="pageLoading" @click="handleChoose">
-        {{ enableI18n ? t('action.choose') : '选择' }}
+        {{ enableI18n ? rawI18nText('action.choose') : '选择' }}
       </a-button>
     </template>
   </a-modal>
@@ -85,9 +85,9 @@ import { mergePageParam } from '@/utils/page-utils'
 import type { ApiResult } from '@/api/types'
 import type { Key } from 'ant-design-vue/lib/table/interface'
 import type { Domain } from '@/components/Lov/LovSearch.vue'
-import { useI18n } from 'vue-i18n'
+import { useAdminI18n } from '@/hooks/i18n'
 
-const { t } = useI18n()
+const { rawI18nText } = useAdminI18n()
 const enableI18n = false
 
 const { visible, openModal, closeModal } = useModal()
@@ -120,7 +120,7 @@ const pagination = reactive({
     const rangeBegin = range[0]
     const rangeEnd = range[1]
     if (enableI18n) {
-      return t('pagination.pageInfo', {
+      return rawI18nText('pagination.pageInfo', {
         rangeBegin: rangeBegin,
         rangeEnd: rangeEnd,
         total: total
