@@ -13,14 +13,14 @@
             <a-input
               v-if="item.type === 'input'"
               v-model:value="item.value"
-              :placeholder="item.placeholder"
+              :placeholder="rawI18nText(item.placeholder)"
               allow-clear
             />
             <a-input-number
               v-if="item.type === 'number-input'"
               v-model:value="item.value"
               style="width: 100%"
-              :placeholder="item.placeholder"
+              :placeholder="rawI18nText(item.placeholder)"
               :min="item.min || 1"
               :max="item.max"
               allow-clear
@@ -29,13 +29,13 @@
               v-if="item.type === 'select'"
               v-model:value="item.value"
               allow-clear
-              :placeholder="item.placeholder"
+              :placeholder="rawI18nText(item.placeholder)"
               :options="item.options"
             />
             <dict-select
               v-if="item.type === 'dict-select'"
               v-model:value="item.value"
-              :placeholder="item.placeholder"
+              :placeholder="rawI18nText(item.placeholder)"
               :dict-code="item.dictCode"
             />
           </a-form-item>
@@ -58,6 +58,7 @@
 // @ts-nocheck TODO 优化 Lov 类型
 
 import type { LOV_SEARCH_TYPE_ENUM } from '@/components/Lov/type'
+import { useAdminI18n } from '@/hooks/i18n'
 export interface Domain {
   field: string
   label: string
@@ -71,6 +72,8 @@ export interface LovSearchProps {
   domains?: Domain[]
   loading?: boolean
 }
+
+const { rawI18nText } = useAdminI18n()
 
 // 表单 label 全局配置
 const labelCol = { md: { span: 6 } }
