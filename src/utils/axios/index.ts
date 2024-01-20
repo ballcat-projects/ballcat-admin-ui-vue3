@@ -9,7 +9,9 @@ import { loginPath } from '@/config'
 import router from '@/router'
 import { HttpClient } from '@/utils/axios/http-client'
 import { useI18nStore } from '@/stores/i18n-store'
-import { i18n } from '@/locales'
+import { useAdminI18n } from '@/hooks/i18n'
+
+const { rawI18nText } = useAdminI18n()
 
 const onRequestFulfilled = (requestConfig: InternalAxiosRequestConfig) => {
   const headers = requestConfig.headers || {}
@@ -50,8 +52,6 @@ const onResponseFulfilled = (response: AxiosResponse) => {
 
 // 响应失败处理函数
 const onResponseRejected = (error: AxiosError) => {
-  const { t } = i18n.global
-
   if (error.response) {
     const data = error.response.data as unknown as ApiResult
     const errorStatus = error.response.status
@@ -70,9 +70,9 @@ const onResponseRejected = (error: AxiosError) => {
           // 防止重复弹出 TODO 这里拦截所有其他的 axios 的请求
           Modal.destroyAll()
           Modal.info({
-            title: t('system.tip.title'),
-            content: t('user.login.expired'),
-            okText: t('user.login.submit.retry'),
+            title: rawI18nText('system.tip.title', '系统提示'),
+            content: rawI18nText('user.login.expired', '登录状态已过期!'),
+            okText: rawI18nText('user.login.submit.retry', '重新登陆'),
             onOk: () => {
               router.push({
                 path: loginPath,
@@ -85,27 +85,28 @@ const onResponseRejected = (error: AxiosError) => {
       case 403:
         error.resolved = true
         notification.error({
-          message: t('user.pemission.reject'),
+          message: rawI18nText('user.pemission.reject', '没有权限访问!'),
           description: data.message
         })
         break
       default:
         error.resolved = true
         notification.error({
-          message: t('system.tip.request.error'),
+          message: rawI18nText('system.tip.request.error', '网络请求异常!'),
           description:
             data?.message ||
             errorStatusText ||
             error.message ||
-            t('system.tip.request.error.message', { code: errorStatus })
+            rawI18nText('system.tip.request.error.message', '错误状态码：' + errorStatus)
         })
         break
     }
   } else {
     error.resolved = true
     notification.error({
-      message: t('system.tip.network.error'),
-      description: error.message || t('system.tip.network.error.message')
+      message: rawI18nText('system.tip.network.error', '网络异常, 无法访问到服务器!'),
+      description:
+        error.message || rawI18nText('system.tip.network.error.message', '请检测您的网络是否通畅!')
     })
   }
   return Promise.reject(error)
