@@ -1,10 +1,12 @@
-import { useI18n } from 'vue-i18n'
 import { enableI18n } from '@/config'
+import type { VueI18n } from 'vue-i18n'
 
 export const useAdminI18n = () => {
+  const i18nGlobal = getI18nGlobal()
+
   function rawI18nText(code: string, defaultText?: string) {
     if (enableI18n) {
-      return useI18n().t(code)
+      return i18nGlobal.t(code)
     }
     return defaultText ?? code
   }
@@ -18,6 +20,16 @@ export const useAdminI18n = () => {
       i18nText,
       rawI18nText
     },
-    enableI18n ? useI18n() : ({} as ReturnType<typeof useI18n>)
+    i18nGlobal
   )
+}
+
+function getI18nGlobal(): VueI18n {
+  if (enableI18n) {
+    const modules = import.meta.glob('@/locales/index.ts', { eager: true })
+    const module = Object.values(modules)[0] as any
+    return module.i18n.global as VueI18n
+  } else {
+    return {} as VueI18n
+  }
 }
