@@ -1,10 +1,10 @@
 import httpClient from '@/utils/axios'
 import type { ApiResult } from '@/api/types'
 import type {
-  Announcement,
   AnnouncementDTO,
   AnnouncementPageParam,
-  AnnouncementPageVO
+  AnnouncementPageVO,
+  UserAnnouncementVO
 } from './types'
 import type { FileObject } from '@/components/CropperModal/types'
 
@@ -71,7 +71,7 @@ export function uploadAnnouncementImage(resultFiles: FileObject[]) {
 }
 
 export function getUserAnnouncements() {
-  return httpClient.get<ApiResult<Announcement[]>>('/notify/announcement/user')
+  return httpClient.get<ApiResult<UserAnnouncementVO[]>>('/notify/user-announcement/list')
 }
 
 export function readAnnouncement(announcementId: number) {
