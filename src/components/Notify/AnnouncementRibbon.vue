@@ -19,6 +19,7 @@ import type {
   AnnouncementCloseMessage,
   AnnouncementPushMessage
 } from '@/api/notify/announcement/types'
+import { UserAnnouncementStateEnum } from '@/api/notify/announcement/types'
 
 const announcementModalRef = ref()
 
@@ -43,7 +44,8 @@ const onAnnouncementPush = (data: AnnouncementPushMessage) => {
   const announcement = {
     id: data.id,
     title: data.title,
-    content: data.content
+    content: data.content,
+    state: UserAnnouncementStateEnum.UNREAD
   }
   announcements.value.push(announcement)
 }
