@@ -13,6 +13,16 @@ export enum AnnouncementStatusEnum {
 }
 
 /**
+ * 用户公告状态
+ */
+export enum UserAnnouncementStateEnum {
+  // 未读(0)
+  UNREAD = 0,
+  // 已读(1)
+  READ = 1
+}
+
+/**
  * 公告信息查询对象
  */
 export type AnnouncementQO = {
@@ -65,6 +75,28 @@ export type AnnouncementDTO = Omit<Announcement, 'id'> & {
  * 公告信息分页视图对象
  */
 export type AnnouncementPageVO = Announcement & {
+  // 创建人ID
+  createBy: number
+  // 创建人名称
+  createUsername: string
+  // 创建时间
+  createTime: string
+  // 更新时间
+  updateTime: string
+}
+
+/**
+ * 用户公告信息
+ */
+export type UserAnnouncementVO = {
+  //公告ID
+  id: number
+  //标题
+  title: string
+  //内容
+  content: string
+  //状态
+  state: UserAnnouncementStateEnum
   // 创建人ID
   createBy: number
   // 创建人名称
