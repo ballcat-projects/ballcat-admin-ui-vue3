@@ -12,6 +12,7 @@ const useAdminWebSocket = () => {
 
   // ws地址
   const baseUri = import.meta.env.VITE_API_URL
+  const host = window.location.host
   const protocol = window.location.protocol || ''
   const wsUri = `${protocol.startsWith('https') ? 'wss' : 'ws'}://${host}${baseUri}/ws?access_token=${accessToken}`
 
