@@ -81,7 +81,13 @@ const MultiTab = defineComponent({
 
     /** 点击事件 */
     const handleTabClick = (path: Key) => {
-      router.push(path as string)
+      const routeList = multiTabStore.routeList
+      const index = routeList.findIndex(route => route.path === path)
+      if (index < 0) {
+        return
+      }
+      const route = routeList[index]
+      router.push(route.fullPath)
     }
 
     /** 修改事件(删除当前) */
