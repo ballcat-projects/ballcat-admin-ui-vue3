@@ -63,6 +63,14 @@ export function deleteDict(id: number) {
 }
 
 /**
+ * 通过id刷新hash值
+ * @param id 字典ID
+ */
+export function refreshHash(id: number) {
+  return httpClient.patch(`/system/dict/refresh/${id}`)
+}
+
+/**
  * 分页查询字典项
  * @param query 分页查询参数
  */
