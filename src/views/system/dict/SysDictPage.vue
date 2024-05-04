@@ -17,14 +17,25 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operate'">
-        <operation-group>
-          <a v-if="hasPermission('system:dict:edit')" @click="handleEdit(record)">编辑</a>
-          <a v-if="hasPermission('system:dict:read')" @click="openDictItemModal(record)">字典项</a>
-          <delete-text-button
-            v-if="hasPermission('system:dict:del')"
-            @confirm="handleDelete(record)"
-          />
-        </operation-group>
+        <a-dropdown :trigger="['click']">
+          <a class="ant-dropdown-link" @click.prevent> 操作 </a>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item v-if="hasPermission('system:dict:edit')">
+                <a @click="handleEdit(record)">编辑</a>
+              </a-menu-item>
+              <a-menu-item v-if="hasPermission('system:dict:read')">
+                <a @click="openDictItemModal(record)">字典项</a>
+              </a-menu-item>
+              <a-menu-item v-if="hasPermission('system:dict:edit')">
+                <a @click="handleRefresh(record)">刷新Hash</a>
+              </a-menu-item>
+              <a-menu-item v-if="hasPermission('system:dict:del')">
+                <delete-text-button @confirm="handleDelete(record)" />
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
       </template>
     </template>
   </pro-table>
@@ -44,7 +55,7 @@ import type { TableRequest } from '#/table/typing'
 import { mergePageParam } from '@/utils/page-utils'
 import { useAuthorize } from '@/hooks/permission'
 import type { SysDictPageVO, SysDictQO } from '@/api/system/dict/types'
-import { pageDicts, deleteDict } from '@/api/system/dict'
+import {pageDicts, deleteDict, refreshHash} from '@/api/system/dict'
 import { FormAction } from '@/hooks/form'
 import { doRequest } from '@/utils/axios/request'
 import SysDictPageSearch from '@/views/system/dict/SysDictPageSearch.vue'
@@ -84,17 +95,25 @@ const searchTable = (params: SysDictQO) => {
   reloadTable(true) // 会调用 tableRequest
 }
 
-/* 新建角色 */
+/* 新建字典 */
 const handleNew = () => {
   sysDictFormModalRef.value?.open(FormAction.CREATE)
 }
 
-/* 编辑角色 */
+/* 编辑字典 */
 const handleEdit = (record: SysDictPageVO) => {
   sysDictFormModalRef.value?.open(FormAction.UPDATE, record)
 }
 
-/* 删除角色 */
+/* 编辑字典 */
+const handleRefresh = (record: SysDictPageVO) => {
+  doRequest(refreshHash(record.id), {
+    successMessage: '刷新Hash成功！',
+    onSuccess: () => reloadTable()
+  })
+}
+
+/* 删除字典 */
 const handleDelete = (record: SysDictPageVO) => {
   doRequest(deleteDict(record.id), {
     successMessage: '删除成功！',
@@ -143,7 +162,7 @@ const columns: ProColumns[] = [
     key: 'operate',
     title: '操作',
     align: 'center',
-    width: 160
+    width: 80
   }
 ]
 </script>
