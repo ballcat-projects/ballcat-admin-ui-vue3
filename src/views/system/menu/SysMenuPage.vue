@@ -73,10 +73,9 @@ import { doRequest } from '@/utils/axios/request'
 import { DictText } from '@/components/Dict'
 import { NewButton, DeleteTextButton } from '@/components/Button'
 import OperationGroup from '@/components/Operation/OperationGroup.vue'
+import { enableI18n } from '@/config'
 
 defineOptions({ name: 'SysMenuPage' })
-
-const enableI18n = false
 
 const { hasPermission } = useAuthorize()
 
