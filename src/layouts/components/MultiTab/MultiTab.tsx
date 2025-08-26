@@ -45,7 +45,7 @@ const MultiTab = defineComponent({
       matchedRoutes.forEach(route => {
         const componentName = route.components?.default.name
         if (componentName && route.meta.keepAlive !== false) {
-          multiTabStore.cachedComponentNames.add(componentName)
+          multiTabStore.addCachedComponent(componentName)
         }
       })
     }
@@ -107,7 +107,7 @@ const MultiTab = defineComponent({
         routeList[index].matched.forEach(route => {
           const componentName = route.components?.default.name
           if (componentName && componentName !== routerLayoutName) {
-            multiTabStore.cachedComponentNames.delete(componentName)
+            multiTabStore.removeCachedComponent(componentName)
           }
         })
 
@@ -116,9 +116,9 @@ const MultiTab = defineComponent({
 
         // 如果删除的是当前选中的 tab 则选中后一个 tab，如果后面没有 tab，则选中前一个
         if (activeKey.value === targetKey) {
-          activeKey.value =
-            index == routeList.length ? routeList[index - 1].path : routeList[index].path
-          router.push(activeKey.value)
+          const activeRoute = index == routeList.length ? routeList[index - 1] : routeList[index]
+          activeKey.value = activeRoute.path
+          router.push(activeRoute.fullPath)
         }
       }
     }
@@ -196,6 +196,18 @@ const MultiTab = defineComponent({
       emitter.on('switch-language', refreshRoute)
       onUnmounted(() => emitter.off('switch-language', refreshRoute))
     }
+
+    // 监听关闭当前tab的事件
+    const handleCloseCurrentTab = () => {
+      const currentPath = activeKey.value
+      if (currentPath && multiTabStore.routeList.length > 1) {
+        handleTabEdit(currentPath, 'remove')
+      }
+    }
+
+    emitter.on('close-current-tab', handleCloseCurrentTab)
+    onUnmounted(() => emitter.off('close-current-tab', handleCloseCurrentTab))
+
 
     // a-tab 的 ref 引用
     const tabRef = ref()
@@ -337,7 +349,7 @@ const MultiTab = defineComponent({
                     {multiTabStore.routeList.map(route => (
                       <Tabs.TabPane
                         key={route.path}
-                        tab={route.meta.name}
+                        tab={route.query._multiTab || route.meta.name}
                         closable={multiTabStore.routeList.length > 1}
                       />
                     ))}

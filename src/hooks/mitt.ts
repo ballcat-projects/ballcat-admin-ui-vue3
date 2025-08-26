@@ -11,6 +11,8 @@ type Events = {
   'announcement-push': AnnouncementPushMessage
   // 关闭公告
   'announcement-close': AnnouncementCloseMessage
+  // 关闭当前tab页
+  'close-current-tab': void
 }
 
 export const emitter = mitt<Events>()

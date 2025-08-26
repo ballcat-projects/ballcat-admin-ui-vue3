@@ -20,7 +20,7 @@ import { emptyNodeName } from '@/config'
 const emptyNode = h('div') as VNode
 
 const multiTabStore = useMultiTabStore()
-const includeComponentNames = computed(() => [...multiTabStore.cachedComponentNames])
+const includeComponentNames = computed(() => multiTabStore.includeComponentNames)
 
 // 如果是路由布局，则使用 ComponentName 作为 key，避免被识别为不同的组件导致 keepAlive 异常
 const getComponentKey = (Component: VNode, route: RouteLocationNormalizedLoaded) => {
